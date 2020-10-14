@@ -18,6 +18,7 @@ class Ingredient(models.Model):
     )
     name = models.CharField(max_length=255, verbose_name='Name')
     quantity = models.TextField(max_length=100, null=True, blank=True, verbose_name='Quantity')
+    unit = models.CharField(max_length=20, choices=UNIT_CHOICES, verbose_name='Unit')
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
 
