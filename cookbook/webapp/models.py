@@ -60,7 +60,7 @@ class Ingredient(models.Model):
         ('ml', 'ml')
     )
     name = models.CharField(max_length=255, verbose_name='Name')
-    quantity = models.TextField(max_length=100, null=True, blank=True, verbose_name='Quantity')
+    quantity = models.FloatField(null=True, blank=True, verbose_name='Quantity')
     unit = models.CharField(max_length=20, choices=UNIT_CHOICES, verbose_name='Unit')
     recipe = models.ForeignKey(Recipe, related_name='ingredient_in_recipe', verbose_name="Recipe", on_delete=models.PROTECT)
     is_deleted = models.BooleanField(default=False)
