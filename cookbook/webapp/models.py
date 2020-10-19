@@ -43,6 +43,7 @@ class Recipe(models.Model):
 class Step(models.Model):
     name = models.CharField(max_length=255, verbose_name='Name')
     step_number = models.IntegerField(verbose_name="Number of the step")
+    description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Description')
     pic = models.ImageField(upload_to='step_images', null=True, blank=True, verbose_name='Picture')
     recipe = models.ForeignKey(Recipe, related_name='step_in_recipe', verbose_name="Recipe", on_delete=models.PROTECT)
 
