@@ -1,14 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Recipe(props) {
     const {recipe} = props;
 
     return (
-        <div style={{border: '1px solid #ccc'}}>
-            <div>{recipe.id}</div>
+        <Link to={`/recipe/${recipe.id}`} style={{border: '1px solid #ccc'}}>
             <div>{recipe.name}</div>
-            <div>{recipe.description}</div>
             <img src={recipe.pic} width='200px' />
-        </div>
+        </Link>
     )
 }
