@@ -47,8 +47,8 @@ class StepSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='api_v1:recipe-detail')
     # ingredients = serializers.HyperlinkedRelatedField(view_name='api_v1:ingredient-detail', source='ingredient', read_only=True)
-    ingredient_in_recipe = IngredientSerializer(many=True)
-    step_in_recipe = StepSerializer(many=True)
+    ingredient_in_recipe = IngredientSerializer(many=True, read_only=True)
+    step_in_recipe = StepSerializer(many=True, read_only=True)
 
     class Meta:
         model = Recipe
