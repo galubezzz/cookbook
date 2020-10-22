@@ -8,6 +8,9 @@ from rest_framework import viewsets
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import action
+from rest_framework import status
+from django.shortcuts import get_object_or_404
 
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -27,6 +30,16 @@ class UserCreateView(CreateAPIView):
     model = User
     serializer_class = UserSerializer
     permission_classes = [AllowAny,]
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    @action(methods=['get', 'patch'], detail=False, url_path=r'username/(?P<username>\w+)')
+    def get_by_username(self, request, username):
+        user = get_object_or_404(User, username=username)
+        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
 
 
 class TagViewSet(viewsets.ModelViewSet):

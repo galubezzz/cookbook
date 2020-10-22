@@ -9,6 +9,7 @@ router.register(r'tags', views.TagViewSet)
 router.register(r'recipes', views.RecipeViewSet)
 router.register(r'steps', views.StepViewSet)
 router.register(r'ingredients', views.IngredientViewSet)
+router.register(r'users', views.UserViewSet)
 app_name = 'api_v1'
 
 urlpatterns = [
