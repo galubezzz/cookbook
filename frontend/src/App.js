@@ -1,43 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './App.css';
-import axios from 'axios';
 import {
     BrowserRouter as Router,
     Route,
     NavLink,
 } from "react-router-dom";
 
-import Recipe from './components/Recipe';
 import RecipeDetails from "./components/RecipeDetails";
 import AddRecipe from "./components/AddRecipe";
 import RecipeList from "./components/RecipeList";
 
-const recipesURL = 'http://127.0.0.1:8000/api/v1/recipes/';
-const tagsURL = 'http://127.0.0.1:8000/api/v1/tags/';
-
 function App() {
-    // const stateArr = useState([]);
-    // const recipes = stateArr[0];
-    // const setRecipe = stateArr[1];
-    // const [recipes, setRecipe] = useState([]);
-
-    // useEffect(() => {
-    //     axios.get(recipesURL)
-    //         .then(function (response) {
-    //             setRecipe(response.data);
-    //         })
-    //         .catch(function (error) {
-    //             console.error(error);
-    //         });
-    // }, []);
-
-    // function renderAllRecipes(recipes) {
-    //     return recipes.map((recipe) => {
-    //         return (
-    //             <Recipe key={recipe.id} recipe={recipe}/>
-    //         );
-    //     })
-    // }
 
     return (
         <Router>
@@ -53,31 +26,3 @@ function App() {
 }
 
 export default App;
-
-//
-// function getCookie(name) {
-//     const cookieValue = null;
-//     if (document.cookie && document.cookie !== '') {
-//         var cookies = document.cookie.split(';');
-//         for (var i = 0; i < cookies.length; i++) {
-//             var cookie = jQuery.trim(cookies[i]);
-//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-//                 break;
-//             }
-//         }
-//     }
-//     return cookieValue;
-// }
-//
-// const csrftoken = getCookie('csrftoken');
-//
-// const CSRFToken = () => {
-//     return (
-//         <input type="hidden" name="csrfmiddlewaretoken" value={csrftoken}/>
-//     );
-// };
-//
-// export {
-//     CSRFToken
-// };
