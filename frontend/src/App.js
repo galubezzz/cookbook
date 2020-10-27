@@ -10,6 +10,7 @@ import {
 import Recipe from './components/Recipe';
 import RecipeDetails from "./components/RecipeDetails";
 import AddRecipe from "./components/AddRecipe";
+import RecipeList from "./components/RecipeList";
 
 const recipesURL = 'http://127.0.0.1:8000/api/v1/recipes/';
 const tagsURL = 'http://127.0.0.1:8000/api/v1/tags/';
@@ -18,36 +19,32 @@ function App() {
     // const stateArr = useState([]);
     // const recipes = stateArr[0];
     // const setRecipe = stateArr[1];
-    const [recipes, setRecipe] = useState([]);
+    // const [recipes, setRecipe] = useState([]);
 
-    useEffect(() => {
-        axios.get(recipesURL)
-            .then(function (response) {
-                setRecipe(response.data);
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     axios.get(recipesURL)
+    //         .then(function (response) {
+    //             setRecipe(response.data);
+    //         })
+    //         .catch(function (error) {
+    //             console.error(error);
+    //         });
+    // }, []);
 
-    function renderAllRecipes(recipes) {
-        return recipes.map((recipe) => {
-            return (
-                <Recipe key={recipe.id} recipe={recipe}/>
-            );
-        })
-    }
+    // function renderAllRecipes(recipes) {
+    //     return recipes.map((recipe) => {
+    //         return (
+    //             <Recipe key={recipe.id} recipe={recipe}/>
+    //         );
+    //     })
+    // }
 
     return (
         <Router>
             <NavLink to="/" activeClassName="navLinkActive" className="navLink">Home</NavLink>
             <NavLink to="/add-recipe" activeClassName="navLinkActive" className="navLink">Add Recipe</NavLink>
 
-            <Route exact path="/">
-                <div className="recipesList">
-                    {recipes.length > 0 ? renderAllRecipes(recipes) : "you don't have any recipes yet"}
-                </div>
-            </Route>
+            <Route exact path="/" component={RecipeList}/>
             <Route exact path="/recipe/:id" component={RecipeDetails}/>
             <Route exact path="/add-recipe" component={AddRecipe}/>
         </Router>
