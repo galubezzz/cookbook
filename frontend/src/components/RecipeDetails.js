@@ -15,9 +15,11 @@ export default function RecipeDetails(props) {
     }, []);
 
     return recipe ? (
-        <>
+        <div>
             <h1>Recipe details</h1>
             <div>{recipe.name}</div>
-        </>
+            <div>{recipe.description}</div>
+            <img src={recipe.pic}/>
+        </div>
     ) : null;
-}
+};
