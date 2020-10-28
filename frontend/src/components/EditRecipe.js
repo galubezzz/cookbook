@@ -64,29 +64,45 @@ function EditRecipe(props){
     }
     return(
      <>
-            <h1>Edit your recipe</h1>
-
-            {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
-            <p>
-                {message}
-            </p>
-
-
-            <label htmlFor="name">Name:</label>
-            <input name="name" id="name" onChange={changeName} value={recipe.name}/>
-
-            <br/>
-
-            <label htmlFor="description">Description:</label>
-            <textarea name="description" id="description" aria-multiline="true" onChange={changeDesc} value={recipe.description}/>
-
-            <br/>
-
-            <label htmlFor="pic">Pic:</label>
-            <input name="pic" id="pic" type="file" onChange={changeFile}/>
-
-            <br/>
-            <button onClick={saveRecipe}> Save Recipe</button>
+         <div className="card p-2">
+             <div className="card-body">
+                 <h3 className="card-title">Create your recipe</h3>
+                 {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
+                 <p>
+                     {message}
+                 </p>
+                 <form>
+                     <div className="form-group row">
+                         <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
+                         <div className="col-sm-8">
+                             <input name="name" id="name" className="form-control pr-2" onChange={changeName}
+                                    value={recipe.name}/>
+                         </div>
+                     </div>
+                     <br/>
+                     <div className="form-group row">
+                         <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
+                         <div className="col-sm-8">
+                             <textarea name="description" className="form-control" id="description"
+                                       aria-multiline="true" onChange={changeDesc} value={recipe.description}/>
+                         </div>
+                     </div>
+                     <br/>
+                     <div className="form-group row">
+                         <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
+                         <div className="col-sm-8">
+                             <input name="pic" className="form-control-file" id="pic" type="file"
+                                    onChange={changeFile}/>
+                         </div>
+                     </div>
+                     <div className="form-group row">
+                         <div className="col-sm-9">
+                             <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
+                         </div>
+                     </div>
+                 </form>
+             </div>
+         </div>
         </>)
 }
 
