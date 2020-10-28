@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
 
@@ -20,6 +21,8 @@ export default function RecipeDetails(props) {
             <div>{recipe.name}</div>
             <div>{recipe.description}</div>
             <img src={recipe.pic}/>
+            <p/>
+            <Link to={`/edit-recipe/${recipe.id}`}>Edit</Link>
         </div>
     ) : null;
 };

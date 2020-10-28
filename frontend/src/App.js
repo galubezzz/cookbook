@@ -9,6 +9,7 @@ import {
 import RecipeDetails from "./components/RecipeDetails";
 import AddRecipe from "./components/AddRecipe";
 import RecipeList from "./components/RecipeList";
+import EditRecipe from "./components/EditRecipe";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
             <Route exact path="/" component={RecipeList}/>
             <Route exact path="/recipe/:id" component={RecipeDetails}/>
             <Route exact path="/add-recipe" component={AddRecipe}/>
+            <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
         </Router>
 
     );
