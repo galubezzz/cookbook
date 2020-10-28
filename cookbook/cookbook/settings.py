@@ -1,3 +1,4 @@
+import os
 """
 Django settings for cookbook project.
 
@@ -130,3 +131,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/uploads/'
