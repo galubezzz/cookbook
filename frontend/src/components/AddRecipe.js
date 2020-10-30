@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 // import DjangoCSRFToken from 'django-react-csrftoken'
 
-export default function AddRecipe() {
+function AddRecipe(props) {
     const [recipe, setRecipe] = useState({});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
@@ -52,6 +53,7 @@ export default function AddRecipe() {
                 console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
+                    props.history.push(`/add-ingredient/${recipe.id}`)
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
@@ -98,3 +100,5 @@ export default function AddRecipe() {
         </>
     )
 }
+
+export default withRouter(AddRecipe);
