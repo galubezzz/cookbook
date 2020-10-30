@@ -11,20 +11,20 @@ function AddIngredients(props) {
     const [ingredient, setIngredient] = useState({recipe: id});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
-    let selectOptions = [];
     // (опции должны иметь формат {value: "значение", label: "подпись"} )
-    //const [selectOptions, setSelectOptions] = useState([]);
+    const [selectOptions, setSelectOptions] = useState([]);
 
 
 
     useEffect(()=>{
         axios.get(unitUrl).then((response)=>{
+
             for (let unit in response.data){
-                selectOptions.push({value: response.data[unit], label: unit});
+                setSelectOptions(selectOptions => selectOptions.concat({value: response.data[unit], label: unit}))
             }
             console.log("---units", selectOptions)
         })
-    });
+    }, []);
 
     function changeName(event){
         setIngredient({
@@ -49,18 +49,7 @@ function AddIngredients(props) {
     }
 
     function saveIngredient() {
-        // setIngredient({
-        //     ...ingredient,
-        //     recipe: id
-        //     }
-        // );
 
-        //console.log('--------id', ingredient.recipe);
-        // const data = new FormData();
-        // data.append('unit', ingredient.unit)
-        // data.append('name', ingredient.name)
-        // data.append('quantity', ingredient.quantity)
-        // data.append('recipe', ingredient.recipe)
          axios.post(ingredientUrl, ingredient).then((response)=>{
             console.log('--response', response);
             if (response.status === 201) {
