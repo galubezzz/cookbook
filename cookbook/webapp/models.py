@@ -58,7 +58,14 @@ class Ingredient(models.Model):
     UNIT_CHOICES = (
         ('gr', 'gramm'),
         ('cup', 'cup'),
-        ('ml', 'ml')
+        ('ml', 'ml'),
+        ('pc', 'pc'),
+        ('kg', 'kg'),
+        ('tbs', 'tbs'),
+        ('ts', 'ts'),
+        ('oz', 'ounce'),
+        ('lbs', 'pound'),
+        ('gal', 'gallon'),
     )
     name = models.CharField(max_length=255, verbose_name='Name')
     quantity = models.FloatField(null=True, blank=True, verbose_name='Quantity')

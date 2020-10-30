@@ -9,6 +9,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+from rest_framework.views import APIView
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 
@@ -60,3 +61,11 @@ class IngredientViewSet(viewsets.ModelViewSet):
 class StepViewSet(viewsets.ModelViewSet):
     queryset = Step.objects.all().order_by('-id')
     serializer_class = StepSerializer
+
+
+class UnitsView(APIView):
+    def get(self, request):
+        units_dict = {}
+        for unit_choise in Ingredient.UNIT_CHOICES:
+            units_dict[unit_choise[0]] = unit_choise[1]
+        return Response(units_dict)
