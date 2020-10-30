@@ -6,13 +6,16 @@ import Select from 'react-select';
 function AddIngredients(props) {
     const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
-    const [ingredient, setIngredient] = useState([]);
+    const id = parseInt(props.match.params.id);
+    console.log("----id", id);
+    const [ingredient, setIngredient] = useState({recipe: id});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
-    let selectOptions = []
+    let selectOptions = [];
     // (опции должны иметь формат {value: "значение", label: "подпись"} )
     //const [selectOptions, setSelectOptions] = useState([]);
-    const id = props.match.params.id;
+
+
 
     useEffect(()=>{
         axios.get(unitUrl).then((response)=>{
@@ -21,12 +24,13 @@ function AddIngredients(props) {
             }
             console.log("---units", selectOptions)
         })
-    }, []);
+    });
 
     function changeName(event){
         setIngredient({
             ...ingredient,
-            name: event.target.value
+            name: event.target.value,
+
     })
     }
 
@@ -44,16 +48,14 @@ function AddIngredients(props) {
     })
     }
 
-
-
     function saveIngredient() {
+        // setIngredient({
+        //     ...ingredient,
+        //     recipe: id
+        //     }
+        // );
 
-        setIngredient({
-            ...ingredient,
-            recipe: id
-            }
-        );
-        console.log('--------id', ingredient.recipe);
+        //console.log('--------id', ingredient.recipe);
         // const data = new FormData();
         // data.append('unit', ingredient.unit)
         // data.append('name', ingredient.name)
