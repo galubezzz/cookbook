@@ -53,7 +53,7 @@ function AddRecipe(props) {
                 console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
-                    props.history.push(`/add-ingredient/${recipe.id}`)
+                    props.history.push(`/add-ingredient/${response.data.id}`)
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }

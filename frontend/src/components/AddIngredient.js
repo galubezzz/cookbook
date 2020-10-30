@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 
 function AddIngredients(props) {
-    const igredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
+    const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
     const [ingredient, setIngredient] = useState([]);
     const [saved, setSaved] = useState(false);
@@ -16,9 +16,7 @@ function AddIngredients(props) {
 
     useEffect(()=>{
         axios.get(unitUrl).then((response)=>{
-            //selectOptions = response.data;
             for (let unit in response.data){
-                //console.log(unit + ":" + response.data[unit]);
                 selectOptions.push({value: response.data[unit], label: unit});
             }
             console.log("---units", selectOptions)
@@ -31,38 +29,56 @@ function AddIngredients(props) {
             name: event.target.value
     })
     }
+
     function changeQuantity(event){
         setIngredient({
             ...ingredient,
             quantity: event.target.value
     })
     }
-    function changeUnit(event){
+
+    function changeUnit(selectedOption){
         setIngredient({
             ...ingredient,
-            name: event.target.value
+            unit: selectedOption.value
     })
     }
+
+
+
     function saveIngredient() {
 
         setIngredient({
-            ... ingredient,
+            ...ingredient,
             recipe: id
             }
         );
-        axios.post(igredientUrl, ingredient).then((response)=>{
+        console.log('--------id', ingredient.recipe);
+        // const data = new FormData();
+        // data.append('unit', ingredient.unit)
+        // data.append('name', ingredient.name)
+        // data.append('quantity', ingredient.quantity)
+        // data.append('recipe', ingredient.recipe)
+         axios.post(ingredientUrl, ingredient).then((response)=>{
             console.log('--response', response);
-                if (response.status === 201) {
-                    setSaved(true);
-                } else {
-                    setMessage(`was not saved: ${JSON.stringify(response)}`);
-                }
-        })
+            if (response.status === 201) {
+                setSaved(true);
+            } else {
+                alert(response)
+                setMessage(`was not saved: ${JSON.stringify(response)}`);
+            }
+         }).catch((error => {
+             for (let _ in error) {
+                 console.log('-----error property', _, error[_]);
+             }
+             console.log('----message', error.response.data)
+         }))
     }
+
 
     return(
         <div>
-            <form>
+
                 {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
                     <p>
                         {message}
@@ -82,7 +98,8 @@ function AddIngredients(props) {
                 <div className="form-group row">
                     <label htmlFor="unit"  className="col-sm-1 col-form-label">Unit:</label>
                     <div className="col-sm-8">
-                        <Select name="unit" id="unit" options={selectOptions} className="form-control pr-2" isMulti={true} />
+                        <Select name="unit" id="unit" options={selectOptions} className="form-control pr-2" onChange={changeUnit}
+                        />
                     </div>
                 </div>
                 <div className="form-group row">
@@ -90,7 +107,7 @@ function AddIngredients(props) {
                         <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
                     </div>
                 </div>
-            </form>
+
         </div>
     )
 }
