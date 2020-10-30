@@ -6,6 +6,7 @@ export default function AddRecipe() {
     const [recipe, setRecipe] = useState({});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
+    const [fileUploaded, setFileUploaded] = useState(false);
 
     useEffect(() => {
         console.log('--recipe', recipe);
@@ -33,13 +34,16 @@ export default function AddRecipe() {
         setRecipe({
             ...recipe,
             pic: event.target.files[0]
-        })
+        });
+        setFileUploaded(true);
     }
 
     function saveRecipe() {
         const url = 'http://127.0.0.1:8000/api/v1/recipes/';
         const data = new FormData();
-        data.append('pic', recipe.pic, recipe.pic.name);
+        if (fileUploaded) {
+            data.append('pic', recipe.pic, recipe.pic.name);
+        };
         data.append('name', recipe.name);
         data.append('description', recipe.description);
 
@@ -64,7 +68,6 @@ export default function AddRecipe() {
                     <p>
                         {message}
                     </p>
-                    <form>
                         <div class="form-group row">
                             <label htmlFor="name" class="col-sm-1 col-form-label">Name:</label>
                             <div class="col-sm-8">
@@ -90,7 +93,6 @@ export default function AddRecipe() {
                                 <button class="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </>

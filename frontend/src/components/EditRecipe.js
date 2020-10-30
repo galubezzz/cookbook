@@ -71,7 +71,6 @@ function EditRecipe(props){
                  <p>
                      {message}
                  </p>
-                 <form>
                      <div className="form-group row">
                          <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
                          <div className="col-sm-8">
@@ -100,7 +99,6 @@ function EditRecipe(props){
                              <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
                          </div>
                      </div>
-                 </form>
              </div>
          </div>
         </>)
