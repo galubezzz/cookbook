@@ -33,6 +33,9 @@ function AddIngredients(props) {
 
     })
     }
+    function addStep() {
+        props.history.push(`/add-step/${id}`)
+    }
 
     function changeQuantity(event){
         setIngredient({
@@ -107,6 +110,11 @@ function AddIngredients(props) {
                 <div className="form-group row">
                     <div className="col-sm-9">
                         <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <div className="col-sm-9">
+                        <button className="btn btn-primary btn-block" onClick={addStep}> Add Step</button>
                     </div>
                 </div>
 
