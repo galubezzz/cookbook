@@ -28,8 +28,7 @@ function AddRecipe(props) {
       ])
     }, []);
 
-    function changeName(event) {
-        console.log('--- change name event', event.target.value);
+    function changeName(event) {;
         setRecipe({
             ...recipe,
             name: event.target.value
@@ -49,7 +48,6 @@ function AddRecipe(props) {
   }
 
     function changeDesc(event) {
-        console.log('--- change desc event', event.target.value);
         setRecipe({
             ...recipe,
             description: event.target.value
@@ -57,8 +55,6 @@ function AddRecipe(props) {
     }
 
     function changeFile(event) {
-        console.log('--file event', event.target.files[0]);
-
         setRecipe({
             ...recipe,
             pic: event.target.files[0]

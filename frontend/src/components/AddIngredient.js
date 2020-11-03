@@ -7,13 +7,12 @@ function AddIngredients(props) {
     const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
     const id = parseInt(props.match.params.id);
-    console.log("----id", id);
     const [ingredient, setIngredient] = useState({recipe: id, unit: null});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
     // (опции должны иметь формат {value: "значение", label: "подпись"} )
     const [selectOptions, setSelectOptions] = useState([]);
-    const [selectSelectedOption, setSelectSelectedOption] = useState([]);
+    const [selectValue, setSelectValue] = useState([]);
 
     useEffect(() => {
         axios.get(unitUrl).then((response) => {
@@ -53,7 +52,7 @@ function AddIngredients(props) {
             unit: selectedOption.value
         });
 
-        setSelectSelectedOption(selectedOption);
+        setSelectValue(selectedOption);
     }
 
     function saveIngredient(event) {
@@ -64,12 +63,11 @@ function AddIngredients(props) {
                 setSaved(true);
                 Array.from(document.querySelectorAll("input")).forEach(
                     input => input.value = "");
-                //document.getElementById('react-select-3-input').setValue(null);
                 setIngredient({
                     unit: null,
                     recipe: id,
                 });
-                setSelectSelectedOption(null);
+                setSelectValue(null);
             } else {
                 alert(response)
                 setMessage(`was not saved: ${JSON.stringify(response)}`);
@@ -113,7 +111,7 @@ function AddIngredients(props) {
                                 options={selectOptions}
                                 className="form-control pr-2"
                                 onChange={changeUnit}
-                                value={selectSelectedOption}
+                                value={selectValue}
                         />
                     </div>
                 </div>

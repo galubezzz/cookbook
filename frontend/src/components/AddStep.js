@@ -29,7 +29,6 @@ export default function AddStep(props) {
     })
     }
     function changeFile(event) {
-        console.log('--file event', event.target.files[0]);
 
         setStep({
             ...step,

@@ -44,7 +44,6 @@ function EditRecipe(props){
     function saveRecipe(event) {
         event.preventDefault();
         const data = new FormData();
-        console.log("---recipe pic", recipe.pic);
         if (fileUploaded) {
             data.append('pic', recipe.pic, recipe.pic.name);
         }
@@ -54,7 +53,6 @@ function EditRecipe(props){
 
         axios.patch(recipeURL(recipe.id), data)
             .then((response) => {
-                console.log('--response', response);
                 if (response.status === 200) {
                     setSaved(true);
                     props.history.push(`/recipe/${recipe.id}`)
