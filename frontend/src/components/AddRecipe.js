@@ -39,7 +39,8 @@ function AddRecipe(props) {
         setFileUploaded(true);
     }
 
-    function saveRecipe() {
+    function saveRecipe(event) {
+        event.preventDefault();
         const url = 'http://127.0.0.1:8000/api/v1/recipes/';
         const data = new FormData();
         if (fileUploaded) {
@@ -70,6 +71,7 @@ function AddRecipe(props) {
                     <p>
                         {message}
                     </p>
+                    <form>
                         <div class="form-group row">
                             <label htmlFor="name" class="col-sm-1 col-form-label">Name:</label>
                             <div class="col-sm-8">
@@ -80,14 +82,14 @@ function AddRecipe(props) {
                         <div class="form-group row">
                             <label htmlFor="description" class="col-sm-1 col-form-label">Description:</label>
                             <div className="col-sm-8">
-                            <textarea name="description" class="form-control" id="description" aria-multiline="true" onChange={changeDesc}/>
-                             </div>
+                                <textarea name="description" class="form-control" id="description" aria-multiline="true" onChange={changeDesc}/>
                             </div>
+                        </div>
                         <br/>
                         <div className="form-group row">
                             <label htmlFor="pic" class="col-sm-1 col-form-label">Pic:</label>
                             <div className="col-sm-8">
-                            <input name="pic" class="form-control-file" id="pic" type="file" onChange={changeFile}/>
+                                <input name="pic" class="form-control-file" id="pic" type="file" onChange={changeFile}/>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -95,6 +97,7 @@ function AddRecipe(props) {
                                 <button class="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
                             </div>
                         </div>
+                    </form>
                 </div>
             </div>
         </>

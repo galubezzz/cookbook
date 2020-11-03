@@ -37,7 +37,8 @@ export default function AddStep(props) {
         });
         setFileUploaded(true);
     }
-    function saveStep() {
+    function saveStep(event) {
+        event.preventDefault();
         const url = 'http://127.0.0.1:8000/api/v1/steps/';
         const data = new FormData();
         if (fileUploaded) {
@@ -60,42 +61,44 @@ export default function AddStep(props) {
             });
     }
     return(
-        <div>
+        <>
             {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
-                    <p>
-                        {message}
-                    </p>
-            <div className="form-group row">
-                <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
-                <div className="col-sm-8">
-                    <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
+            <p>
+                {message}
+            </p>
+            <form>
+                <div className="form-group row">
+                    <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
+                    <div className="col-sm-8">
+                        <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
-            <div className="col-sm-8">
+                <div className="form-group row">
+                    <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
+                    <div className="col-sm-8">
                 <textarea name="description" className="form-control" id="description" aria-multiline="true"
                           onChange={changeDesc}/>
-            </div>
-            </div>
-             <div className="form-group row">
-                <label htmlFor="number" className="col-sm-1 col-form-label">Step number:</label>
-                <div className="col-sm-8">
-                    <input name="number" id="number" type="number" step="0.01" className="form-control pr-2" onChange={changeNumber}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row">
-                <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
-                <div className="col-sm-8">
-                    <input name="pic" className="form-control-file" id="pic" type="file" onChange={changeFile}/>
+                <div className="form-group row">
+                    <label htmlFor="number" className="col-sm-1 col-form-label">Step number:</label>
+                    <div className="col-sm-8">
+                        <input name="number" id="number" type="number" step="0.01" className="form-control pr-2" onChange={changeNumber}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row">
-                <div className="col-sm-9">
-                    <button className="btn btn-primary btn-block" onClick={saveStep}> Save Step</button>
+                <div className="form-group row">
+                    <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
+                    <div className="col-sm-8">
+                        <input name="pic" className="form-control-file" id="pic" type="file" onChange={changeFile}/>
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div className="form-group row">
+                    <div className="col-sm-9">
+                        <button className="btn btn-primary btn-block" onClick={saveStep}> Save Step</button>
+                    </div>
+                </div>
+            </form>
+        </>
 
     )
 

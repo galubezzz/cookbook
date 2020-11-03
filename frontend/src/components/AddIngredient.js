@@ -16,6 +16,7 @@ function AddIngredients(props) {
 
 
 
+
     useEffect(()=>{
         axios.get(unitUrl).then((response)=>{
 
@@ -45,18 +46,25 @@ function AddIngredients(props) {
     }
 
     function changeUnit(selectedOption){
+
+        console.log(selectedOption);
         setIngredient({
             ...ingredient,
             unit: selectedOption.value
     })
     }
 
-    function saveIngredient() {
-
+    function saveIngredient(event) {
+        event.preventDefault();
          axios.post(ingredientUrl, ingredient).then((response)=>{
             console.log('--response', response);
             if (response.status === 201) {
                 setSaved(true);
+                Array.from(document.querySelectorAll("input")).forEach(
+                            input => input.value = "");
+                //document.getElementById('react-select-3-input').setValue(null);
+                setIngredient({});
+
             } else {
                 alert(response)
                 setMessage(`was not saved: ${JSON.stringify(response)}`);
@@ -67,16 +75,18 @@ function AddIngredients(props) {
              }
              console.log('----message', error.response.data)
          }))
+
     }
 
 
     return(
-        <div>
+        <>
 
                 {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
                     <p>
                         {message}
                     </p>
+            <form>
                 <div className="form-group row">
                     <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
                     <div className="col-sm-8">
@@ -92,8 +102,8 @@ function AddIngredients(props) {
                 <div className="form-group row">
                     <label htmlFor="unit"  className="col-sm-1 col-form-label">Unit:</label>
                     <div className="col-sm-8">
-                        <Select name="unit" id="unit" options={selectOptions} className="form-control pr-2" onChange={changeUnit}
-                        />
+                        <Select name="unit" id="unit" options={selectOptions} className="form-control pr-2"
+                                onChange={changeUnit} />
                     </div>
                 </div>
                 <div className="form-group row">
@@ -106,8 +116,8 @@ function AddIngredients(props) {
                         <button className="btn btn-primary btn-block" onClick={addStep}> Add Step</button>
                     </div>
                 </div>
-
-        </div>
+            </form>
+        </>
     )
 }
 
