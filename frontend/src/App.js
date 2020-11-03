@@ -12,6 +12,7 @@ import RecipeList from "./components/RecipeList";
 import EditRecipe from "./components/EditRecipe";
 import AddIngredient from "./components/AddIngredient";
 import AddStep from "./components/AddStep";
+import UserRegistration from "./components/UserRegistration";
 
 function App() {
 
@@ -26,6 +27,9 @@ function App() {
                         <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
                             Recipe</NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to='/register' activeClassName='active' className='nav-link'>Registration</NavLink>
+                    </li>
                 </ul>
             </nav>
             <Route exact path="/" component={RecipeList}/>
@@ -34,6 +38,7 @@ function App() {
             <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
             <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
             <Route exact path="/add-step/:id" component={AddStep}/>
+            <Route exact path="/register" component={UserRegistration}/>
 
         </Router>
 
