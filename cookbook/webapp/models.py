@@ -66,6 +66,7 @@ class Ingredient(models.Model):
         ('oz', 'ounce'),
         ('lbs', 'pound'),
         ('gal', 'gallon'),
+        ('pinch', 'pinch'),
     )
     name = models.CharField(max_length=255, verbose_name='Name')
     quantity = models.FloatField(null=True, blank=True, verbose_name='Quantity')
