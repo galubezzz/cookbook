@@ -16,8 +16,8 @@ function AddRecipe(props) {
         console.log('--recipe', recipe);
         setTags(
             [
-        { id: 1, name: "Apples" },
-        { id: 2, name: "Pears" }]
+        { name: "Apples" },
+        { name: "Pears" }]
         );
         setSuggestions(
             [
@@ -72,6 +72,9 @@ function AddRecipe(props) {
         };
         data.append('name', recipe.name);
         data.append('description', recipe.description);
+        const _tags = tags.map((tag)=>tag.name);
+        data.append('tags', _tags.join(","));
+
 
         axios.post(url, data)
             .then((response) => {
