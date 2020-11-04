@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from api_v1.serializers import UserSerializer, TagSerializer, RecipeSerializer, IngredientSerializer, StepSerializer
+from api_v1.serializers import UserSerializer, TagSerializer, RecipeSerializer, IngredientSerializer, StepSerializer, RecipePostSerializer
 from webapp.models import Tag, Recipe, Ingredient, Step
 from rest_framework import viewsets
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -50,7 +50,13 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all().order_by('-id')
-    serializer_class = RecipeSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return RecipeSerializer
+        if self.action == 'retrieve':
+            return RecipeSerializer
+        return RecipePostSerializer
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
