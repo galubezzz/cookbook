@@ -11,7 +11,7 @@ class SoftDeleteManager(models.Manager):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Name')
+    name = models.CharField(max_length=255, verbose_name='Name', unique=True)
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
 
