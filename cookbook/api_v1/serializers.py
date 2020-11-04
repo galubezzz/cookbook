@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from webapp.models import Ingredient, Step, Tag, Recipe
-from rest_framework import serializers
-
+from rest_framework import serializers, fields
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -58,9 +57,26 @@ class RecipeSerializer(serializers.ModelSerializer):
     # ingredients = serializers.HyperlinkedRelatedField(view_name='api_v1:ingredient-detail', source='ingredient', read_only=True)
     ingredient_in_recipe = IngredientSerializer(many=True, read_only=True)
     step_in_recipe = StepSerializer(many=True, read_only=True)
+    tags = TagSerializer(many=True, required=False)
 
     class Meta:
         model = Recipe
         fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredient_in_recipe', 'step_in_recipe')
 
+
+class RecipePostSerializer(serializers.ModelSerializer):
+    tags = fields.CharField(required=False)
+
+    class Meta:
+        model = Recipe
+        fields = ('id', 'name', 'description', 'pic', 'tags')
+
+    def create(self, validated_data):
+        tags_data = validated_data.pop('tags')
+        tags_list = tags_data.split(",")
+        recipe = Recipe.objects.create(**validated_data)
+        for tag in tags_list:
+            new_tag, created = Tag.objects.get_or_create(name=tag)
+            recipe.tags.add(new_tag)
+        return recipe
 
