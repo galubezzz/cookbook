@@ -72,9 +72,13 @@ class RecipePostSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'pic', 'tags')
 
     def create(self, validated_data):
+        if 'tags' not in validated_data.keys():
+            recipe = Recipe.objects.create(**validated_data)
+            return recipe
         tags_data = validated_data.pop('tags')
         tags_list = tags_data.split(",")
         recipe = Recipe.objects.create(**validated_data)
+
         for tag in tags_list:
             new_tag, created = Tag.objects.get_or_create(name=tag)
             recipe.tags.add(new_tag)
