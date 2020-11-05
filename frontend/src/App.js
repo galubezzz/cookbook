@@ -13,7 +13,8 @@ import EditRecipe from "./components/EditRecipe";
 import AddIngredient from "./components/AddIngredient";
 import AddStep from "./components/AddStep";
 import UserRegistration from "./components/UserRegistration";
-
+import UserLogin from "./components/UserLogin";
+import CheckAuth from "./components/CheckAuth";
 function App() {
 
     return (
@@ -30,15 +31,23 @@ function App() {
                     <li className="nav-item">
                         <NavLink to='/register' activeClassName='active' className='nav-link'>Registration</NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink to='/login' activeClassName='active' className='nav-link'>Login</NavLink>
+                    </li>
                 </ul>
             </nav>
-            <Route exact path="/" component={RecipeList}/>
+            <Route exact path="/" children={() => (
+                <CheckAuth>
+                    <RecipeList/>
+                </CheckAuth>
+            )}/>
             <Route exact path="/recipe/:id" component={RecipeDetails}/>
             <Route exact path="/add-recipe" component={AddRecipe}/>
             <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
             <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
             <Route exact path="/add-step/:id" component={AddStep}/>
             <Route exact path="/register" component={UserRegistration}/>
+            <Route exact path="/login" component={UserLogin}/>
 
         </Router>
 
