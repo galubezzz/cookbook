@@ -109,7 +109,6 @@ function AddIngredients(props) {
                         <Select name="unit"
                                 id="unit"
                                 options={selectOptions}
-                                className="form-control pr-2"
                                 onChange={changeUnit}
                                 value={selectValue}
                         />
