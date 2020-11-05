@@ -119,13 +119,19 @@ function AddRecipe(props) {
                                 <input name="pic" class="form-control-file" id="pic" type="file" onChange={changeFile}/>
                             </div>
                         </div>
+                        <div className="form-group row">
+
+                            <div className="col-sm-9">
                         <ReactTags
                             tags={tags}
+
                             suggestions={suggestions}
                             onDelete={onDelete}
                             onAddition={onAddition}
                             allowNew={true}
                         />
+                        </div>
+                        </div>
                         <div className="form-group row">
                             <div className="col-sm-9">
                                 <button class="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
