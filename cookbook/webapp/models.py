@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 
 class SoftDeleteManager(models.Manager):
@@ -27,11 +29,13 @@ class Recipe(models.Model):
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Description')
     pic = models.ImageField(upload_to='recipe_images', null=True, blank=True, verbose_name='Picture')
     tags = models.ManyToManyField(Tag, blank=True, related_name="tag_in_recipe", verbose_name='Tag')
+    user_id = models.ForeignKey(User, related_name="recipe_user", verbose_name="User", on_delete=models.CASCADE)
     # ingredients = models.ForeignKey(Ingredient, related_name="ingredient_in_recipe", verbose_name='Ingredients',
     #                              on_delete=models.CASCADE)
     # steps = models.ForeignKey(Step, related_name="step_in_recipe", verbose_name="Steps", on_delete=models.CASCADE)
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
+
 
     def __str__(self):
         return self.name
@@ -45,7 +49,7 @@ class Step(models.Model):
     step_number = models.IntegerField(verbose_name="Number of the step")
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Description')
     pic = models.ImageField(upload_to='step_images', null=True, blank=True, verbose_name='Picture')
-    recipe = models.ForeignKey(Recipe, related_name='step_in_recipe', verbose_name="Recipe", on_delete=models.PROTECT)
+    recipe = models.ForeignKey(Recipe, related_name='step_in_recipe', verbose_name="Recipe", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -71,7 +75,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255, verbose_name='Name')
     quantity = models.FloatField(null=True, blank=True, verbose_name='Quantity')
     unit = models.CharField(max_length=20, choices=UNIT_CHOICES, verbose_name='Unit')
-    recipe = models.ForeignKey(Recipe, related_name='ingredient_in_recipe', verbose_name="Recipe", on_delete=models.PROTECT)
+    recipe = models.ForeignKey(Recipe, related_name='ingredient_in_recipe', verbose_name="Recipe", on_delete=models.CASCADE)
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
 
