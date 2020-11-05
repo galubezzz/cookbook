@@ -17,6 +17,24 @@ export default function RecipeDetails(props) {
         })
     }, []);
 
+    function displayIngredients(ingredients) {
+        return (<>
+            <h2>Ingredients:</h2>
+            {ingredients.map((ingredient) => {
+                return <Ingredient ingredient={ingredient}/>
+            })}
+        </>)
+    }
+
+    function displaySteps(steps) {
+        return (<>
+            <h2>Steps:</h2>
+            {steps.map((step) => {
+                return <Step step={step}/>
+            })}
+        </>)
+    }
+
     return recipe ? (
         <div>
             <h1>Recipe details</h1>
@@ -24,10 +42,10 @@ export default function RecipeDetails(props) {
             <div>{recipe.description}</div>
             <img src={recipe.pic}/>
             <p/>
-            {recipe.ingredient_in_recipe ?
-                recipe.ingredient_in_recipe.map((ingredient)=>{return <Ingredient ingredient={ingredient}/>}) : null}
-            {recipe.step_in_recipe ?
-            recipe.step_in_recipe.map((step)=>{return <Step step={step}/>}) : null}
+            {recipe.ingredients_in_recipe ?
+                displayIngredients(recipe.ingredients_in_recipe) : null}
+            {recipe.steps_in_recipe ?
+            displaySteps(recipe.steps_in_recipe) : null}
             <Link to={`/edit-recipe/${recipe.id}`}>Edit</Link>
         </div>
     ) : null;
