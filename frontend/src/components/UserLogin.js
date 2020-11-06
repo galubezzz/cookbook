@@ -30,10 +30,8 @@ function UserLogin(props) {
             console.log("--response", response);
             if (response.status === 200) { // 200 == '200' - true
                 // 200 === '200' - false
-                localStorage.setItem('auth-token', response.data.token);
-                localStorage.setItem('username', response.data.username);
-                console.log(localStorage['auth-token']);
                 props.onLogin({
+                    id: response.data.id,
                     token: response.data.token,
                     username: response.data.username,
                 });
@@ -61,7 +59,7 @@ function UserLogin(props) {
             </div>
             <div className="form-group row">
                 <div className="col-sm-9">
-                    <button className="btn btn-primary btn-block" onClick={loginUser}> Save Recipe</button>
+                    <button className="btn btn-primary btn-block" onClick={loginUser}>Login</button>
                 </div>
             </div>
         </form>
