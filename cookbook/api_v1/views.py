@@ -12,6 +12,8 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.authtoken.models import Token
+
 
 class LoginView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
@@ -21,11 +23,13 @@ class LoginView(ObtainAuthToken):
         user = serializer.validated_data['user']
         token, created = Token.objects.get_or_create(user=user)
         return Response({
+            'id': user.id,
             'token': token.key,
             'username': user.username,
             'is_admin': user.is_superuser,
             'is_staff': user.is_staff
         })
+
 
 class UserCreateView(CreateAPIView):
     model = User
@@ -50,6 +54,16 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all().order_by('-id')
+
+    def get_queryset(self):
+        queryset = self.queryset
+        token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
+        print(token)
+        user = Token.objects.get(key=token).user
+
+        if token:
+            queryset = queryset.filter(user_id=user.id)
+        return queryset
 
     def get_serializer_class(self):
         if self.action == 'list':
