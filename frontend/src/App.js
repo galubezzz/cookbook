@@ -42,43 +42,44 @@ function App() {
                     </li>
 
                     {isLoggedIn ? (
-                        <li className="nav-item">
-                            <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
-                                Recipe</NavLink>
-                        </li>
-
+                        <>
+                            <li className="nav-item">
+                                <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
+                                    Recipe</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="#" activeClassName='active' className='nav-link'
+                                         onClick={() => dispatch({type: 'logout'})}>Logout</NavLink>
+                            </li>
+                        </>
                     ) : (
-                        <li className="nav-item">
-                            <NavLink to='/register' activeClassName='active' className='nav-link'>Registration</NavLink>
-                        </li>
-                    )}
-
-
-                    {isLoggedIn ? (
-                        <li className="nav-item">
-                            <NavLink to="#" activeClassName='active' className='nav-link'
-                                     onClick={() => dispatch({type: 'logout'})}>Logout</NavLink>
-                        </li>
-                    ) : (
-                        <li className="nav-item">
-                            <NavLink to='/login' activeClassName='active' className='nav-link'>Login</NavLink>
-                        </li>
+                        <>
+                            <li className="nav-item">
+                                <NavLink to='/register' activeClassName='active'
+                                         className='nav-link'>Registration</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to='/login' activeClassName='active' className='nav-link'>Login</NavLink>
+                            </li>
+                        </>
                     )}
                 </ul>
             </nav>
-            <Route exact path="/" component={RecipeList}/>
-            <Route exact path="/recipe/:id" component={RecipeDetails}/>
-            <Route exact path="/add-recipe" component={AddRecipe}/>
-            <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
-            <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
-            <Route exact path="/add-step/:id" component={AddStep}/>
-            <Route exact path="/register" component={UserRegistration}/>
-            <Route exact path="/login">
-                <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
-            </Route>
+                <Route exact path="/">
+                    {isLoggedIn ?  <RecipeList user={state.user}/> : 'Please login to see your recipes'}
+                </Route>
+                <Route exact path="/recipe/:id" component={RecipeDetails}/>
+                <Route exact path="/add-recipe" component={AddRecipe}/>
+                <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
+                <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
+                <Route exact path="/add-step/:id" component={AddStep}/>
+                <Route exact path="/register" component={UserRegistration}/>
+                <Route exact path="/login">
+                    <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
+                </Route>
         </Router>
 
-    );
-}
+            );
+            }
 
-export default App;
+            export default App;
