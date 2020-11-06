@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from webapp.models import Ingredient, Step, Tag, Recipe
 from rest_framework import serializers, fields
 
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -59,9 +60,10 @@ class RecipeSerializer(serializers.ModelSerializer):
     steps_in_recipe = StepSerializer(many=True, read_only=True)
     tags = TagSerializer(many=True, required=False)
 
+
     class Meta:
         model = Recipe
-        fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredients_in_recipe', 'steps_in_recipe')
+        fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredients_in_recipe', 'steps_in_recipe', 'user_id')
 
 
 class RecipePostSerializer(serializers.ModelSerializer):
