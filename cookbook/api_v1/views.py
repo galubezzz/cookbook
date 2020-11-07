@@ -57,9 +57,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+
         token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
-        print(token)
         user = Token.objects.get(key=token).user
+        if 'pk' in self.kwargs.keys():
+            pk = self.kwargs['pk']
+            queryset = queryset.filter(id=pk)
+            return queryset
 
         if token:
             queryset = queryset.filter(user_id=user.id)
