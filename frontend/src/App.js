@@ -15,10 +15,18 @@ import AddStep from "./components/AddStep";
 import UserRegistration from "./components/UserRegistration";
 import UserLogin from "./components/UserLogin";
 import CheckAuth from "./components/CheckAuth";
+import Recipe from "./components/Recipe";
 
 const initialState = {
     user: null,
 };
+
+if (localStorage.getItem('token')) {
+    initialState.user = {}
+    initialState.user.token = localStorage.getItem('token');
+    initialState.user.username = localStorage.getItem('username');
+    initialState.user.id = localStorage.getItem('id');
+}
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -29,8 +37,14 @@ const reducer = (state, action) => {
     }
 };
 
+function logout(dispatch){
+    dispatch({type: 'logout'});
+    localStorage.clear();
+}
+
 function App() {
     const [state, dispatch] = React.useReducer(reducer, initialState);
+
     const isLoggedIn = state.user && state.user.token;
 
     return (
@@ -49,7 +63,7 @@ function App() {
                             </li>
                             <li className="nav-item">
                                 <NavLink to="#" activeClassName='active' className='nav-link'
-                                         onClick={() => dispatch({type: 'logout'})}>Logout</NavLink>
+                                         onClick={() => logout(dispatch)}>Logout</NavLink>
                             </li>
                         </>
                     ) : (
@@ -65,21 +79,29 @@ function App() {
                     )}
                 </ul>
             </nav>
-                <Route exact path="/">
-                    {isLoggedIn ?  <RecipeList user={state.user}/> : 'Please login to see your recipes'}
-                </Route>
-                <Route exact path="/recipe/:id" component={RecipeDetails}/>
-                <Route exact path="/add-recipe" component={AddRecipe}/>
-                <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
-                <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
-                <Route exact path="/add-step/:id" component={AddStep}/>
-                <Route exact path="/register" component={UserRegistration}/>
-                <Route exact path="/login">
-                    <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
-                </Route>
+            <Route exact path="/">
+                {isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}
+            </Route>
+            <Route exact path="/recipe/:id">
+                {isLoggedIn ? <RecipeDetails
+                    user={state.user}
+                /> : <h1>Please log in to view the recipe</h1>}
+
+            </Route>
+
+            <Route exact path="/add-recipe">
+                {isLoggedIn? <AddRecipe user={state.user}/> : <h1>Please log in to add a new recipe</h1>}
+            </Route>
+            <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
+            <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
+            <Route exact path="/add-step/:id" component={AddStep}/>
+            <Route exact path="/register" component={UserRegistration}/>
+            <Route exact path="/login">
+                <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
+            </Route>
         </Router>
 
-            );
-            }
+    );
+}
 
-            export default App;
+export default App;
