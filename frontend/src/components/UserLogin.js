@@ -35,6 +35,9 @@ function UserLogin(props) {
                     token: response.data.token,
                     username: response.data.username,
                 });
+                localStorage.setItem('token', response.data.token)
+                localStorage.setItem('username', response.data.username)
+                localStorage.setItem('id', response.data.id)
                 props.history.push("/");
             }
         }).catch((error) => {
