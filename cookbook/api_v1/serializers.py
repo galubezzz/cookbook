@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from webapp.models import Ingredient, Step, Tag, Recipe
-from rest_framework import serializers, fields
+from rest_framework import serializers, fields, status
+from rest_framework.response import Response
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -68,18 +70,24 @@ class RecipeSerializer(serializers.ModelSerializer):
 
 class RecipePostSerializer(serializers.ModelSerializer):
     tags = fields.CharField(required=False)
+    user = fields.CharField(required=True, write_only=True)
 
     class Meta:
         model = Recipe
-        fields = ('id', 'name', 'description', 'pic', 'tags')
+        fields = ('id', 'name', 'description', 'pic', 'tags', 'user')
 
     def create(self, validated_data):
+        username = validated_data.pop('user')
+        try:
+            user = User.objects.get(username=username)
+        except ObjectDoesNotExist:
+            Response({'User': 'User not found'}, status=status.HTTP_403_FORBIDDEN)
         if 'tags' not in validated_data.keys():
-            recipe = Recipe.objects.create(**validated_data)
+            recipe = Recipe.objects.create(user_id=user, **validated_data)
             return recipe
         tags_data = validated_data.pop('tags')
         tags_list = tags_data.split(",")
-        recipe = Recipe.objects.create(**validated_data)
+        recipe = Recipe.objects.create(user_id=user, **validated_data)
 
         for tag in tags_list:
             new_tag, created = Tag.objects.get_or_create(name=tag)
