@@ -16,6 +16,8 @@ import UserRegistration from "./components/UserRegistration";
 import UserLogin from "./components/UserLogin";
 import CheckAuth from "./components/CheckAuth";
 import Recipe from "./components/Recipe";
+import UserAccount from "./components/UserAccount";
+import EditUserDetails from "./components/EditUserDetails";
 
 const initialState = {
     user: null,
@@ -62,8 +64,10 @@ function App() {
                                     Recipe</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="#" activeClassName='active' className='nav-link'
-                                         onClick={() => logout(dispatch)}>Logout</NavLink>
+                                <NavLink to="my-account" activeClassName='active' className='nav-link'>My account</NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink to="#" activeClassName='active' className='nav-link' onClick={() => logout(dispatch)}>Logout</NavLink>
                             </li>
                         </>
                     ) : (
@@ -96,6 +100,12 @@ function App() {
             <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
             <Route exact path="/add-step/:id" component={AddStep}/>
             <Route exact path="/register" component={UserRegistration}/>
+            <Route exact path="/edit-user-details">
+                {isLoggedIn ? <EditUserDetails user={state.user}/> : 'You are not logged in'}
+            </Route>
+            <Route exact path="/my-account" >
+                {isLoggedIn ? <UserAccount user={state.user}/> : 'You are not logged in'}
+            </Route>
             <Route exact path="/login">
                 <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
             </Route>
