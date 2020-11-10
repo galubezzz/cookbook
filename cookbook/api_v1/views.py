@@ -41,10 +41,30 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    @action(methods=['get', 'patch'], detail=False, url_path=r'username/(?P<username>\w+)')
-    def get_by_username(self, request, username):
-        user = get_object_or_404(User, username=username)
-        return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+    # @action(methods=['get', 'patch'], detail=False, url_path=r'username/(?P<username>\w+)')
+    # def get_by_username(self, request, username):
+    #     # user = get_object_or_404(User, username=username)
+    #     return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
+
+    # @action(methods=['get', 'patch'], detail=False, url_path=r'token/(?P<token>\w+)')
+    def get_queryset(self):
+        queryset = self.queryset
+        token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
+        existing_token = get_object_or_404(Token, key=token)
+        user = existing_token.user
+
+        if token:
+            queryset = queryset.filter(id=user.id)
+        return queryset
+
+    def patch(self, request):
+        token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
+        existing_token = get_object_or_404(Token, key=token)
+        existing_user = existing_token.user
+        existing_user.username = request.data["username"]
+        existing_user.email = request.data["email"]
+        existing_user.save()
+        return Response(status=status.HTTP_200_OK)
 
 
 class TagViewSet(viewsets.ModelViewSet):
