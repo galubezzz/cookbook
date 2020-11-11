@@ -3,7 +3,6 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import ReactTags from 'react-tag-autocomplete'
 
-// import DjangoCSRFToken from 'django-react-csrftoken'
 
 function AddRecipe(props) {
     const [recipe, setRecipe] = useState({});
