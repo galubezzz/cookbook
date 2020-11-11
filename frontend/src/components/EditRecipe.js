@@ -65,14 +65,14 @@ function EditRecipe(props){
         <>
             <div className="card p-2">
                 <div className="card-body">
-                    <h3 className="card-title">Create your recipe</h3>
+                    <h3 className="card-title">Edit your recipe</h3>
                     {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
                     <p>
                         {message}
                     </p>
                     <form>
                         <div className="form-group row">
-                            <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
+                            <label htmlFor="name" className="col-sm-2 col-form-label">Name:</label>
                             <div className="col-sm-8">
                                 <input name="name" id="name" className="form-control pr-2" onChange={changeName}
                                        value={recipe.name}/>
@@ -80,7 +80,7 @@ function EditRecipe(props){
                         </div>
                         <br/>
                         <div className="form-group row">
-                            <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
+                            <label htmlFor="description" className="col-sm-2 col-form-label">Description:</label>
                             <div className="col-sm-8">
                              <textarea name="description" className="form-control" id="description"
                                        aria-multiline="true" onChange={changeDesc} value={recipe.description}/>
@@ -88,7 +88,7 @@ function EditRecipe(props){
                         </div>
                         <br/>
                         <div className="form-group row">
-                            <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
+                            <label htmlFor="pic" className="col-sm-2 col-form-label">Pic:</label>
                             <div className="col-sm-8">
                                 <input name="pic" className="form-control-file" id="pic" type="file"
                                        onChange={changeFile}/>
