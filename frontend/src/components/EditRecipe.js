@@ -1,21 +1,27 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
+import ReactTags from "react-tag-autocomplete";
 
 
 
 function EditRecipe(props){
     const [recipe, setRecipe] = useState({});
+    const [tags, setTags] = useState([]);
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
     const [fileUploaded, setFileUploaded] = useState(false);
+    const token = props.user.token;
+    console.log("--token", token);
 
     const recipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
     const id = props.match.params.id;
 
     useEffect(()=>{
-        axios.get(recipeURL(id)).then((response)=>{
-            setRecipe(response.data)
+        axios.get(recipeURL(id), {headers: {"Authorization": `Token ${token}`}}).then((response)=>{
+            console.log("--recipe data", response.data);
+            setRecipe(response.data);
+            setTags(response.data.tags);
         })
     }, []);
 
@@ -40,7 +46,16 @@ function EditRecipe(props){
         });
         setFileUploaded(true);
     }
-;
+    function onDelete(i) {
+        const _tags = tags.slice(0);
+        _tags.splice(i, 1);
+        setTags(_tags)
+    }
+
+    function onAddition(tag) {
+        const _tags = [].concat(tags, tag);
+        setTags(_tags)
+    }
     function saveRecipe(event) {
         event.preventDefault();
         const data = new FormData();
@@ -50,8 +65,11 @@ function EditRecipe(props){
 
         data.append('name', recipe.name);
         data.append('description', recipe.description);
+        const _tags = tags.map((tag) => tag.name);
+        console.log(_tags.join(","));
+        data.append('tags', _tags.join(","));
 
-        axios.patch(recipeURL(recipe.id), data)
+        axios.patch(recipeURL(recipe.id), data, {headers: {"Authorization": `Token ${token}`}})
             .then((response) => {
                 if (response.status === 200) {
                     setSaved(true);
@@ -94,6 +112,12 @@ function EditRecipe(props){
                                        onChange={changeFile}/>
                             </div>
                         </div>
+                        <ReactTags
+                                tags={tags}
+                                onDelete={onDelete}
+                                onAddition={onAddition}
+                                allowNew={true}
+                            />
                         <div className="form-group row">
                             <div className="col-sm-9">
                                 <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
