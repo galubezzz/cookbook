@@ -9,12 +9,6 @@ function EditUserDetails(props) {
     const [formErrors, setFormErrors] = useState({});
     const token = props.user.token;
 
-    function changeUserName(event) {
-        setUser({
-            ...user,
-            username: event.target.value
-        });
-    }
 
     function changeEmail(event) {
         setUser({
@@ -124,7 +118,7 @@ function EditUserDetails(props) {
                         <input name="username"
                                type="text"
                                value={user.username}
-                               onChange={changeUserName}
+                               disabled
                                className="form-control pr-2"/>
                     </div>
                 </div>
