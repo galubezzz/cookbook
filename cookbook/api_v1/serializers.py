@@ -77,7 +77,6 @@ class RecipePostSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'pic', 'tags', 'user')
 
     def create(self, validated_data):
-        print(validated_data)
         username = validated_data.pop('user')
         try:
             user = User.objects.get(username=username)
@@ -101,7 +100,7 @@ class RecipePostSerializer(serializers.ModelSerializer):
             instance.description = validated_data.get('description', instance.description)
             instance.pic = validated_data.get('pic', instance.pic)
             return instance
-        tags_data = validated_data.get('tags')
+        tags_data = validated_data.pop('tags')
         tags_list = tags_data.split(",")
 
         instance.name = validated_data.get('name', instance.name)

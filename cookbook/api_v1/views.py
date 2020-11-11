@@ -108,15 +108,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         user = self.request.user
         pk = self.kwargs['pk']
         recipe = Recipe.objects.get(pk=pk)
-        data = request.data.dict()
-        data["user"] = user.id
-        print(data)
         if recipe.user_id != user:
             return Response("Wrong user", status=status.HTTP_403_FORBIDDEN)
         else:
-            serializer = RecipePostSerializer(data=data)
+            serializer = RecipePostSerializer(instance=recipe, data=request.data, partial=True)
             if serializer.is_valid():
-                serializer.update(instance=recipe, validated_data=data)
+                serializer.save(user=user)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -134,6 +131,6 @@ class StepViewSet(viewsets.ModelViewSet):
 class UnitsView(APIView):
     def get(self, request):
         units_dict = {}
-        for unit_choise in Ingredient.UNIT_CHOICES:
-            units_dict[unit_choise[0]] = unit_choise[1]
+        for unit_choice in Ingredient.UNIT_CHOICES:
+            units_dict[unit_choice[0]] = unit_choice[1]
         return Response(units_dict)
