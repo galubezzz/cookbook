@@ -14,6 +14,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 
 class LoginView(ObtainAuthToken):
@@ -80,6 +81,7 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all().order_by('-id')
+    authentication_classes = [TokenAuthentication, ]
 
     def get_queryset(self):
         queryset = self.queryset
@@ -101,6 +103,22 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return RecipeSerializer
         return RecipePostSerializer
+
+    def update(self, request, *args, **kwargs):
+        user = self.request.user
+        pk = self.kwargs['pk']
+        recipe = Recipe.objects.get(pk=pk)
+        data = request.data.dict()
+        data["user"] = user.id
+        print(data)
+        if recipe.user_id != user:
+            return Response("Wrong user", status=status.HTTP_403_FORBIDDEN)
+        else:
+            serializer = RecipePostSerializer(data=data)
+            if serializer.is_valid():
+                serializer.update(instance=recipe, validated_data=data)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
