@@ -18,6 +18,7 @@ import CheckAuth from "./components/CheckAuth";
 import Recipe from "./components/Recipe";
 import UserAccount from "./components/UserAccount";
 import EditUserDetails from "./components/EditUserDetails";
+import EditIngredient from "./components/EditIngredient"
 
 const initialState = {
     user: null,
@@ -105,6 +106,9 @@ function App() {
             <Route exact path="/register" component={UserRegistration}/>
             <Route exact path="/edit-user-details">
                 {isLoggedIn ? <EditUserDetails user={state.user}/> : 'You are not logged in'}
+            </Route>
+            <Route exact path="/edit-ingredient/:id">
+                {isLoggedIn ? <EditIngredient user={state.user}/> : 'You are not logged in'}
             </Route>
             <Route exact path="/my-account" >
                 {isLoggedIn ? <UserAccount user={state.user}/> : 'You are not logged in'}
