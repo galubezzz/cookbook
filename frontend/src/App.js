@@ -96,7 +96,10 @@ function App() {
             <Route exact path="/add-recipe">
                 {isLoggedIn? <AddRecipe user={state.user}/> : <h1>Please log in to add a new recipe</h1>}
             </Route>
-            <Route exact path="/edit-recipe/:id" component={EditRecipe}/>
+            <Route exact path="/edit-recipe/:id">
+                {isLoggedIn ? <EditRecipe user={state.user}/> : 'You are not logged in'}
+            </Route>
+
             <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
             <Route exact path="/add-step/:id" component={AddStep}/>
             <Route exact path="/register" component={UserRegistration}/>
