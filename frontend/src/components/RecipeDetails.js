@@ -23,7 +23,10 @@ function RecipeDetails(props) {
         return (<>
             <h2>Ingredients:</h2>
             {ingredients.map((ingredient) => {
-                return <Ingredient ingredient={ingredient}/>
+                return (<>
+                    <Ingredient ingredient={ingredient}/>
+                    <Link to={`/edit-ingredient/${ingredient.id}`}>Edit ingredient</Link>
+                </>)
             })}
         </>)
     }
@@ -49,6 +52,7 @@ function RecipeDetails(props) {
             {recipe.steps_in_recipe ?
             displaySteps(recipe.steps_in_recipe) : null}
             <Link to={`/edit-recipe/${recipe.id}`}>Edit</Link>
+
         </div>
     ) : null;
 };
