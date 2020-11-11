@@ -12,6 +12,7 @@ from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
 
 
@@ -60,10 +61,15 @@ class UserViewSet(viewsets.ModelViewSet):
     def patch(self, request):
         token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
         existing_token = get_object_or_404(Token, key=token)
-        existing_user = existing_token.user
-        existing_user.username = request.data["username"]
-        existing_user.email = request.data["email"]
-        existing_user.save()
+        user = existing_token.user
+        user.username = request.data["username"]
+        user.email = request.data["email"]
+        if 'password' in request.data.keys() and 'newPassword' in request.data.keys():
+            if user.check_password(request.data['password']):
+                user.set_password(request.data['newPassword'])
+            else:
+                return Response({"error": "Wrong password"}, status=status.HTTP_400_BAD_REQUEST)
+        user.save()
         return Response(status=status.HTTP_200_OK)
 
 
