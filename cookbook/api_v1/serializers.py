@@ -77,6 +77,7 @@ class RecipePostSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'description', 'pic', 'tags', 'user')
 
     def create(self, validated_data):
+        print(validated_data)
         username = validated_data.pop('user')
         try:
             user = User.objects.get(username=username)
@@ -93,4 +94,24 @@ class RecipePostSerializer(serializers.ModelSerializer):
             new_tag, created = Tag.objects.get_or_create(name=tag)
             recipe.tags.add(new_tag)
         return recipe
+
+    def update(self, instance, validated_data):
+        if 'tags' not in validated_data.keys():
+            instance.name = validated_data.get('name', instance.name)
+            instance.description = validated_data.get('description', instance.description)
+            instance.pic = validated_data.get('pic', instance.pic)
+            return instance
+        tags_data = validated_data.get('tags')
+        tags_list = tags_data.split(",")
+
+        instance.name = validated_data.get('name', instance.name)
+        instance.description = validated_data.get('description', instance.description)
+        instance.pic = validated_data.get('pic', instance.pic)
+        instance.tags.clear()
+        for tag in tags_list:
+            new_tag, created = Tag.objects.get_or_create(name=tag)
+            instance.tags.add(new_tag)
+
+        instance.save()
+        return instance
 
