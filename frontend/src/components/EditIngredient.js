@@ -5,7 +5,7 @@ import Select from 'react-select';
 
 function EditIngredient(props){
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
-    const id = parseInt(props.match.params.id);
+    const id = parseInt(props.id);
     const [ingredient, setIngredient] = useState({id: id, unit: null});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
@@ -73,7 +73,8 @@ function EditIngredient(props){
             console.log('--response', response);
             if (response.status === 200) {
                 setSaved(true);
-                props.history.push(`/recipe/${response.data.recipe}`)
+                props.onSave();
+                // props.history.push(`/recipe/${response.data.recipe}`)
             } else {
                 alert(response)
                 setMessage(`was not saved: ${JSON.stringify(response)}`);
