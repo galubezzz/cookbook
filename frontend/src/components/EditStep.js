@@ -7,7 +7,7 @@ const url = (id) => `http://127.0.0.1:8000/api/v1/steps/${id}/`;
 function EditStep(props) {
     const [step, setStep] = useState([]);
     const [message, setMessage] = useState("");
-    const id = props.match.params.id;
+    const id = props.id;
     const [fileUploaded, setFileUploaded] = useState(false);
     const [saved, setSaved] = useState(false);
     const token = props.user.token
@@ -61,14 +61,13 @@ function EditStep(props) {
         data.append('name', step.name);
         data.append('description', step.description);
         data.append('step_number', step.step_number);
-        data.append('recipe', id);
 
         axios.patch(url(id), data, {headers: {"Authorization": `Token ${token}`}})
             .then((response) => {
                 console.log('--response', response);
                 if (response.status === 200) {
                     setSaved(true);
-                    props.history.push(`/recipe/${response.data.recipe}`)
+                    props.onSave();
 
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
