@@ -29,7 +29,7 @@ if (localStorage.getItem('token')) {
     initialState.user = {}
     initialState.user.token = localStorage.getItem('token');
     initialState.user.username = localStorage.getItem('username');
-    initialState.user.id = localStorage.getItem('id');
+    initialState.user.id = +localStorage.getItem('id');
 }
 
 const reducer = (state, action) => {
