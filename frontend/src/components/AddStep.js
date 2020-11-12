@@ -53,6 +53,15 @@ export default function AddStep(props) {
                 console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
+                    Array.from(document.querySelectorAll("input")).forEach(
+                    input => input.value = "");
+                    document.querySelector("textarea").value="";
+                    setStep({
+                        name: null,
+                        description: null,
+                        step_number: null,
+                        recipe: null,
+                    })
 
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
