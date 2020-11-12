@@ -19,6 +19,7 @@ import Recipe from "./components/Recipe";
 import UserAccount from "./components/UserAccount";
 import EditUserDetails from "./components/EditUserDetails";
 import EditIngredient from "./components/EditIngredient"
+import EditStep from "./components/EditStep";
 
 const initialState = {
     user: null,
@@ -100,7 +101,9 @@ function App() {
             <Route exact path="/edit-recipe/:id">
                 {isLoggedIn ? <EditRecipe user={state.user}/> : 'You are not logged in'}
             </Route>
-
+            <Route exact path="/edit-step/:id">
+                {isLoggedIn ? <EditStep user={state.user}/> : 'You are not logged in'}
+            </Route>
             <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
             <Route exact path="/add-step/:id" component={AddStep}/>
             <Route exact path="/register" component={UserRegistration}/>
