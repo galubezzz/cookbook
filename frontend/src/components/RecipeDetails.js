@@ -5,6 +5,7 @@ import Ingredient from "./Ingredient";
 import Step from "./Step";
 import EditIngredient from "./EditIngredient";
 import EditStep from "./EditStep";
+import EditRecipe from "./EditRecipe";
 
 const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
 
@@ -15,13 +16,14 @@ function RecipeDetails(props) {
     const token = props.user.token;
     const [editModeIngredient, setEditModeIngredient] = useState({});
     const [editModeStep, setEditModeStep] = useState({});
+    const [editRecipeMode, setEditRecipeMode] = useState(false)
 
     useEffect(() => {
         axios.get(getRecipeURL(id), {headers: {"Authorization": `Token ${token}`}})
             .then((response) => {
                 setRecipe(response.data);
             })
-    }, [editModeIngredient, editModeStep]);
+    }, [editModeIngredient, editModeStep, editRecipeMode]);
 
 
     function displayIngredients(ingredients) {
@@ -90,20 +92,38 @@ function RecipeDetails(props) {
             </>
         )
     }
-            return recipe ? (
-        <div>
-            <h1>Recipe details</h1>
-            <div>{recipe.name}</div>
-            <div>{recipe.description}</div>
-            <img src={recipe.pic}/>
-            <p/>
-            {recipe.ingredients_in_recipe ?
-                displayIngredients(recipe.ingredients_in_recipe) : null}
-            {recipe.steps_in_recipe ?
-                displaySteps(recipe.steps_in_recipe) : null}
-            <Link to={`/edit-recipe/${recipe.id}`}>Edit recipe</Link>
 
-        </div>
+    function displayRecipe() {
+        return (
+            <>
+                {editRecipeMode ?
+                    (<EditRecipe user={props.user} id={recipe.id}
+                    onSave={()=>{setEditRecipeMode(false)}}/>)
+                    :
+                    (
+                        <>
+                        <h1>Recipe details</h1>
+                        <div>{recipe.name}</div>
+                        <div>{recipe.description}</div>
+                        <img src={recipe.pic}/>
+                        <button onClick={() => {
+                            setEditRecipeMode(true)
+                        }}>EditRecipe</button>
+
+                        </>
+                        )}
+                        <p/>
+                            {recipe.ingredients_in_recipe ?
+                                displayIngredients(recipe.ingredients_in_recipe) : null}
+                            {recipe.steps_in_recipe ?
+                                displaySteps(recipe.steps_in_recipe) : null}
+
+            </>
+        )
+    }
+
+    return recipe ? (
+        displayRecipe()
     ) : null;
 };
 

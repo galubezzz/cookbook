@@ -15,7 +15,7 @@ function EditRecipe(props){
     console.log("--token", token);
 
     const recipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
-    const id = props.match.params.id;
+    const id = props.id;
 
     useEffect(()=>{
         axios.get(recipeURL(id), {headers: {"Authorization": `Token ${token}`}}).then((response)=>{
@@ -73,7 +73,7 @@ function EditRecipe(props){
             .then((response) => {
                 if (response.status === 200) {
                     setSaved(true);
-                    props.history.push(`/recipe/${recipe.id}`)
+                    props.onSave()
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
