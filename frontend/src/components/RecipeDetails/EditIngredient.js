@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
 import Select from 'react-select';
+import UserContext from '../../userContext';
 
 function EditIngredient(props){
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
@@ -12,8 +13,9 @@ function EditIngredient(props){
     // (опции должны иметь формат {value: "значение", label: "подпись"} )
     const [selectOptions, setSelectOptions] = useState([]);
     const [selectValue, setSelectValue] = useState({});
-    const token = props.user.token;
     const getIngredientUrl = (id) => `http://127.0.0.1:8000/api/v1/ingredients/${id}/`
+    const user = React.useContext(UserContext);
+    const token = user.token;
 
     useEffect(() => {
         axios.get(unitUrl).then((response) => {
@@ -26,7 +28,6 @@ function EditIngredient(props){
     }, []);
 
     useEffect(() => {
-
         axios.get(getIngredientUrl(id), {headers: {"Authorization": `Token ${token}`}}).then((response) => {
             setIngredient(
                 {
@@ -73,17 +74,17 @@ function EditIngredient(props){
             console.log('--response', response);
             if (response.status === 200) {
                 setSaved(true);
-                props.onSave();
+                props.onSave(response.data);
                 // props.history.push(`/recipe/${response.data.recipe}`)
             } else {
                 alert(response)
                 setMessage(`was not saved: ${JSON.stringify(response)}`);
             }
         }).catch((error => {
-            for (let _ in error) {
-                console.log('-----error property', _, error[_]);
-            }
-            console.log('----message', error.response.data)
+            // for (let _ in error) {
+            //     console.log('-----error property', _, error[_]);
+            // }
+            console.log('----message', error)
         }))
 
     }

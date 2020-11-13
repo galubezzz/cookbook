@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 import {
     BrowserRouter as Router,
@@ -14,12 +14,12 @@ import AddIngredient from "./components/AddIngredient";
 import AddStep from "./components/AddStep";
 import UserRegistration from "./components/UserRegistration";
 import UserLogin from "./components/UserLogin";
-import CheckAuth from "./components/CheckAuth";
-import Recipe from "./components/Recipe";
+
 import UserAccount from "./components/UserAccount";
 import EditUserDetails from "./components/EditUserDetails";
-import EditIngredient from "./components/EditIngredient"
+import EditIngredient from "./components/RecipeDetails/EditIngredient"
 import EditStep from "./components/EditStep";
+import UserContext from './userContext';
 
 const initialState = {
     user: null,
@@ -52,8 +52,9 @@ function App() {
     const isLoggedIn = state.user && state.user.token;
 
     return (
+        <UserContext.Provider value={state.user}>
         <Router>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <nav className="navbar navbar-expand-sm navbar-light bg-light">
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <NavLink to="/" activeClassName="active" className="nav-link">Home</NavLink>
@@ -89,17 +90,14 @@ function App() {
                 {isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}
             </Route>
             <Route exact path="/recipe/:id">
-                {isLoggedIn ? <RecipeDetails
-                    user={state.user}
-                /> : <h1>Please log in to view the recipe</h1>}
-
+                {isLoggedIn ? <RecipeDetails/> : <h1>Please log in to view the recipe</h1>}
             </Route>
 
             <Route exact path="/add-recipe">
                 {isLoggedIn? <AddRecipe user={state.user}/> : <h1>Please log in to add a new recipe</h1>}
             </Route>
             <Route exact path="/edit-recipe/:id">
-                {isLoggedIn ? <EditRecipe user={state.user}/> : 'You are not logged in'}
+                {isLoggedIn ? <EditRecipe user={state.user} /> : 'You are not logged in'}
             </Route>
             <Route exact path="/edit-step/:id">
                 {isLoggedIn ? <EditStep user={state.user}/> : 'You are not logged in'}
@@ -120,7 +118,7 @@ function App() {
                 <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
             </Route>
         </Router>
-
+        </UserContext.Provider>
     );
 }
 
