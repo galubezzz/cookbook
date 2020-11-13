@@ -99,6 +99,7 @@ class RecipePostSerializer(serializers.ModelSerializer):
             instance.name = validated_data.get('name', instance.name)
             instance.description = validated_data.get('description', instance.description)
             instance.pic = validated_data.get('pic', instance.pic)
+            instance.tags.clear()
             return instance
         tags_data = validated_data.pop('tags')
         tags_list = tags_data.split(",")
