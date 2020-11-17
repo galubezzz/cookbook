@@ -7,7 +7,6 @@ import EditRecipe from "./EditRecipe";
 import IngredientsList from './RecipeDetails/IngredientsList';
 import StepList from './RecipeDetails/StepList'
 import UserContext from "../userContext";
-
 const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
 
 function RecipeDetails(props) {
@@ -30,7 +29,7 @@ function RecipeDetails(props) {
     function displayRecipe() {
         const showEditForm = isEditable && editRecipeMode;
         return (
-            <>
+            <div class="card col-12">
                 {showEditForm ? (
                         <EditRecipe
                             user={user}
@@ -41,15 +40,14 @@ function RecipeDetails(props) {
                         />)
                     : (
                         <>
-                            <h1>Recipe details</h1>
-                            <div>{recipe.name}</div>
-                            <div>{recipe.description}</div>
-                            <img src={recipe.pic}/>
-                            {isEditable ?
-                                <button onClick={() => {
+                            <h2>{recipe.name}
+                                {isEditable ? <i className="fas fa-pen h1icon" onClick={() => {
                                     setEditRecipeMode(true)
-                                }}>EditRecipe</button> : null
-                            }
+                                }}></i>  : null}
+                            </h2>
+
+                            <img className="card-img" src={recipe.pic}/>
+                            <div>{recipe.description}</div>
                         </>
                     )}
                 {recipe.ingredients_in_recipe ?
@@ -57,7 +55,7 @@ function RecipeDetails(props) {
                 {recipe.steps_in_recipe ?
                      <StepList steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
 
-            </>
+            </div>
         )
     }
 

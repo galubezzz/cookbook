@@ -183,3 +183,9 @@
   opacity: 0.5;
   cursor: auto;
 }
+
+.h1icon{
+    font-size: 20px;
+    float: right;
+    padding-top: 20px;
+}
