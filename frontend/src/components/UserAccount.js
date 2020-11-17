@@ -9,9 +9,7 @@ function UserAccount(props) {
     const token = props.user.token;
     useEffect(() => {
         axios.get(getUserURL, {headers: {"Authorization": `Token ${token}`}}).then((response) => {
-            console.log("---response", response.data)
             setUser(response.data[0]);
-            console.log(user);
         })
     }, []);
     return user ? (

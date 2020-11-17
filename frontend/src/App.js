@@ -67,7 +67,7 @@ function App() {
                                     Recipe</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink to="my-account" activeClassName='active' className='nav-link'>My account</NavLink>
+                                <NavLink to="/my-account" activeClassName='active' className='nav-link'>My account</NavLink>
                             </li>
                             <li className="nav-item">
                                 <NavLink to="#" activeClassName='active' className='nav-link' onClick={() => logout(dispatch)}>Logout</NavLink>
