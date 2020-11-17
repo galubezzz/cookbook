@@ -112,15 +112,15 @@ function EditRecipe(props){
                                        onChange={changeFile}/>
                             </div>
                         </div>
-                        <div className="form-group row">
-                            <div className="col-sm-12 col-md-10 col-lg-5">
+                        <div className="row mb-3">
+                        <div className="col-sm-12 col-md-10 col-lg-5">
                                 <ReactTags
                                     tags={tags}
                                     onDelete={onDelete}
                                     onAddition={onAddition}
                                     allowNew={true}
                                 />
-                            </div>
+                        </div>
                         </div>
                         <div className="form-group row">
                             <div className="col-sm-12 col-md-10 col-lg-5">

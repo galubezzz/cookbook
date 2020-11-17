@@ -123,7 +123,7 @@ function AddRecipe(props) {
                             <input name="pic" class="form-control-file" id="pic" type="file" onChange={changeFile}/>
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="mb-3 row">
                         <div className="col-sm-9">
                             <ReactTags
                                 tags={tags}
