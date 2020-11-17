@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
-import UserContext from "../userContext";
+import UserContext from "../../userContext";
 
 const url = (id) => `http://127.0.0.1:8000/api/v1/steps/${id}/`;
 
