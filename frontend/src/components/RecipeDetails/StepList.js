@@ -3,9 +3,9 @@ import StepViewSwitch from "./StepViewSwitch";
 
 
 export default function StepList(props){
-    const {steps, isEditable, onSave} = props
+    const {steps, isEditable} = props
 
-    const renderStep = (step) => <StepViewSwitch isEditable={isEditable} step={step} onSave={onSave}/>
+    const renderStep = (step) => <StepViewSwitch isEditable={isEditable} step={step}/>
 
     return (
         <>
