@@ -19,7 +19,7 @@ export default function RecipeList(props) {
         })
     }
     return(
-        <div>
+        <div class="col-12">
             {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
         </div>
     )
