@@ -1,12 +1,10 @@
 import React from 'react';
-import EditIngredient from "./EditIngredient";
-import Ingredient from "./Ingredient";
-import RecipeIngredientViewSwitch from "./IngredientViewSwitch";
+import IngredientViewSwitch from "./IngredientViewSwitch";
 
 export default function IngredientsList(props) {
     const {ingredients, isEditable, onSave} = props;
 
-    const renderIngredient = (ingredient) => <RecipeIngredientViewSwitch isEditable={isEditable} ingredient={ingredient} onSave={onSave}/>
+    const renderIngredient = (ingredient) => <IngredientViewSwitch isEditable={isEditable} ingredient={ingredient} onSave={onSave}/>
 
     return (
         <>
