@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
+import UserContext from "../userContext";
 
 const url = (id) => `http://127.0.0.1:8000/api/v1/steps/${id}/`;
 
@@ -10,7 +11,9 @@ function EditStep(props) {
     const id = props.id;
     const [fileUploaded, setFileUploaded] = useState(false);
     const [saved, setSaved] = useState(false);
-    const token = props.user.token
+    const user = React.useContext(UserContext);
+    const token = user.token;
+
     useEffect(() => {
         axios.get(url(id)).then((response) => {
             if (response.status === 200) {
@@ -67,7 +70,7 @@ function EditStep(props) {
                 console.log('--response', response);
                 if (response.status === 200) {
                     setSaved(true);
-                    props.onSave();
+                    props.onSave(response.data);
 
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);

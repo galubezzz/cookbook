@@ -7,7 +7,7 @@ export default function Ingredient(props) {
             <h3>{ingredient.name}</h3>
             <div>{ingredient.quantity}</div>
             <div>{ingredient.unit}</div>
-            {isEditable ? <button onClick={onEdit}>Edit Ing</button> : null}
+            {isEditable ? <button onClick={onEdit}>Edit Ingredient</button> : null}
         </>
     )
 
