@@ -187,5 +187,11 @@
 .h1icon{
     font-size: 20px;
     float: right;
-    padding-top: 20px;
+    padding-top: 10px;
+}
+
+.icon{
+    font-size: 15px;
+    float: right;
+
 }

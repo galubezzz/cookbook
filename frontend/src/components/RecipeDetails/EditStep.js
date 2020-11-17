@@ -80,6 +80,7 @@ function EditStep(props) {
 
     return (
         <>
+            <li className="list-group-item">
             <form>
                 <div className="form-group row">
                     <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Name:</label>
@@ -114,6 +115,7 @@ function EditStep(props) {
                     </div>
                 </div>
             </form>
+            </li>
         </>
     )
 }

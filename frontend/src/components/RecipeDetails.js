@@ -29,7 +29,8 @@ function RecipeDetails(props) {
     function displayRecipe() {
         const showEditForm = isEditable && editRecipeMode;
         return (
-            <div class="card col-12">
+            <div className="col-lg-8">
+            <div className="card m-2 p-2">
                 {showEditForm ? (
                         <EditRecipe
                             user={user}
@@ -47,7 +48,7 @@ function RecipeDetails(props) {
                             </h2>
 
                             <img className="card-img" src={recipe.pic}/>
-                            <div>{recipe.description}</div>
+                            <div className="card-text text-muted">{recipe.description}</div>
                         </>
                     )}
                 {recipe.ingredients_in_recipe ?
@@ -55,6 +56,7 @@ function RecipeDetails(props) {
                 {recipe.steps_in_recipe ?
                      <StepList steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
 
+            </div>
             </div>
         )
     }

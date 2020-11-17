@@ -8,8 +8,10 @@ export default function IngredientsList(props) {
 
     return (
         <>
-            <h2>Ingredients:</h2>
+            <h4>Ingredients:</h4>
+            <ul className="list-group list-group-flush">
             {ingredients.map(renderIngredient)}
+            </ul>
         </>
     );
 }

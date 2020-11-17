@@ -5,10 +5,12 @@ export default function Step(props) {
 
     return (
         <>
-            <h3>{step.name}</h3>
-            <div>{step.description}</div>
-            <img src={step.pic}/>
-            {isEditable ? <button onClick={onEdit}>Edit Step</button> : null}
+            <li className="list-group-item">
+                <h5>{step.name} {isEditable ?
+                    <i className="fas fa-pen icon card-link" onClick={onEdit}></i> : null}</h5>
+                <img className="card-img" src={step.pic}/>
+                <div className="card-text">{step.description}</div>
+            </li>
         </>
     )
 }
