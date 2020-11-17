@@ -98,8 +98,8 @@ function EditIngredient(props){
             </p>
             <form>
                 <div className="form-group row">
-                    <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Name:</label>
+                    <div className="col-sm-12 col-md-10 col-lg-3">
                         <input name="name" id="name" className="form-control pr-2"
                                onChange={changeName}
                                value={ingredient.name}
@@ -107,8 +107,8 @@ function EditIngredient(props){
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="quantity" className="col-sm-1 col-form-label">Quantity:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="quantity" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Quantity:</label>
+                    <div className="col-sm-12 col-md-10 col-lg-3">
                         <input name="quantity" id="quantity"
                                type="number"
                                step="0.01"
@@ -118,8 +118,8 @@ function EditIngredient(props){
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="unit" className="col-sm-1 col-form-label">Unit:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="unit" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Unit:</label>
+                    <div className="col-sm-12 col-md-10 col-lg-3">
                         <Select name="unit"
                                 id="unit"
                                 options={selectOptions}
@@ -129,7 +129,7 @@ function EditIngredient(props){
                     </div>
                 </div>
                 <div className="form-group row">
-                    <div className="col-sm-9">
+                    <div className="col-sm-12 col-md-10 col-lg-5">
                         <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
                     </div>
                 </div>
