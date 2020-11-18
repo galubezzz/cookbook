@@ -93,34 +93,34 @@ function AddRecipe(props) {
 
     return (
         <>
-            <div class="card p-2">
-                <div class="card-body">
-                    <h3 class="card-title">Create your recipe</h3>
+            <div className="card p-2">
+                <div className="card-body">
+                    <h3 className="card-title">Create your recipe</h3>
 
                     {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
                     <p>
                         {message}
                     </p>
 
-                    <div class="form-group row">
-                        <label htmlFor="name" class="col-sm-1 col-form-label">Name:</label>
-                        <div class="col-sm-8">
-                            <input name="name" id="name" class="form-control pr-2" onChange={changeName}/>
+                    <div className="form-group row">
+                        <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
+                        <div className="col-sm-8">
+                            <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
                         </div>
                     </div>
                     <br/>
                     <div class="form-group row">
-                        <label htmlFor="description" class="col-sm-1 col-form-label">Description:</label>
+                        <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
                         <div className="col-sm-8">
-                            <textarea name="description" class="form-control" id="description" aria-multiline="true"
+                            <textarea name="description" className="form-control" id="description" aria-multiline="true"
                                       onChange={changeDesc}/>
                         </div>
                     </div>
                     <br/>
                     <div className="form-group row">
-                        <label htmlFor="pic" class="col-sm-1 col-form-label">Pic:</label>
+                        <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
                         <div className="col-sm-8">
-                            <input name="pic" class="form-control-file" id="pic" type="file" onChange={changeFile}/>
+                            <input name="pic" className="form-control-file" id="pic" type="file" onChange={changeFile}/>
                         </div>
                     </div>
                     <div className="mb-3 row">
@@ -137,7 +137,7 @@ function AddRecipe(props) {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-9">
-                            <button class="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
+                            <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
                         </div>
                     </div>
                 </div>
