@@ -4,7 +4,7 @@ import $ from 'jquery';
 // $(function () {
 //   $('[data-toggle="example-popover"]').popover()
 // })
-
+git
 
 export default function ConfirmDelete(props){
     const {onDelete} = props;
