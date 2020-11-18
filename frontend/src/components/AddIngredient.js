@@ -49,7 +49,7 @@ function AddIngredients(props) {
 
         setIngredient({
             ...ingredient,
-            unit: selectedOption.value
+            unit: selectedOption.label
         });
 
         setSelectValue(selectedOption);
