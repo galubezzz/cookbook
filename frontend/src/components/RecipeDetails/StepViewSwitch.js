@@ -18,9 +18,15 @@ export default function StepViewSwitch(props){
         setStep(updatedStep);
     };
 
+    const onStepDelete = () => {
+        setStep(null);
+    }
+
     if (showEditForm) {
         return <EditStep id={step.id} onSave={onStepSave}/>
+    } else if (stepFromState){
+        return <Step step={stepFromState} onEdit={onEditButtonClick} isEditable={isEditable} onDelete={onStepDelete}/>
     } else {
-        return <Step step={stepFromState} onEdit={onEditButtonClick} isEditable={isEditable}/>
+        return null
     }
 }
