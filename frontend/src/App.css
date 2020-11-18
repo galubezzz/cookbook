@@ -195,7 +195,11 @@
     float: right;
     padding-left: 10px;
     padding-top: 5px;
-
+}
+.icon-div{
+    font-size: 15px;
+    float: right;
+    padding-left: 10px;
 }
 .card-img-top {
     width: 100%;
@@ -215,4 +219,8 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+.popover-button{
+    width: 76px;
 }
