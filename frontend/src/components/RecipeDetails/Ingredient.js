@@ -24,12 +24,6 @@ export default function Ingredient(props) {
 
     function onDelete() {
         setShow(true);
-        // $(function () {
-        //     $('[data-toggle="example-popover"]').popover()
-        // })
-        // let confirmation = window.confirm("Are you sure you want delete this ingredient?")
-        // if (confirmation) {
-        // }
     }
 
     return (
@@ -40,13 +34,13 @@ export default function Ingredient(props) {
                         <i className="fas fa-pen icon" onClick={onEdit}></i>
                         <div style={{position: "relative"}} className="icon-div">
                             <i className="fas fa-trash-alt icon" onClick={onDelete}></i>
-                            <ConfirmDelete onAgree={onAgreeToDelete} show={show} onDisagree={onDisagree}/>
+                            <ConfirmDelete onAgree={onAgreeToDelete} show={show} onDisagree={onDisagree}
+                                           itemType={"ingredient"}
+                            />
                         </div>
-
                     </> : null}
                 </div>
             </li>
         </>
     )
-
 }
