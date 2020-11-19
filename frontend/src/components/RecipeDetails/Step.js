@@ -28,7 +28,7 @@ export default function Step(props) {
     return (
         <>
             <li className="list-group-item">
-                <h5>{step.name} {isEditable ? <>
+                <h5>{step.step_number}. {step.name} {isEditable ? <>
                     <i className="fas fa-pen icon" onClick={onEdit}></i>
                     <div style={{position: "relative"}} className="icon-div">
                         <i className="fas fa-trash-alt icon" onClick={onDelete}></i>
