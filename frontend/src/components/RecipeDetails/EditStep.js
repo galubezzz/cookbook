@@ -83,6 +83,13 @@ function EditStep(props) {
             <li className="list-group-item">
             <form>
                 <div className="form-group row">
+                    <label htmlFor="number" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Step number:</label>
+                    <div className="col-sm-12 col-md-10 col-lg-3">
+                        <input name="number" id="number" type="number" min="1" step="1" className="form-control pr-2"
+                               onChange={changeNumber} value={step.step_number}/>
+                    </div>
+                </div>
+                <div className="form-group row">
                     <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Name:</label>
                     <div className="col-sm-12 col-md-10 col-lg-3">
                         <input name="name" id="name" className="form-control pr-2" onChange={changeName}
@@ -94,13 +101,6 @@ function EditStep(props) {
                     <div className="col-sm-12 col-md-10 col-lg-3">
                 <textarea name="description" className="form-control" id="description" aria-multiline="true"
                           onChange={changeDesc} value={step.description}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="number" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Step number:</label>
-                    <div className="col-sm-12 col-md-10 col-lg-3">
-                        <input name="number" id="number" type="number" step="0.01" className="form-control pr-2"
-                               onChange={changeNumber} value={step.step_number}/>
                     </div>
                 </div>
                 <div className="form-group row">
