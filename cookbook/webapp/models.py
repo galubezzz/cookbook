@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from cookbook.settings import BASE_DIR
+import os
 
 
 class SoftDeleteManager(models.Manager):
@@ -27,7 +28,8 @@ class Tag(models.Model):
 class Recipe(models.Model):
     name = models.CharField(max_length=255, verbose_name='Name')
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Description')
-    pic = models.ImageField(upload_to='recipe_images', null=True, blank=True, verbose_name='Picture')
+    pic = models.ImageField(upload_to='recipe_images', null=True, blank=True, verbose_name='Picture',
+                            default='media/default.jpg')
     tags = models.ManyToManyField(Tag, blank=True, related_name="tag_in_recipe", verbose_name='Tag')
     user_id = models.ForeignKey(User, related_name="recipe_user", verbose_name="User", on_delete=models.CASCADE)
     # ingredients = models.ForeignKey(Ingredient, related_name="ingredient_in_recipe", verbose_name='Ingredients',
@@ -48,7 +50,8 @@ class Step(models.Model):
     name = models.CharField(max_length=255, verbose_name='Name')
     step_number = models.IntegerField(verbose_name="Number of the step")
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Description')
-    pic = models.ImageField(upload_to='step_images', null=True, blank=True, verbose_name='Picture')
+    pic = models.ImageField(upload_to='step_images', null=True, blank=True, verbose_name='Picture',
+                            default='media/default.jpg')
     recipe = models.ForeignKey(Recipe, related_name='steps_in_recipe', verbose_name="Recipe", on_delete=models.CASCADE)
 
     def __str__(self):
