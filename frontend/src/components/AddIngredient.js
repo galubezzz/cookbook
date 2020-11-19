@@ -98,21 +98,21 @@ function AddIngredients(props) {
             </p>
             <form>
                 <div className="form-group row">
-                    <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Name:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                         <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="quantity" className="col-sm-1 col-form-label">Quantity:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="quantity" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Quantity:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                         <input name="quantity" id="quantity" type="number" step="0.01" className="form-control pr-2"
                                onChange={changeQuantity}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="unit" className="col-sm-1 col-form-label">Unit:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="unit" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Unit:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                         <Select name="unit"
                                 id="unit"
                                 options={selectOptions}
@@ -122,19 +122,10 @@ function AddIngredients(props) {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <div className="col-sm-9">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
                         <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
                     </div>
                 </div>
-                {!embededMode ?
-                <div className="form-group row">
-                    <div className="col-sm-9">
-                        <button className="btn btn-primary btn-block" onClick={addStep}> Add Step</button>
-                    </div>
-                </div>
-                :
-                null }
-
             </form>
         </>
     )

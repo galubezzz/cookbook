@@ -81,32 +81,32 @@ function AddStep(props) {
             </p>
             <form>
                 <div className="form-group row">
-                    <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="number" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Step number:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
+                        <input name="number" id="number" type="number" min="1" step="1" className="form-control pr-2" onChange={changeNumber}/>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Name:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                         <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="description" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Description:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                 <textarea name="description" className="form-control" id="description" aria-multiline="true"
                           onChange={changeDesc}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="number" className="col-sm-1 col-form-label">Step number:</label>
-                    <div className="col-sm-8">
-                        <input name="number" id="number" type="number" step="0.01" className="form-control pr-2" onChange={changeNumber}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
-                    <div className="col-sm-8">
+                    <label htmlFor="pic" className="col-sm-12 col-md-12 col-lg-3 col-form-label">Pic:</label>
+                    <div className="col-sm-12 col-md-12 col-lg-9">
                         <input name="pic" className="form-control-file" id="pic" type="file" onChange={changeFile}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <div className="col-sm-9">
+                    <div className="col-sm-12 col-md-12 col-lg-12">
                         <button className="btn btn-primary btn-block" onClick={saveStep}> Save Step</button>
                     </div>
                 </div>

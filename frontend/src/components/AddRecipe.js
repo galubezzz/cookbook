@@ -84,7 +84,7 @@ function AddRecipe(props) {
                 console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
-                    props.history.push(`/add-ingredient/${response.data.id}`)
+                    props.history.push(`/recipe/${response.data.id}`)
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
@@ -137,7 +137,7 @@ function AddRecipe(props) {
                     </div>
                     <div className="form-group row">
                         <div className="col-sm-9">
-                            <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
+                            <button className="btn btn-primary btn-block" onClick={saveRecipe}>Save Recipe</button>
                         </div>
                     </div>
                 </div>
