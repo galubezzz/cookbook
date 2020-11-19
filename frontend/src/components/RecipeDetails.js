@@ -87,7 +87,7 @@ function RecipeDetails(props) {
                     {recipe.ingredients_in_recipe ?
                         <IngredientsList recipe_id={recipe.id} ingredients={recipe.ingredients_in_recipe} isEditable={isEditable}/> : null}
                     {recipe.steps_in_recipe ?
-                        <StepList steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
+                        <StepList recipe_id={recipe.id} steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
 
                 </div>
             </div>

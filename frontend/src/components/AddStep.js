@@ -3,9 +3,13 @@ import {withRouter} from "react-router-dom"
 import axios from "axios";
 
 
-export default function AddStep(props) {
+function AddStep(props) {
     const stepUrl = "http://127.0.0.1:8000/api/v1/steps/";
-    const id = parseInt(props.match.params.id);
+    let embededMode= false;
+    let id = props.match.params.id;
+    if (props.id) {
+        embededMode = true;
+    }
     const [step, setStep] = useState([]);
     const [fileUploaded, setFileUploaded] = useState(false);
     const [saved, setSaved] = useState(false);
@@ -62,6 +66,7 @@ export default function AddStep(props) {
                         step_number: null,
                         recipe: null,
                     })
+                    if (embededMode) {props.onSave(response.data)}
 
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
@@ -111,3 +116,4 @@ export default function AddStep(props) {
     )
 
 }
+export default withRouter(AddStep)
