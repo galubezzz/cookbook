@@ -14,6 +14,7 @@ const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
 function RecipeDetails(props) {
     const id = props.match.params.id;
     const [recipe, setRecipe] = useState();
+
     const [editRecipeMode, setEditRecipeMode] = useState(false);
     const [isEditable, setEditable] = useState(false)
     const [show, setShow] = useState(false);
@@ -84,7 +85,7 @@ function RecipeDetails(props) {
                             </>
                         )}
                     {recipe.ingredients_in_recipe ?
-                        <IngredientsList ingredients={recipe.ingredients_in_recipe} isEditable={isEditable}/> : null}
+                        <IngredientsList recipe_id={recipe.id} ingredients={recipe.ingredients_in_recipe} isEditable={isEditable}/> : null}
                     {recipe.steps_in_recipe ?
                         <StepList steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
 

@@ -6,10 +6,15 @@ import Select from 'react-select';
 function AddIngredients(props) {
     const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
-    const id = parseInt(props.match.params.id);
+    let embededMode= false;
+    let id = props.match.params.id;
+    if (props.id) {
+        embededMode = true;
+    }
     const [ingredient, setIngredient] = useState({recipe: id, unit: null});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
+
     // (опции должны иметь формат {value: "значение", label: "подпись"} )
     const [selectOptions, setSelectOptions] = useState([]);
     const [selectValue, setSelectValue] = useState([]);
@@ -68,6 +73,8 @@ function AddIngredients(props) {
                     recipe: id,
                 });
                 setSelectValue(null);
+                if (embededMode) {props.onSave(response.data)}
+
             } else {
                 alert(response)
                 setMessage(`was not saved: ${JSON.stringify(response)}`);
@@ -119,11 +126,15 @@ function AddIngredients(props) {
                         <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
                     </div>
                 </div>
+                {!embededMode ?
                 <div className="form-group row">
                     <div className="col-sm-9">
                         <button className="btn btn-primary btn-block" onClick={addStep}> Add Step</button>
                     </div>
                 </div>
+                :
+                null }
+
             </form>
         </>
     )
