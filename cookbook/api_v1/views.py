@@ -81,7 +81,7 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all().order_by('-id')
-    authentication_classes = [TokenAuthentication, ]
+    # authentication_classes = [TokenAuthentication, ]
 
     def get_queryset(self):
         queryset = self.queryset
