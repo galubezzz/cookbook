@@ -64,7 +64,7 @@ function App() {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <NavLink to="/" activeClassName="active" className="nav-link">Home</NavLink>
+                                <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
                             </li>
 
                             {isLoggedIn ? (
@@ -74,11 +74,14 @@ function App() {
                                             Recipe</NavLink>
                                     </li>
                                     <li className="nav-item">
+                                        <NavLink to={`/user/${state.user.username}/`} activeClassName="active" className="nav-link">My recipes</NavLink>
+                                    </li>
+                                    <li className="nav-item">
                                         <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
                                             account</NavLink>
                                     </li>
                                     <li className="nav-item">
-                                        <NavLink to="#" activeClassName='active' className='nav-link'
+                                        <NavLink to="#" className='nav-link' activeClassName=""
                                                  onClick={() => logout(dispatch)}>Logout</NavLink>
                                     </li>
                                 </>
