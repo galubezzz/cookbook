@@ -61,6 +61,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     ingredients_in_recipe = IngredientSerializer(many=True, read_only=True)
     steps_in_recipe = StepSerializer(many=True, read_only=True)
     tags = TagSerializer(many=True, required=False)
+    user_id = UserSerializer(read_only=True)
 
 
     class Meta:
