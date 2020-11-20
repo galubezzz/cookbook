@@ -1,13 +1,16 @@
 import React, {useState, useEffect} from "react";
+import {withRouter} from 'react-router-dom';
 import axios from 'axios'
 import Recipe from "./Recipe";
 
-export default function RecipeList(props) {
+function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
     const url = "http://127.0.0.1:8000/api/v1/recipes/";
-    const token = props.user.token;
+    const params = props.match.params;
+
+    // const token = props.user.token;
     useEffect(()=>{
-        axios.get(url, { headers: {"Authorization" : `Token ${token}`} }).then((response)=>{
+        axios.get(url, {params}).then((response)=>{
         console.log("it's mine", response.data);
         setRecipes(response.data);
         })
@@ -26,3 +29,5 @@ export default function RecipeList(props) {
         </div>
     )
 }
+
+export default withRouter(RecipeList)
