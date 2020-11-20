@@ -111,6 +111,7 @@ function App() {
                 <Route exact path="/edit-recipe/:id">
                     {isLoggedIn ? <EditRecipe user={state.user}/> : 'You are not logged in'}
                 </Route>
+                <Route exact path="/tag/:tag" component={RecipeList}></Route>
                 <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
                 <Route exact path="/add-step/:id" component={AddStep}/>
                 <Route exact path="/register" component={UserRegistration}/>
