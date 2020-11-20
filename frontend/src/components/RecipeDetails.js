@@ -82,8 +82,11 @@ function RecipeDetails(props) {
                                 </h2>
 
                                 <img className="card-img" src={recipe.pic}/>
-                                <div className="card-text text-muted">{recipe.description}</div>
+                                <div className="card-body">
+                                    <div className="card-text text-muted">{recipe.description}</div>
                                 {recipe.tags ? <TagsList tags={recipe.tags}/> : null}
+                                </div>
+
                             </>
                         )}
 
