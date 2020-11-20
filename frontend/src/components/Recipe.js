@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import TagsList from "./RecipeDetails/TagsList";
 
 export default function Recipe(props) {
     const {recipe} = props;
@@ -10,9 +11,10 @@ export default function Recipe(props) {
                 <img className="card-img-top" src={recipe.pic} width='200px'/>
                 <div className="card-body">
                     <Link to={`/recipe/${recipe.id}`}>
-                    <h5 className="card-title crop-title">{recipe.name}</h5>
-                </Link>
+                        <h5 className="card-title crop-title">{recipe.name}</h5>
+                    </Link>
                     <p className='card-text crop-text text-muted'>{recipe.description}</p>
+                    {recipe.tags ? <TagsList tags={recipe.tags}/> : null}
                 </div>
 
             </div>

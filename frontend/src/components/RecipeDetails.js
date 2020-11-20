@@ -8,6 +8,7 @@ import IngredientsList from './RecipeDetails/IngredientsList';
 import StepList from './RecipeDetails/StepList'
 import UserContext from "../userContext";
 import ConfirmDelete from "./RecipeDetails/ConfirmDelete";
+import TagsList from "./RecipeDetails/TagsList";
 
 const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
 
@@ -82,10 +83,13 @@ function RecipeDetails(props) {
 
                                 <img className="card-img" src={recipe.pic}/>
                                 <div className="card-text text-muted">{recipe.description}</div>
+                                {recipe.tags ? <TagsList tags={recipe.tags}/> : null}
                             </>
                         )}
+
                     {recipe.ingredients_in_recipe ?
-                        <IngredientsList recipe_id={recipe.id} ingredients={recipe.ingredients_in_recipe} isEditable={isEditable}/> : null}
+                        <IngredientsList recipe_id={recipe.id} ingredients={recipe.ingredients_in_recipe}
+                                         isEditable={isEditable}/> : null}
                     {recipe.steps_in_recipe ?
                         <StepList recipe_id={recipe.id} steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
 

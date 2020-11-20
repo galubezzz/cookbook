@@ -14,6 +14,7 @@ function AddStep(props) {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
+
     function changeName(event) {
         setStep({
             ...step,
@@ -112,8 +113,6 @@ function AddStep(props) {
                 </div>
             </form>
         </>
-
     )
-
 }
 export default withRouter(AddStep)
