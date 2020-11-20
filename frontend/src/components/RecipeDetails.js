@@ -28,9 +28,11 @@ function RecipeDetails(props) {
         axios.get(getRecipeURL(id), {headers: {"Authorization": `Token ${token}`}})
             .then((response) => {
                 setRecipe(response.data);
-                setEditable(user_id === response.data.user_id)
+                setEditable(user_id === response.data.user_id.id)
             })
     }, [editRecipeMode]);
+
+    const userUrl = (username) => `/user/${username}/`;
 
 
     function onAgreeToDelete() {
@@ -80,7 +82,7 @@ function RecipeDetails(props) {
                                             </div>
                                         </> : null}
                                 </h2>
-
+                                <div className="usename"><a href={userUrl(recipe.user_id.username)}>@{recipe.user_id.username}</a></div>
                                 <img className="card-img" src={recipe.pic}/>
                                 <div className="card-body">
                                     <div className="card-text text-muted">{recipe.description}</div>

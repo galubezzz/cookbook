@@ -13,6 +13,9 @@ export default function Recipe(props) {
                     <Link to={`/recipe/${recipe.id}`}>
                         <h5 className="card-title crop-title">{recipe.name}</h5>
                     </Link>
+                    <Link to={`/user/${recipe.user_id.username}/`}>
+                        @{recipe.user_id.username}
+                    </Link>
                     <p className='card-text crop-text text-muted'>{recipe.description}</p>
                     {recipe.tags ? <TagsList tags={recipe.tags}/> : null}
                 </div>

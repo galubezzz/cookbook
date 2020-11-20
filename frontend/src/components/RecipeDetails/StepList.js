@@ -17,7 +17,7 @@ export default function StepList(props) {
     }
         return (
             <>
-                <h4>Steps:<i className="fas fa-plus icon" onClick={()=>{setAddStepMode(true)}}></i></h4>
+                <h4>Steps: {isEditable ? <i className="fas fa-plus icon" onClick={()=>{setAddStepMode(true)}}></i>: null}</h4>
                 {addStepMode ? <AddStep id={recipe_id} onSave={saveStep}/> : null}
                 <ul className="list-group list-group-flush">
                     {steps.map(renderStep)}
