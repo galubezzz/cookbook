@@ -24,35 +24,7 @@ function EditStep(props) {
         })
     }, []);
 
-    function changeName(event) {
-        setStep({
-            ...step,
-            name: event.target.value,
-        })
-    }
 
-    function changeDesc(event) {
-        setStep({
-            ...step,
-            description: event.target.value,
-        })
-    }
-
-    function changeNumber(event) {
-        setStep({
-            ...step,
-            step_number: event.target.value,
-        })
-    }
-
-    function changeFile(event) {
-
-        setStep({
-            ...step,
-            pic: event.target.files[0]
-        });
-        setFileUploaded(true);
-    }
 
     function saveStep(data) {
      axios.patch(url(id), data, {headers: {"Authorization": `Token ${token}`}})
