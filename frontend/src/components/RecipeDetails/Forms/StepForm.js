@@ -3,9 +3,10 @@ import {withRouter} from "react-router-dom";
 
 
 function StepForm(props) {
-    const [step, setStep] = useState([]);
-    const id = props.id;
+    const id = props.match.params.id;
+    const [step, setStep] = useState({recipe: id});
     const [fileUploaded, setFileUploaded] = useState(false);
+
 
 
     useEffect(() => {
@@ -52,8 +53,8 @@ function StepForm(props) {
         data.append('name', step.name);
         data.append('description', step.description);
         data.append('step_number', step.step_number);
+        data.append('recipe', step.recipe);
         props.onSave(data);
-
     }
 
     return (

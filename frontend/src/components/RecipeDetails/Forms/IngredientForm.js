@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 function IngredientForm(props) {
     const {onSave} = props;
     const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
-    let id = props.match.params.id;
+    const id = props.match.params.id;
 
     const [ingredient, setIngredient] = useState({recipe: id});
     const [selectOptions, setSelectOptions] = useState([]);
