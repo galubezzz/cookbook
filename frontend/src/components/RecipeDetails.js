@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {withRouter} from "react-router-dom";
-import Step from "./RecipeDetails/Step";
-import EditStep from "./RecipeDetails/EditStep";
 import EditRecipe from "./EditRecipe";
 import IngredientsList from './RecipeDetails/IngredientsList';
 import StepList from './RecipeDetails/StepList'
