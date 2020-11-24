@@ -4,17 +4,13 @@ from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
 from api_v1.serializers import UserSerializer, TagSerializer, RecipeSerializer, IngredientSerializer, StepSerializer, RecipePostSerializer
 from webapp.models import Tag, Recipe, Ingredient, Step
-from rest_framework import viewsets
+from rest_framework import viewsets, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework.decorators import action
 from rest_framework.views import APIView
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
-from rest_framework.authentication import TokenAuthentication
 
 
 class LoginView(ObtainAuthToken):
@@ -80,10 +76,12 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
+    search_fields = ['name', 'description']
+    filter_backends = (filters.SearchFilter,)
     queryset = Recipe.objects.all().order_by('-id')
-    # authentication_classes = [TokenAuthentication, ]
 
     def get_queryset(self):
+        print("аля улю")
         queryset = self.queryset
         username = self.request.query_params.get('username', None)
         tag = self.request.query_params.get('tag', None)
@@ -92,8 +90,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if tag:
             queryset = queryset.filter(tags__name=tag)
 
-        # token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
-        # user = Token.objects.get(key=token).user
+
         if 'pk' in self.kwargs.keys():
             pk = self.kwargs['pk']
             queryset = queryset.filter(id=pk)
