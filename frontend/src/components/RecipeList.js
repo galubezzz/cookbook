@@ -14,7 +14,7 @@ function RecipeList(props) {
         console.log("it's mine", response.data);
         setRecipes(response.data);
         })
-    }, []);
+    }, [params]);
 
     function RenderRecipes(recipes) {
         return recipes.map((recipe)=>{

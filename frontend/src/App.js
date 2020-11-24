@@ -17,9 +17,8 @@ import UserLogin from "./components/UserLogin";
 
 import UserAccount from "./components/UserAccount";
 import EditUserDetails from "./components/EditUserDetails";
-import EditIngredient from "./components/RecipeDetails/EditIngredient"
-import EditStep from "./components/RecipeDetails/EditStep";
 import UserContext from './userContext';
+import SearchBar from "./components/SearchBar";
 
 const initialState = {
     user: null,
@@ -55,7 +54,7 @@ function App() {
         <UserContext.Provider value={state.user}>
             <Router>
 
-                <nav className="navbar navbar-expand-sm navbar-light bg-light col-12">
+                <nav className="navbar navbar-expand-md navbar-light bg-light col-12">
                     <button className="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -97,6 +96,7 @@ function App() {
                                     </li>
                                 </>
                             )}
+                            <SearchBar/>
                         </ul>
                     </div>
                 </nav>
@@ -114,6 +114,7 @@ function App() {
                 <Route exact path="/edit-recipe/:id">
                     {isLoggedIn ? <EditRecipe user={state.user}/> : 'You are not logged in'}
                 </Route>
+                <Route exact path="/search/:search" component={RecipeList}></Route>
                 <Route exact path="/tag/:tag" component={RecipeList}></Route>
                 <Route exact path="/user/:username" component={RecipeList}></Route>
                 <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
