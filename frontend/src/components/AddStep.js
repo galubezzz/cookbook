@@ -5,29 +5,12 @@ import StepForm from "./RecipeDetails/Forms/StepForm";
 
 
 function AddStep(props) {
-    let embededMode= false;
-    let id = props.match.params.id;
-    if (props.id) {
-        embededMode = true;
-    }
     const [step, setStep] = useState([]);
-    const [fileUploaded, setFileUploaded] = useState(false);
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
     const url = 'http://127.0.0.1:8000/api/v1/steps/';
 
     function saveStep(data) {
-        // event.preventDefault();
-
-        // const data = new FormData();
-        // if (fileUploaded) {
-        //     data.append('pic', step.pic, step.pic.name);
-        // };
-        // data.append('name', step.name);
-        // data.append('description', step.description);
-        // data.append('step_number', step.step_number);
-        // data.append('recipe', id);
-
         axios.post(url, data)
             .then((response) => {
                 console.log('--response', response);

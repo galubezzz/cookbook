@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import StepViewSwitch from "./StepViewSwitch";
 import AddStep from "../AddStep";
-import AddIngredient from "../AddIngredient";
+
 
 export default function StepList(props) {
     const {recipe_id, isEditable} = props;

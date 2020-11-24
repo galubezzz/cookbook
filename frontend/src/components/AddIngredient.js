@@ -5,11 +5,6 @@ import IngredientForm from "./RecipeDetails/Forms/IngredientForm";
 
 function AddIngredients(props) {
     const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
-    const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
-
-    let id = props.match.params.id;
-
-    const [ingredient, setIngredient] = useState({recipe: id, unit: null});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -18,13 +13,6 @@ function AddIngredients(props) {
             console.log('--response', response);
             if (response.status === 201) {
                 setSaved(true);
-                Array.from(document.querySelectorAll("input")).forEach(
-                    input => input.value = "");
-                setIngredient({
-                    unit: null,
-                    recipe: id,
-                });
-                //setSelectValue(null);
                 props.onSave(response.data)
 
             } else {
