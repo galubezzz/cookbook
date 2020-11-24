@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
@@ -39,12 +38,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    # @action(methods=['get', 'patch'], detail=False, url_path=r'username/(?P<username>\w+)')
-    # def get_by_username(self, request, username):
-    #     # user = get_object_or_404(User, username=username)
-    #     return Response(UserSerializer(user).data, status=status.HTTP_200_OK)
-
-    # @action(methods=['get', 'patch'], detail=False, url_path=r'token/(?P<token>\w+)')
     def get_queryset(self):
         queryset = self.queryset
         token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
@@ -95,8 +88,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(id=pk)
             return queryset
 
-        # if token:
-        #     queryset = queryset.filter(user_id=user.id)
         return queryset
 
     def get_serializer_class(self):

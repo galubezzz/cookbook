@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import axios from "axios";
 import {withRouter} from 'react-router-dom'
 
 
@@ -11,9 +10,6 @@ function SearchBar(props) {
     function search(event) {
         event.preventDefault();
         props.history.push(searchUrl(searchString))
-        // axios.get(url, {params}).then((response)=>{
-        //     console.log("---resonse", response);
-        // })
     }
     function onSearchChange(event) {
         setSearchString(event.target.value)

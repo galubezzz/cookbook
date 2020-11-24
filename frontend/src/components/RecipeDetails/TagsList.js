@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import AddIngredient from "../AddIngredient";
 
 export default function TagsList(props) {
     const {tags} = props;

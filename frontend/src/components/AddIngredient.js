@@ -10,7 +10,6 @@ function AddIngredients(props) {
 
     function saveIngredient(ingredient) {
         axios.post(ingredientUrl, ingredient).then((response) => {
-            console.log('--response', response);
             if (response.status === 201) {
                 setSaved(true);
                 props.onSave(response.data)

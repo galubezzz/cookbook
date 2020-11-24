@@ -66,7 +66,6 @@ function EditRecipe(props){
         data.append('name', recipe.name);
         data.append('description', recipe.description);
         const _tags = tags.map((tag) => tag.name);
-        console.log(_tags.join(","));
         data.append('tags', _tags.join(","));
 
         axios.patch(recipeURL(recipe.id), data, {headers: {"Authorization": `Token ${token}`}})

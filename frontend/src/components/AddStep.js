@@ -13,18 +13,8 @@ function AddStep(props) {
     function saveStep(data) {
         axios.post(url, data)
             .then((response) => {
-                console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
-                    Array.from(document.querySelectorAll("input")).forEach(
-                    input => input.value = "");
-                    document.querySelector("textarea").value="";
-                    setStep({
-                        name: null,
-                        description: null,
-                        step_number: null,
-                        recipe: null,
-                    })
                     props.onSave(response.data)
 
                 } else {

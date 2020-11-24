@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
-import Select from 'react-select';
 import UserContext from '../../userContext';
 import IngredientForm from "./Forms/IngredientForm";
 

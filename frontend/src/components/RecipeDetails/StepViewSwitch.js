@@ -1,6 +1,4 @@
 import React, {useState} from 'react';
-import EditIngredient from "./EditIngredient";
-import Ingredient from "./Ingredient";
 import EditStep from "./EditStep";
 import Step from "./Step";
 

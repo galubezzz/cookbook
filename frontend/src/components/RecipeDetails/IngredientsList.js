@@ -12,8 +12,6 @@ export default function IngredientsList(props) {
     }
     function saveIngredient(new_ingredient) {
         setAddIngMode(false);
-        console.log("ings", ingredients);
-        console.log("new ing", new_ingredient);
         setIngredients([...ingredients, new_ingredient]);
     }
     return (

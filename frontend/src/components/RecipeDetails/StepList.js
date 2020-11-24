@@ -11,8 +11,6 @@ export default function StepList(props) {
 
     function saveStep(new_step) {
         setAddStepMode(false);
-        console.log("steps", steps);
-        console.log("new step", new_step);
         setSteps([...steps, new_step]);
     }
         return (

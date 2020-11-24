@@ -11,7 +11,6 @@ export default function Step(props) {
         setShow(false);
         axios.delete(deleteUrl(step.id)).then((response) => {
             if (response.status === 204) {
-                console.log("Deleted succesfully");
                 props.onDelete()
             }
         })

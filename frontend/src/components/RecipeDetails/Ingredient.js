@@ -12,7 +12,6 @@ export default function Ingredient(props) {
         setShow(false);
         axios.delete(deleteUrl(ingredient.id)).then((response) => {
             if (response.status === 204) {
-                console.log("Deleted succesfully");
                 props.onDelete()
             }
         })
