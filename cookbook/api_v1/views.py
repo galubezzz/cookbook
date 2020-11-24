@@ -76,12 +76,11 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    search_fields = ['name', 'description']
+    search_fields = ['name', 'description', 'tags__name']
     filter_backends = (filters.SearchFilter,)
     queryset = Recipe.objects.all().order_by('-id')
 
     def get_queryset(self):
-        print("аля улю")
         queryset = self.queryset
         username = self.request.query_params.get('username', None)
         tag = self.request.query_params.get('tag', None)
