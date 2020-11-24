@@ -55,7 +55,7 @@ function IngredientForm(props) {
 
     function saveIngredient(event) {
         event.preventDefault();
-        onSave(ingredient)
+        onSave(ingredient);
     }
 
     return (<>
