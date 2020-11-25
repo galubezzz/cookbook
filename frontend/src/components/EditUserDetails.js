@@ -75,7 +75,6 @@ function EditUserDetails(props) {
     function saveUser(event) {
         event.preventDefault();
         if (!user.password && user.newPassword) {
-            console.log("we are here!");
             setFormErrors({
                 ...formErrors,
                 password: "This field cannot be empty",
