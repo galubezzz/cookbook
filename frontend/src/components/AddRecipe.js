@@ -11,29 +11,30 @@ function AddRecipe(props) {
     const [fileUploaded, setFileUploaded] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
     const [tags, setTags] = useState([])
+    const [formErrors, setFormErrors] = useState({});
 
     useEffect(() => {
-        console.log('--recipe', recipe);
         setTags(
-            [
-                {name: "Apples"},
-                {name: "Pears"}]
+            []
         );
-        setSuggestions(
-            [
-                {id: 3, name: "Bananas"},
-                {id: 4, name: "Mangos"},
-                {id: 5, name: "Lemons"},
-                {id: 6, name: "Apricots"}
-            ])
     }, []);
 
     function changeName(event) {
-        ;
         setRecipe({
             ...recipe,
             name: event.target.value
         });
+        if (event.target.value.length === 0) {
+            setFormErrors({
+                ...formErrors,
+                name: "Name cannot be empty",
+            })
+        } else {
+            setFormErrors({
+                ...formErrors,
+                name: null,
+            })
+        }
     }
 
     function onDelete(i) {
@@ -65,7 +66,13 @@ function AddRecipe(props) {
 
     function saveRecipe(event) {
         event.preventDefault();
-        console.log("bla")
+        if (!recipe.name) {
+            setFormErrors({
+                ...formErrors,
+                name: "Name cannot be empty",
+            });
+            return;
+        }
         const url = 'http://127.0.0.1:8000/api/v1/recipes/';
         const data = new FormData();
         if (fileUploaded) {
@@ -73,7 +80,9 @@ function AddRecipe(props) {
         }
         ;
         data.append('name', recipe.name);
-        data.append('description', recipe.description);
+        if (recipe.description) {
+            data.append('description', recipe.description);
+        }
         const _tags = tags.map((tag) => tag.name);
         data.append('tags', _tags.join(","));
         data.append('user', props.user.username)
@@ -81,7 +90,6 @@ function AddRecipe(props) {
 
         axios.post(url, data)
             .then((response) => {
-                console.log('--response', response);
                 if (response.status === 201) {
                     setSaved(true);
                     props.history.push(`/recipe/${response.data.id}`)
@@ -105,7 +113,11 @@ function AddRecipe(props) {
                     <div className="form-group row">
                         <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
                         <div className="col-sm-8">
-                            <input name="name" id="name" className="form-control pr-2" onChange={changeName}/>
+                            <input name="name" id="name"
+                                   className={formErrors.name ? "form-control pr-2 is-invalid" : "form-control pr-2"}
+                                   onChange={changeName}/>
+                            {formErrors.name !== null &&
+                            <div className='invalid-feedback'>{formErrors.name}</div>}
                         </div>
                     </div>
                     <br/>
