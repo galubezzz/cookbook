@@ -71,15 +71,17 @@ class TagViewSet(viewsets.ModelViewSet):
 class RecipeViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description', 'tags__name']
     filter_backends = (filters.SearchFilter,)
-    queryset = Recipe.objects.all().order_by('-id')
+    queryset = queryset = Recipe.objects.all().order_by('-id')
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = Recipe.objects.all().order_by('-id')
         username = self.request.query_params.get('username', None)
         tag = self.request.query_params.get('tag', None)
         if username:
+            print('we got there')
             queryset = queryset.filter(user_id__username=username)
         if tag:
+            print('or even there')
             queryset = queryset.filter(tags__name=tag)
 
 
