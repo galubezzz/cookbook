@@ -130,6 +130,8 @@ function App() {
                     <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
                 </Route>
             </Router>
+            <div class='footer-container'>
+                <div class='footer'>&#169;2020 Max & Maria</div></div>
         </UserContext.Provider>
     );
 }

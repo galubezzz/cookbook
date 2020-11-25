@@ -226,3 +226,14 @@
 .popover-button{
     width: 76px;
 }
+
+.footer-container {
+    margin-top: 20px;
+    padding: 0;
+    background-color: #f8f9fa!important;
+    height: 80px;
+}
+
+.footer {
+    padding: 20px;
+}
