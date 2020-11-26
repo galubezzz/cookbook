@@ -86,12 +86,12 @@ WSGI_APPLICATION = 'cookbook.wsgi.application'
 if os.environ.get('MYSQL_DATABASE'):
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get("MYSQL_DATABASE"),
-            'USER': os.environ.get("MYSQL_USER"),
-            'PASSWORD': os.environ.get("MYSQL_PASSWORD"),
-            'HOST': os.environ.get("MYSQL_HOST"),
-            'PORT': os.environ.get("MYSQL_PORT"),
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get("PSQL_DATABASE"),
+            'USER': os.environ.get("PSQL_USER"),
+            'PASSWORD': os.environ.get("PSQL_PASSWORD"),
+            'HOST': os.environ.get("PSQL_HOST"),
+            'PORT': os.environ.get("PSQL_PORT"),
         }
     }
 else:
