@@ -53,25 +53,15 @@ export default function Navigation(props) {
                                             </li>
                                         </>
                                     )}
-                                    <SearchBar/>
+
                                 </ul>
                             </div>
                         </nav>
                     </div>
                 </div>
+                <SearchBar/>
             </header>
-            <div className="container searchbardiv" id="formsearch">
-                <form role="search" method="get" id="searchform">
-                    <div className="input-group">
-                        <input type="text" id="searchbox" className="form-control" name="s"/>
-                            <div className="input-group-btn">
-                                <button className="btn btn-search" id="searchsubmit" type="submit">
-                                    <strong>Search</strong>
-                                </button>
-                            </div>
-                    </div>
-                </form>
-            </div>
+
         </>
         )
 }

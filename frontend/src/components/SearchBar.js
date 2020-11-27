@@ -16,11 +16,18 @@ function SearchBar(props) {
     }
 
     return (
-        <div className="search-container">
-            <button type="button" className="buttonsearch" id="buttonsearch">
-                <i className="fas fa-search openclosesearch"></i><i className="fas fa-times openclosesearch" style={{display:"none"}}></i>
-            </button>
-        </div>
+        <div className="container searchbardiv" id="formsearch">
+                <form role="search" method="get" id="searchform" onSubmit={search}>
+                    <div className="input-group">
+                        <input type="text" id="searchbox" className="form-control" name="s" onChange={onSearchChange}/>
+                            <div className="input-group-btn">
+                                <button className="btn btn-search" id="searchsubmit" type="submit">
+                                    <strong>Search</strong>
+                                </button>
+                            </div>
+                    </div>
+                </form>
+            </div>
         // <form className="form-inline" onSubmit={search}>
         //     <input className="form-control mr-sm-2" type="search" placeholder="Search"
         //            aria-label="Search" onChange={onSearchChange}/>
