@@ -7,8 +7,8 @@ import StepList from './RecipeDetails/StepList'
 import UserContext from "../userContext";
 import ConfirmDelete from "./RecipeDetails/ConfirmDelete";
 import TagsList from "./RecipeDetails/TagsList";
-
-const getRecipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
+import {baseUrl} from '../utils'
+const getRecipeURL = (id) => `${baseUrl}/api/v1/recipes/${id}/`;
 
 function RecipeDetails(props) {
     const id = props.match.params.id;
@@ -20,7 +20,7 @@ function RecipeDetails(props) {
     const user = React.useContext(UserContext);
     const token = user.token;
     const user_id = user.id;
-    const deleteUrl = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`
+    const deleteUrl = (id) => `${baseUrl}/api/v1/recipes/${id}/`
 
     useEffect(() => {
         axios.get(getRecipeURL(id), {headers: {"Authorization": `Token ${token}`}})
