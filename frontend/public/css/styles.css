@@ -7803,6 +7803,7 @@ a.text-dark:hover, a.text-dark:focus {
 .site-header {
   background: #fff;
   margin-top: 6px;
+  margin-bottom: 20px;
   transition: all 0.3s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
     .site-header {
