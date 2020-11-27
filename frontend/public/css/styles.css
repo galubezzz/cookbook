@@ -7875,7 +7875,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .searchbardiv {
   display: block;
-  position: absolute;
+  /*position: absolute;*/
   background: #e33d26;
   right: 0px;
   z-index: 1001;
