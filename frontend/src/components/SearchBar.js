@@ -14,12 +14,17 @@ function SearchBar(props) {
     }
 
     return (
-        <form className="form-inline" onSubmit={search}>
-            <input className="form-control mr-sm-2" type="search" placeholder="Search"
-                   aria-label="Search" onChange={onSearchChange}/>
-            <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" >Search
+        <div className="search-container">
+            <button type="button" className="buttonsearch" id="buttonsearch">
+                <i className="fas fa-search openclosesearch"></i><i className="fas fa-times openclosesearch" style={{display:"none"}}></i>
             </button>
-        </form>
+        </div>
+        // <form className="form-inline" onSubmit={search}>
+        //     <input className="form-control mr-sm-2" type="search" placeholder="Search"
+        //            aria-label="Search" onChange={onSearchChange}/>
+        //     <button className="btn btn-outline-secondary my-2 my-sm-0" type="submit" >Search
+        //     </button>
+        // </form>
     )
 }
 export default withRouter(SearchBar)

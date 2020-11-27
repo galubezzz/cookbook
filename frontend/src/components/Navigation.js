@@ -4,59 +4,74 @@ import SearchBar from "./SearchBar";
 
 export default function Navigation(props) {
     const {isLoggedIn, state, logout} = props;
-    return(
-        <header id="masthead" className="site-header navbar-fixed-top">
-            <div className="header-navigation">
-                <div className="container-fluid">
-         <nav className="site-navigation navbar navbar-expand-lg navbar-light">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
-                            </li>
+    return (
+        <>
+            <header id="masthead" className="site-header navbar-fixed-top">
+                <div className="header-navigation">
+                    <div className="container-fluid">
+                        <nav className="site-navigation navbar navbar-expand-lg navbar-light">
+                            <button className="navbar-toggler" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                <span className="navbar-toggler-icon"></span>
+                            </button>
+                            <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <NavLink to="/" exact={true} activeClassName="active"
+                                                 className="nav-link">Home</NavLink>
+                                    </li>
 
-                            {isLoggedIn ? (
-                                <>
-                                    <li className="nav-item">
-                                        <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
-                                            Recipe</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to={`/user/${state.user.username}/`} activeClassName="active" className="nav-link">My recipes</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
-                                            account</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to="#" className='nav-link' activeClassName=""
-                                                 onClick={logout}>Logout</NavLink>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li className="nav-item">
-                                        <NavLink to='/register' activeClassName='active'
-                                                 className='nav-link'>Registration</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to='/login' activeClassName='active'
-                                                 className='nav-link'>Login</NavLink>
-                                    </li>
-                                </>
-                            )}
-                            <SearchBar/>
-                        </ul>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <li className="nav-item">
+                                                <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
+                                                    Recipe</NavLink>
+                                            </li>
+                                            <li className="nav-item">
+                                                <NavLink to={`/user/${state.user.username}/`} activeClassName="active"
+                                                         className="nav-link">My recipes</NavLink>
+                                            </li>
+                                            <li className="nav-item">
+                                                <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
+                                                    account</NavLink>
+                                            </li>
+                                            <li className="nav-item">
+                                                <NavLink to="#" className='nav-link' activeClassName=""
+                                                         onClick={logout}>Logout</NavLink>
+                                            </li>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <li className="nav-item">
+                                                <NavLink to='/register' activeClassName='active'
+                                                         className='nav-link'>Registration</NavLink>
+                                            </li>
+                                            <li className="nav-item">
+                                                <NavLink to='/login' activeClassName='active'
+                                                         className='nav-link'>Login</NavLink>
+                                            </li>
+                                        </>
+                                    )}
+                                    <SearchBar/>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
-                </nav>
                 </div>
+            </header>
+            <div className="container searchbardiv" id="formsearch">
+                <form role="search" method="get" id="searchform">
+                    <div className="input-group">
+                        <input type="text" id="searchbox" className="form-control" name="s"/>
+                            <div className="input-group-btn">
+                                <button className="btn btn-search" id="searchsubmit" type="submit">
+                                    <strong>Search</strong>
+                                </button>
+                            </div>
+                    </div>
+                </form>
             </div>
-        </header>
-
-    )
+        </>
+        )
 }
