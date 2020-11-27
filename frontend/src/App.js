@@ -20,6 +20,7 @@ import EditUserDetails from "./components/EditUserDetails";
 import UserContext from './userContext';
 import SearchBar from "./components/SearchBar";
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 const initialState = {
     user: null,
@@ -53,8 +54,10 @@ function App() {
 
     return (
         <UserContext.Provider value={state.user}>
+            <div id="page">
             <Router>
                 <Navigation isLoggedIn={isLoggedIn} state={state} logout={() => logout(dispatch)}/>
+
 
 
                 <Route exact path="/">
@@ -86,9 +89,9 @@ function App() {
                     <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
                 </Route>
             </Router>
-            <div class='footer-container'>
-                <div class='footer'>&#169;2020 Max & Maria</div>
+                <Footer/>
             </div>
+
         </UserContext.Provider>
     );
 }

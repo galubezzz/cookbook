@@ -10,22 +10,25 @@ function RecipeList(props) {
     const params = props.match.params;
 
     // const token = props.user.token;
-    useEffect(()=>{
-        axios.get(url, {params}).then((response)=>{
-        console.log("it's mine", response.data);
-        setRecipes(response.data);
+    useEffect(() => {
+        axios.get(url, {params}).then((response) => {
+            console.log("it's mine", response.data);
+            setRecipes(response.data);
         })
     }, [params]);
 
     function RenderRecipes(recipes) {
-        return recipes.map((recipe)=>{
+        return recipes.map((recipe) => {
             return <Recipe recipe={recipe} key={recipe.id}/>
         })
     }
-    return(
-        <div className="col-12">
-            <div className="row">
-                {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
+
+    return (
+        <div id="main" className="col-12">
+            <div className="container">
+                <div className="row">
+                    {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
+                </div>
             </div>
         </div>
     )
