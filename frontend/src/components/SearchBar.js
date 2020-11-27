@@ -4,8 +4,6 @@ import {withRouter} from 'react-router-dom'
 
 function SearchBar(props) {
     const [searchString, setSearchString] = useState("")
-    const url = "http://127.0.0.1:8000/api/v1/recipes";
-    const params = {};
     const searchUrl = (search) => `/search/${search}`;
     function search(event) {
         event.preventDefault();

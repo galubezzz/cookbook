@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
-import axios from 'axios'
-import {withRouter} from 'react-router-dom'
+import React, {useState} from 'react';
+import axios from 'axios';
+import {withRouter} from 'react-router-dom';
+import {baseUrl} from '../utils';
 
 
 function UserRegistration(props){
-    const registerUrl = 'http://127.0.0.1:8000/api/v1/register/';
+    const registerUrl = `${baseUrl}/api/v1/register/`;
     const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
     const [user, setUser] = useState({});
     const [formErrors, setFormErrors] = useState({});
@@ -88,7 +89,6 @@ function UserRegistration(props){
                        password:user.password,
             }
             axios.post(registerUrl, newUser).then((response) =>{
-                console.log('--------response', response);
                 if (response.status === 201){
                     setSaved(true);
                     props.history.push('/');

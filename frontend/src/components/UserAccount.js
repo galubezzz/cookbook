@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {withRouter, Link} from "react-router-dom";
+import {baseUrl} from '../utils'
 
-const getUserURL = `http://127.0.0.1:8000/api/v1/users/`;
+const getUserURL = `${baseUrl}/api/v1/users/`;
 
 function UserAccount(props) {
     const [user, setUser] = useState();

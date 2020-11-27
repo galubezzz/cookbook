@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
+import {baseUrl} from '../utils'
 
 function EditUserDetails(props) {
-    const url = `http://127.0.0.1:8000/api/v1/users/`;
+    const url = `${baseUrl}/api/v1/users/`;
     const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
     const [user, setUser] = useState();
     const [formErrors, setFormErrors] = useState({});

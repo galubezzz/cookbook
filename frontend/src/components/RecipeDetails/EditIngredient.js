@@ -3,6 +3,7 @@ import axios from "axios";
 import {withRouter} from 'react-router-dom';
 import UserContext from '../../userContext';
 import IngredientForm from "./Forms/IngredientForm";
+import {baseUrl} from '../../utils'
 
 function EditIngredient(props){
     const id = parseInt(props.id);
@@ -10,7 +11,7 @@ function EditIngredient(props){
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
 
-    const getIngredientUrl = (id) => `http://127.0.0.1:8000/api/v1/ingredients/${id}/`
+    const getIngredientUrl = (id) => `${baseUrl}/api/v1/ingredients/${id}/`
     const user = React.useContext(UserContext);
     const token = user.token;
 

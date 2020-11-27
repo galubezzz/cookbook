@@ -2,9 +2,10 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
 import IngredientForm from "./RecipeDetails/Forms/IngredientForm";
+import {baseUrl} from '../utils'
 
 function AddIngredients(props) {
-    const ingredientUrl = "http://127.0.0.1:8000/api/v1/ingredients/";
+    const ingredientUrl = `${baseUrl}/api/v1/ingredients/`;
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
 

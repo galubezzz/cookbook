@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {withRouter} from 'react-router-dom';
+import {baseUrl} from '../utils'
 
 function UserLogin(props) {
     const [user, setUser] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
-    const url = "http://127.0.0.1:8000/api/v1/login/";
+    const url = `${baseUrl}/api/v1/login/`;
 
     function changeUsername(event) {
         setUser({

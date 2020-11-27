@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import axios from "axios"
 import ConfirmDelete from "./ConfirmDelete";
+import {baseUrl} from '../../utils'
 
 export default function Ingredient(props) {
     const {ingredient, onEdit, isEditable} = props;
-    const deleteUrl = (id) => `http://127.0.0.1:8000/api/v1/ingredients/${id}/`;
+    const deleteUrl = (id) => `${baseUrl}/api/v1/ingredients/${id}/`;
     const [show, setShow] = useState(false);
 
     function onAgreeToDelete() {

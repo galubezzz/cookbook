@@ -2,10 +2,11 @@ import React, {useState, useEffect} from "react";
 import {withRouter} from 'react-router-dom';
 import axios from 'axios'
 import Recipe from "./Recipe";
+import {baseUrl} from '../utils'
 
 function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
-    const url = "http://127.0.0.1:8000/api/v1/recipes/";
+    const url = `${baseUrl}/api/v1/recipes/`;
     const params = props.match.params;
 
     // const token = props.user.token;

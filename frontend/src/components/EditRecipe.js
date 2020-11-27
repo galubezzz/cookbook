@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { withRouter } from 'react-router-dom';
 import ReactTags from "react-tag-autocomplete";
+import {baseUrl} from '../utils'
 
 
 
@@ -12,9 +13,8 @@ function EditRecipe(props){
     const [message, setMessage] = useState('');
     const [fileUploaded, setFileUploaded] = useState(false);
     const token = props.user.token;
-    console.log("--token", token);
 
-    const recipeURL = (id) => `http://127.0.0.1:8000/api/v1/recipes/${id}/`;
+    const recipeURL = (id) => `${baseUrl}/api/v1/recipes/${id}/`;
     const id = props.id;
 
     useEffect(()=>{

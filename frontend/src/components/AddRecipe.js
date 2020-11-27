@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
-import ReactTags from 'react-tag-autocomplete'
+import ReactTags from 'react-tag-autocomplete';
+import {baseUrl} from '../utils'
 
 
 function AddRecipe(props) {
@@ -73,7 +74,7 @@ function AddRecipe(props) {
             });
             return;
         }
-        const url = 'http://127.0.0.1:8000/api/v1/recipes/';
+        const url = `${baseUrl}/api/v1/recipes/`;
         const data = new FormData();
         if (fileUploaded) {
             data.append('pic', recipe.pic, recipe.pic.name);

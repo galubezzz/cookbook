@@ -3,8 +3,9 @@ import axios from 'axios';
 import {withRouter} from "react-router-dom";
 import UserContext from "../../userContext";
 import StepForm from "./Forms/StepForm";
+import {baseUrl} from '../../utils'
 
-const url = (id) => `http://127.0.0.1:8000/api/v1/steps/${id}/`;
+const url = (id) => `${baseUrl}/api/v1/steps/${id}/`;
 
 function EditStep(props) {
     const [step, setStep] = useState([]);
