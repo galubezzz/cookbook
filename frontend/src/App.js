@@ -19,6 +19,7 @@ import UserAccount from "./components/UserAccount";
 import EditUserDetails from "./components/EditUserDetails";
 import UserContext from './userContext';
 import SearchBar from "./components/SearchBar";
+import Navigation from "./components/Navigation";
 
 const initialState = {
     user: null,
@@ -53,53 +54,8 @@ function App() {
     return (
         <UserContext.Provider value={state.user}>
             <Router>
+                <Navigation isLoggedIn={isLoggedIn} state={state} logout={() => logout(dispatch)}/>
 
-                <nav className="navbar navbar-expand-md navbar-light bg-light col-12">
-                    <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <NavLink to="/" exact={true} activeClassName="active" className="nav-link">Home</NavLink>
-                            </li>
-
-                            {isLoggedIn ? (
-                                <>
-                                    <li className="nav-item">
-                                        <NavLink to="/add-recipe" activeClassName="active" className="nav-link">Add
-                                            Recipe</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to={`/user/${state.user.username}/`} activeClassName="active" className="nav-link">My recipes</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
-                                            account</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to="#" className='nav-link' activeClassName=""
-                                                 onClick={() => logout(dispatch)}>Logout</NavLink>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li className="nav-item">
-                                        <NavLink to='/register' activeClassName='active'
-                                                 className='nav-link'>Registration</NavLink>
-                                    </li>
-                                    <li className="nav-item">
-                                        <NavLink to='/login' activeClassName='active'
-                                                 className='nav-link'>Login</NavLink>
-                                    </li>
-                                </>
-                            )}
-                            <SearchBar/>
-                        </ul>
-                    </div>
-                </nav>
 
                 <Route exact path="/">
                     {isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}
@@ -131,7 +87,8 @@ function App() {
                 </Route>
             </Router>
             <div class='footer-container'>
-                <div class='footer'>&#169;2020 Max & Maria</div></div>
+                <div class='footer'>&#169;2020 Max & Maria</div>
+            </div>
         </UserContext.Provider>
     );
 }
