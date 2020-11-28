@@ -12,7 +12,7 @@ function UserRegistration(props){
     const [saved, setSaved] = useState(false)
     const [message, setMessage] = useState('')
 
-    function changeUsername(event){
+    function changeUsername(event) {
         setUser({
             ...user,
             username: event.target.value,
@@ -20,13 +20,13 @@ function UserRegistration(props){
         console.log(user.username);
     }
 
-    function changeEmail(event){
+    function changeEmail(event) {
         setUser({
             ...user,
             email: event.target.value,
         });
         console.log(user.email);
-        if (!validEmailRegex.test(event.target.value)){
+        if (!validEmailRegex.test(event.target.value)) {
             setFormErrors({
                 ...formErrors,
                 email: "Email is not valid",
@@ -40,12 +40,12 @@ function UserRegistration(props){
 
     }
 
-    function changePassword(event){
+    function changePassword(event) {
         setUser({
             ...user,
             password: event.target.value,
         });
-        if (event.target.value !== user.repeatedPassword){
+        if (event.target.value !== user.repeatedPassword) {
             setFormErrors({
                 ...formErrors,
                 password: "Passwords didn't match",
@@ -58,7 +58,7 @@ function UserRegistration(props){
         }
     }
 
-    function changeRepeatedPassword(event){
+    function changeRepeatedPassword(event) {
         const repeatedPassword = event.target.value;
         setUser({
             ...user,
@@ -77,17 +77,19 @@ function UserRegistration(props){
         }
     }
 
-    function registerUser(event){
+    function registerUser(event) {
         event.preventDefault();
         console.log(user);
-        if (formErrors.password){
+        if (formErrors.password) {
             console.log('Ебать ошибка!');
         } else {
             console.log('Password matched');
-            const newUser = {username: user.username,
-                       email: user.email,
-                       password:user.password,
+            const newUser = {
+                username: user.username,
+                email: user.email,
+                password: user.password,
             }
+
             axios.post(registerUrl, newUser).then((response) =>{
                 if (response.status === 201){
                     setSaved(true);
@@ -102,69 +104,63 @@ function UserRegistration(props){
         }
     }
 
-    return(
+    return (
         <>
-            {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
-
-            <div className="card p-2">
-                <div className="card-body">
-                    <h3 className="card-title">User Registration</h3>
-                    <p>
-                        <p style={{color: 'red'}}>{message}</p>
-                    </p>
-                    <form onSubmit={registerUser}>
-                        <div className="form-group row">
-                            <label htmlFor="username" className="col-sm-1 col-form-label">Username</label>
-                            <div className="col-sm-8">
-                                <input name="username" id="name"
-                                       onChange={changeUsername}
-                                       className="form-control pr-2"/>
-
-                            </div>
+            <div className="head-title">
+                <div className="container">
+                    <h2 className="page-title">Register</h2>
+                </div>
+            </div>
+            <div id="main">
+                <div className="container">
+                    <div className="col-12 col-md-6">
+                        <div className="acc-box equal">
+                            <h2>Register</h2>
+                            <p><em>If you don't have account yet.</em></p>
+                            <form onSubmit={registerUser}>
+                                <div className="form-group">
+                                    <label htmlFor="completeName">Username</label>
+                                    <input type="text" className="form-control" id="completeName"
+                                           placeholder="ex. foodlover" onChange={changeUsername}/>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="InputEmailAcc2">Email address *</label>
+                                    <input type="email" id="InputEmailAcc2"
+                                           placeholder="you@email.com"
+                                           onChange={changeEmail}
+                                           className={formErrors.email ? 'form-control pr-2 is-invalid' : 'form-control'}/>
+                                    {formErrors.email !== null &&
+                                    <div className='invalid-feedback'>{formErrors.email}</div>}
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="password" className="col-sm-1 col-form-label">Password:</label>
+                                    <div className="col-sm-8">
+                                        <input name="password"
+                                               id='pwd'
+                                               type="password"
+                                               onChange={changePassword}
+                                               className={formErrors.password ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
+                                        {formErrors.password !== null &&
+                                        <div className='invalid-feedback'>{formErrors.password}</div>}
+                                    </div>
+                                </div>
+                                <div className="form-group row">
+                                    <label htmlFor="repeatPassword" className="col-sm-1 col-form-label">Repeat
+                                        Password:</label>
+                                    <div className="col-sm-8">
+                                        <input name="repeatPassword"
+                                               id="repeatPassword"
+                                               type="password"
+                                               onChange={changeRepeatedPassword}
+                                               className={formErrors.password ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
+                                        {formErrors.password !== null &&
+                                        <div className='invalid-feedback'>{formErrors.password}</div>}
+                                    </div>
+                                </div>
+                                <button type="submit" className="btn btn-primary">Register</button>
+                            </form>
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="email" className="col-sm-1 col-form-label">Email</label>
-                            <div className="col-sm-8">
-                                <input name="email" type="email"
-                                       onChange={changeEmail}
-                                       className={formErrors.email ? 'form-control pr-2 is-invalid':'form-control pr-2'} />
-                                {formErrors.email !== null &&
-                                <div className='invalid-feedback'>{formErrors.email}</div>}
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="password" className="col-sm-1 col-form-label">Password:</label>
-                            <div className="col-sm-8">
-                                <input name="password"
-                                       id='pwd'
-                                       type="password"
-                                       onChange={changePassword}
-                                       className={formErrors.password ? 'form-control pr-2 is-invalid':'form-control pr-2'} />
-                                {formErrors.password !== null &&
-                                <div className='invalid-feedback'>{formErrors.password}</div>}
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label htmlFor="repeatPassword" className="col-sm-1 col-form-label">Repeat Password:</label>
-                            <div className="col-sm-8">
-                                <input name="repeatPassword"
-                                       id="repeatPassword"
-                                       type="password"
-                                       onChange={changeRepeatedPassword}
-                                       className={formErrors.password ? 'form-control pr-2 is-invalid':'form-control pr-2'} />
-                                {formErrors.password !== null &&
-                                <div className='invalid-feedback'>{formErrors.password}</div>}
-                            </div>
-                        </div>
-
-                        <div className="form-group row">
-                            <div className="col-sm-9">
-                                <button className="btn btn-primary btn-block">
-                                    Register
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
