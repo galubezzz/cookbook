@@ -56,12 +56,18 @@ export default function Navigation(props) {
 
                                 </ul>
                             </div>
+                            <div className="search-container">
+                                <button type="button" className="buttonsearch" id="buttonsearch">
+                                    <i className="fas fa-search openclosesearch"></i>
+                                    <i className="fas fa-times openclosesearch" style={{display:"none"}}></i>
+                                </button>
+                            </div>
                         </nav>
                     </div>
                 </div>
-                <SearchBar/>
-            </header>
 
+            </header>
+            <SearchBar/>
         </>
-        )
+    )
 }
