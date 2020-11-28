@@ -25,11 +25,17 @@ function RecipeList(props) {
 
     return (
         <div id="main" className="col-12">
-            <div className="container">
-                <div className="row">
-                    {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
+            <div className="recipes-section">
+                <div className="container">
+                    <div className="section-title">
+                        <h3>Latest Recipes</h3>
+                    </div>
+                    <div className="row">
+                        {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
+                    </div>
                 </div>
             </div>
+
         </div>
     )
 }
