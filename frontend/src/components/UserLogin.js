@@ -56,7 +56,7 @@ function UserLogin(props) {
             <div id="main">
                 <div className="container">
                     <div class="col-12 col-md-6">
-                        <div class="acc-box equal">
+                        <div class="acc-box">
                             <h2>Login</h2>
                             <p><em>Welcome back. Log in using your e-mail and password.</em></p>
                             <form>
