@@ -113,7 +113,7 @@ function UserRegistration(props) {
             <div id="main">
                 <div className="container">
                     <div className="col-12 col-md-6">
-                        <div className="acc-box equal">
+                        <div className="acc-box">
                             <h2>Register</h2>
                             <p><em>If you don't have account yet.</em></p>
                             <form onSubmit={registerUser}>
