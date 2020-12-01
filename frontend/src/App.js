@@ -61,7 +61,8 @@ function App() {
 
 
                 <Route exact path="/">
-                    {isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}
+                    {/*{isLoggedIn ? <RecipeList user={state.user}/> : 'Please login to see your recipes'}*/}
+                    <RecipeList/>
                 </Route>
                 <Route exact path="/recipe/:id">
                     {isLoggedIn ? <RecipeDetails/> : <h1>Please log in to view the recipe</h1>}

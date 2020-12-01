@@ -1,15 +1,43 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import TagsList from "./RecipeDetails/TagsList";
+import {baseUrl} from '../utils'
+import UserContext from "../userContext";
 
 export default function Recipe(props) {
-    const {recipe} = props;
+    const [recipe, setRecipe] = useState(props.recipe);
+    const user = React.useContext(UserContext);
+    const favUrl = (id) => `${baseUrl}/api/v1/favorites/${id}`;
+    let config = {};
+    useEffect(()=>{
+            setRecipe(props.recipe);
+    }, []);
+    if (user) {
+        config = { headers: {"Authorization" : `Token ${user.token}`} }
+    }
+    function FavRecipe(){
 
-    return (<>
+        if (recipe.favorite) {
+            axios.delete(favUrl(recipe.id), config).then((response)=>{
+                if (response.status === 204){
+                    setRecipe({...recipe, favorite: false})
+                }
+            })
+        } else {
+            axios.post(favUrl(recipe.id), [],config).then((response)=>{
+                if (response.status === 201){
+                    setRecipe({...recipe, favorite: true});
+                    console.log("--after", recipe.favorite);
+                }
+            })
+        }
+    }
+
+    return (recipe ? <>
         <div className="col-6 col-md-3">
             <div className="recipe-thumb">
                 <img src={recipe.pic} alt="Recipe Image" className="recipe-image"/>
-                    <a href="#" className="bookmarker"><i className="fas fa-bookmark"></i></a>
+                    <a href="#" className="bookmarker" onClick={FavRecipe}><i className="fas fa-bookmark"></i></a>
                     <a href={`/recipe/${recipe.id}`} className="view-recipe">VIEW RECIPE</a>
             </div>
             <div className="recipe-desc">
@@ -20,7 +48,6 @@ export default function Recipe(props) {
                 <span>{recipe.tags ? <TagsList tags={recipe.tags}/> : null}</span>
             </div>
         </div>
-</>
-
+</> : null
     )
 }

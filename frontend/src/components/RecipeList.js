@@ -3,15 +3,21 @@ import {withRouter} from 'react-router-dom';
 import axios from 'axios'
 import Recipe from "./Recipe";
 import {baseUrl} from '../utils'
+import UserContext from "../userContext";
 
 function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
     const url = `${baseUrl}/api/v1/recipes/`;
-    const params = props.match.params;
+    let params = props.match.params
+    const user = React.useContext(UserContext);
+    const token = "user.token";
 
     // const token = props.user.token;
     useEffect(() => {
-        axios.get(url, {params}).then((response) => {
+        if (user){
+            params = {...params, headers: {"Authorization" : `Token ${token}`} }
+        }
+        axios.get(url, params).then((response) => {
             console.log("it's mine", response.data);
             setRecipes(response.data);
         })
