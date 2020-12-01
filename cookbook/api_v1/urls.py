@@ -18,6 +18,6 @@ urlpatterns = [
     path(r'login/', views.LoginView.as_view(), name='api_token_auth'),
     path(r'register/', views.UserCreateView.as_view(), name='register'),
     path(r'units/', views.UnitsView.as_view(), name='units_list'),
-    path(r'favorite/<int:pk>', views.AddFavoriteVIew.as_view(), name='create_favorite'),
-    path(r'favorite/', views.AddFavoriteVIew.as_view(), name='create_favorite'),
+    path(r'favorites/<int:pk>', views.AddFavoriteVIew.as_view(), name='create_favorite'),
+    path(r'favorites/', views.AddFavoriteVIew.as_view(), name='create_favorite'),
 ]
