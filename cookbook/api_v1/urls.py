@@ -14,8 +14,10 @@ app_name = 'api_v1'
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('login/', views.LoginView.as_view(), name='api_token_auth'),
-    path('register/', views.UserCreateView.as_view(), name='register'),
-    path('units/', views.UnitsView.as_view(), name='units_list')
+    path(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'login/', views.LoginView.as_view(), name='api_token_auth'),
+    path(r'register/', views.UserCreateView.as_view(), name='register'),
+    path(r'units/', views.UnitsView.as_view(), name='units_list'),
+    path(r'favorite/<int:pk>', views.AddFavoriteVIew.as_view(), name='create_favorite'),
+    path(r'favorite/', views.AddFavoriteVIew.as_view(), name='create_favorite'),
 ]

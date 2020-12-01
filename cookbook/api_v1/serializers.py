@@ -61,11 +61,21 @@ class RecipeSerializer(serializers.ModelSerializer):
     steps_in_recipe = StepSerializer(many=True, read_only=True)
     tags = TagSerializer(many=True, required=False)
     user_id = UserSerializer(read_only=True)
-
+    favorite = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
-        fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredients_in_recipe', 'steps_in_recipe', 'user_id')
+        fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredients_in_recipe', 'steps_in_recipe',
+                  'user_id', 'favorite')
+
+    def get_favorite(self, obj):
+        try:
+            self.context['request'].user.profile.favorites.get(pk=obj.pk)
+            return True
+        except Recipe.DoesNotExist:
+            return False
+        except AttributeError:
+            return False
 
 
 class RecipePostSerializer(serializers.ModelSerializer):

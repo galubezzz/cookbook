@@ -7,6 +7,7 @@ from rest_framework import viewsets, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.viewsets import ViewSet
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
@@ -129,3 +130,24 @@ class UnitsView(APIView):
         for unit_choice in Ingredient.UNIT_CHOICES:
             units_dict[unit_choice[0]] = unit_choice[1]
         return Response(units_dict)
+
+
+class AddFavoriteVIew(APIView):
+
+    def post(self, request, pk=None):
+        user = request.user
+        recipe = get_object_or_404(Recipe, pk=pk)
+        user.profile.favorites.add(recipe)
+        return Response(data={"status": "OK"}, status=status.HTTP_201_CREATED)
+
+    def get(self, request):
+        user = request.user
+        recipes = user.profile.favorites.all()
+        serializer = RecipeSerializer(recipes, many=True, context={"request": request})
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request, pk=None):
+        user = request.user
+        recipe = get_object_or_404(Recipe, pk=pk)
+        user.profile.favorites.remove(recipe)
+        return Response(status=status.HTTP_204_NO_CONTENT)
