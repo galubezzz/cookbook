@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cookbook.settings import BASE_DIR
-import os
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class SoftDeleteManager(models.Manager):
@@ -32,18 +32,31 @@ class Recipe(models.Model):
                             default='media/default.jpg')
     tags = models.ManyToManyField(Tag, blank=True, related_name="tag_in_recipe", verbose_name='Tag')
     user_id = models.ForeignKey(User, related_name="recipe_user", verbose_name="User", on_delete=models.CASCADE)
-    # ingredients = models.ForeignKey(Ingredient, related_name="ingredient_in_recipe", verbose_name='Ingredients',
-    #                              on_delete=models.CASCADE)
-    # steps = models.ForeignKey(Step, related_name="step_in_recipe", verbose_name="Steps", on_delete=models.CASCADE)
+    cook_time = models.IntegerField(null=True, blank=True, verbose_name='Cooking time')
+
     is_deleted = models.BooleanField(default=False)
     objects = SoftDeleteManager()
-
 
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name_plural = 'Recipes'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorites = models.ManyToManyField(Recipe, blank=True, related_name="favorites", verbose_name="favorites")
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        profile, created = Profile.objects.get_or_create(user=instance)
+        instance.profile.save()
 
 
 class Step(models.Model):
