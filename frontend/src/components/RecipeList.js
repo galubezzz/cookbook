@@ -17,7 +17,7 @@ function RecipeList(props) {
         if (user){
             params = {...params, headers: {"Authorization" : `Token ${token}`} }
         }
-        axios.get(url, params).then((response) => {
+        axios.get(url, {params}).then((response) => {
             console.log("it's mine", response.data);
             setRecipes(response.data);
         })
