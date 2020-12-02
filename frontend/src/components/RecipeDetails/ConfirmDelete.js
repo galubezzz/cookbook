@@ -5,8 +5,8 @@ export default function ConfirmDelete(props) {
     const {onAgree, show, onDisagree, itemType} = props;
     const classNames = show ? "popover fade show bs-popover-left" : "popover fade bs-popover-left";
     const styles = {
-        top: "6px",
-        left: "-272px"
+        top: "110px",
+        left: "620px"
     };
     return (show ?
         <>
