@@ -8,6 +8,7 @@ import UserContext from "../userContext";
 import ConfirmDelete from "./RecipeDetails/ConfirmDelete";
 import TagsList from "./RecipeDetails/TagsList";
 import {baseUrl} from '../utils'
+
 const getRecipeURL = (id) => `${baseUrl}/api/v1/recipes/${id}/`;
 
 function RecipeDetails(props) {
@@ -53,52 +54,104 @@ function RecipeDetails(props) {
     function displayRecipe() {
         const showEditForm = isEditable && editRecipeMode;
         return (
-            <div className="col-lg-8">
-                <div className="card m-2 p-2">
-                    {showEditForm ? (
-                            <EditRecipe
-                                user={user}
-                                id={recipe.id}
-                                onSave={() => {
-                                    setEditRecipeMode(false)
-                                }}
-                            />)
-                        : (
-                            <>
-                                Bla-bla-bla
-                                <h2>{recipe.name}
-                                    {isEditable ?
-                                        <>
-                                            <i className="fas fa-pen h1icon" onClick={() => {
-                                                setEditRecipeMode(true)
-                                            }}></i>
-                                            <div style={{position: "relative"}} className="icon-div">
-                                                <i className="fas fa-trash-alt h1icon" onClick={onDelete}></i>
-                                                <ConfirmDelete onAgree={onAgreeToDelete} show={show}
-                                                               onDisagree={onDisagree}
-                                                               itemType={"recipe"}
-                                                />
-                                            </div>
-                                        </> : null}
-                                </h2>
-                                <div className="usename"><a href={userUrl(recipe.user_id.username)}>@{recipe.user_id.username}</a></div>
-                                <img className="card-img" src={recipe.pic}/>
-                                <div className="card-body">
-                                    <div className="card-text text-muted">{recipe.description}</div>
-                                {recipe.tags ? <TagsList tags={recipe.tags}/> : null}
-                                </div>
-
-                            </>
-                        )}
-
-                    {recipe.ingredients_in_recipe ?
-                        <IngredientsList recipe_id={recipe.id} ingredients={recipe.ingredients_in_recipe}
-                                         isEditable={isEditable}/> : null}
-                    {recipe.steps_in_recipe ?
-                        <StepList recipe_id={recipe.id} steps={recipe.steps_in_recipe} isEditable={isEditable}/> : null}
-
+            <>
+                <div className="head-title">
+                    <div className="container">
+                        <h2 className="page-title">The Recipe</h2>
+                    </div>
                 </div>
-            </div>
+                <div id="main">
+                    <div className="container">
+                        <div className="recipe-content">
+                            {showEditForm ? (
+                                    <EditRecipe
+                                        user={user}
+                                        id={recipe.id}
+                                        onSave={() => {
+                                            setEditRecipeMode(false)
+                                        }}
+                                    />)
+                                : (
+                                    <>
+                                        <div className="row">
+                                            <div className="col">
+                                                <div className="recipe-lvl">
+                                                    <span>TIME : {recipe.cook_time} min</span>
+                                                </div>
+                                                <div className="recipe-head">
+                                                    <h1 className="recipe-title">{recipe.name}</h1>
+                                                    <div className="recipe-auth">
+                                                        <span>Posted by <a
+                                                            href={`/user/${recipe.user_id.username}`}>{recipe.user_id.username}</a></span>
+                                                    </div>
+                                                    <div className="recipe-finger">
+
+                                                        <div className="box-sharing">
+                                                            {isEditable ?
+                                                                <>
+                                                                    <a href="#"><i className="fas fa-pen"
+                                                                                   onClick={() => {
+                                                                                       setEditRecipeMode(true)
+                                                                                   }}></i></a>
+                                                                    <a href="#">
+                                                                        <i className="fas fa-trash-alt"
+                                                                           onClick={onDelete}></i>
+                                                                        <ConfirmDelete onAgree={onAgreeToDelete}
+                                                                                       show={show}
+                                                                                       onDisagree={onDisagree}
+                                                                                       itemType={"recipe"}
+                                                                        />
+                                                                    </a>
+
+                                                                </> : null}
+                                                            <a href="#"><i className="fas fa-print"></i></a>
+                                                            <a href="#"><i className="fas fa-share-alt"></i></a>
+                                                            <a href="#"><i className="fas fa-bookmark"></i></a>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <figure className="recipe-pict">
+                                                    <img src={recipe.pic}/>
+                                                </figure>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="detail-desc">
+                                                    <p><strong>DESCRIPTION</strong></p>
+                                                    <p>{recipe.description}</p>
+                                                </div>
+                                                <div className="recipe-tags">
+                                                    <span>Tags : {recipe.tags ?
+                                                        <TagsList tags={recipe.tags}/> : null}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="space-section"></div>
+
+
+                                    </>
+                                )}
+                            <div className="row">
+                                <div className="ingredient col-md-4">
+                                    {recipe.ingredients_in_recipe ?
+                                        <IngredientsList recipe_id={recipe.id}
+                                                         ingredients={recipe.ingredients_in_recipe}
+                                                         isEditable={isEditable}/> : null}
+                                </div>
+                                <div className="direction col-md-8">
+                                    {recipe.steps_in_recipe ?
+                                        <StepList recipe_id={recipe.id} steps={recipe.steps_in_recipe}
+                                                  isEditable={isEditable}/> : null}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
         )
     }
 
