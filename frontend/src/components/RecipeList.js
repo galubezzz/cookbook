@@ -13,19 +13,15 @@ function RecipeList(props) {
     let config = {};
     const [heading, setHeading] = useState("Latest recipes")
     useEffect(() => {
-        switch (props.location.pathname) {
-            case '/favorites/':
-                params = {favorite: true};
-                setHeading("Favorites");
-                return;
-            case `/user/${user.username}/`:
+        if (props.location.pathname === '/favorites/') {
+            params = {favorite: true};
+            setHeading("Favorites");
+        } else if (user && props.location.pathname === `/user/${user.username}/`) {
                 setHeading("My recipes");
-                return;
-        }
-        if (params.username) {
+        } else if (params.username) {
             setHeading(`${params.username} recipes`)
         }
-    }, [])
+    }, [props])
 
     useEffect(() => {
         if (user){
@@ -36,7 +32,7 @@ function RecipeList(props) {
             console.log("it's mine", response.data);
             setRecipes(response.data);
         })
-    }, []);
+    }, [props]);
 
     function RenderRecipes(recipes) {
         return recipes.map((recipe) => {
