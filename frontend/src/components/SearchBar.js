@@ -16,7 +16,7 @@ function SearchBar(props) {
     }
 
     return (
-        <div className="container searchbardiv" id="formsearch" style={{display:"none"}}>
+        <div className="container searchbardiv" id="formsearch" >
             <form role="search" method="get" id="searchform" onSubmit={search}>
                 <div className="input-group">
                     <input type="text" id="searchbox" className="form-control" name="s" onChange={onSearchChange}/>
