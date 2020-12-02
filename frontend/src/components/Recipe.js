@@ -17,27 +17,30 @@ export default function Recipe(props) {
     }
     function FavRecipe(){
 
-        if (recipe.favorite) {
-            axios.delete(favUrl(recipe.id), config).then((response)=>{
-                if (response.status === 204){
-                    setRecipe({...recipe, favorite: false})
-                }
-            })
-        } else {
-            axios.post(favUrl(recipe.id), [],config).then((response)=>{
+            axios.post(favUrl(recipe.id), [], config).then((response)=>{
                 if (response.status === 201){
                     setRecipe({...recipe, favorite: true});
                     console.log("--after", recipe.favorite);
                 }
             })
-        }
+
+    }
+
+    function UnFavRecipe(){
+        axios.delete(favUrl(recipe.id), config).then((response)=>{
+                if (response.status === 204){
+                    setRecipe({...recipe, favorite: false})
+                }
+            })
     }
 
     return (recipe ? <>
         <div className="col-6 col-md-3">
             <div className="recipe-thumb">
                 <img src={recipe.pic} alt="Recipe Image" className="recipe-image"/>
-                    <a href="#" className="bookmarker" onClick={FavRecipe}><i className="fas fa-bookmark"></i></a>
+                {recipe.favorite ?
+                    <a href="#" className="bookmarker" style={{background: "#232323"}} onClick={UnFavRecipe}><i className="fas fa-bookmark"></i></a> :
+                    <a href="#" className="bookmarker" style={{background: "#e33d26"}} onClick={FavRecipe}><i className="fas fa-bookmark"></i></a>}
                     <a href={`/recipe/${recipe.id}`} className="view-recipe">VIEW RECIPE</a>
             </div>
             <div className="recipe-desc">
