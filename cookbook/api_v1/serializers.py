@@ -66,7 +66,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = ('url', 'id', 'name', 'description', 'pic', 'tags', 'ingredients_in_recipe', 'steps_in_recipe',
-                  'user_id', 'favorite')
+                  'user_id', 'favorite', 'cook_time')
 
     def get_favorite(self, obj):
         try:
