@@ -65,6 +65,7 @@ function RecipeDetails(props) {
                             />)
                         : (
                             <>
+                                Bla-bla-bla
                                 <h2>{recipe.name}
                                     {isEditable ?
                                         <>
