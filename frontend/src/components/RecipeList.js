@@ -10,7 +10,23 @@ function RecipeList(props) {
     const url = `${baseUrl}/api/v1/recipes/`;
     let params = props.match.params;
     const user = React.useContext(UserContext);
-     let config = {};
+    let config = {};
+    const [heading, setHeading] = useState("Latest recipes")
+    useEffect(() => {
+        switch (props.location.pathname) {
+            case '/favorites/':
+                params = {favorite: true};
+                setHeading("Favorites");
+                return;
+            case `/user/${user.username}/`:
+                setHeading("My recipes");
+                return;
+        }
+        if (params.username) {
+            setHeading(`${params.username} recipes`)
+        }
+    }, [])
+
     useEffect(() => {
         if (user){
             config = {params: params, headers: {"Authorization" : `Token ${user.token}`} }
@@ -33,7 +49,7 @@ function RecipeList(props) {
             <div className="recipes-section">
                 <div className="container">
                     <div className="section-title">
-                        <h3>Latest Recipes</h3>
+                        <h3>{heading}</h3>
                     </div>
                     <div className="row">
                         {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}

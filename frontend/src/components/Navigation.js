@@ -33,6 +33,10 @@ export default function Navigation(props) {
                                                          className="nav-link">My recipes</NavLink>
                                             </li>
                                             <li className="nav-item">
+                                                <NavLink to={`/favorites/`} activeClassName="active"
+                                                         className="nav-link">Favorites</NavLink>
+                                            </li>
+                                            <li className="nav-item">
                                                 <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
                                                     account</NavLink>
                                             </li>

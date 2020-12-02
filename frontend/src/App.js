@@ -77,6 +77,7 @@ function App() {
                 <Route exact path="/search/:search" component={RecipeList}></Route>
                 <Route exact path="/tag/:tag" component={RecipeList}></Route>
                 <Route exact path="/user/:username" component={RecipeList}></Route>
+                <Route exact path="/favorites/" component={RecipeList}></Route>
                 <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
                 <Route exact path="/add-step/:id" component={AddStep}/>
                 <Route exact path="/register" component={UserRegistration}/>
