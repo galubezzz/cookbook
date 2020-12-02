@@ -102,57 +102,72 @@ function AddRecipe(props) {
 
     return (
         <>
-            <div className="card p-2">
-                <div className="card-body">
-                    <h3 className="card-title">Create your recipe</h3>
+            <div className="head-title">
+                <div className="container">
+                    <h2 className="page-title">Submit Your Recipe</h2>
+                </div>
+            </div>
+            <div id="main">
+                <div className="container">
+                    <form onSubmit={saveRecipe}>
+                        <div className="row">
+                            <div className="col form-group">
+                                <label htmlFor="InputRecipeTitle">Recipe Title</label>
+                                <input type="text"
+                                       className={formErrors.name ? "form-control is-invalid" : "form-control"}
+                                       id="InputRecipeTitle"
+                                       aria-describedby="titleHelp"
+                                       placeholder="ex. Traditional Fried Rice"
+                                       onChange={changeName}/>
+                                {formErrors.name ?
+                                    <div className='invalid-feedback'>{formErrors.name}</div>
+                                    :
+                                    <small id="titleHelp" className="form-text text-muted">Keep it short and
+                                        descriptive</small>
+                                }
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-12 col-md-6 form-group">
+                                <label htmlFor="recipeImage">Recipe Photo</label>
+                                <input type="file" className="form-control-file" id="recipeImage"
+                                       aria-describedby="sizeHelp" onChange={changeFile}/>
+                                <small id="sizeHelp" className="form-text text-muted">Recommended size: 1440px by 800px
+                                    or
+                                    larger</small>
+                            </div>
+                            <div className="col-12 col-md-6 form-group">
+                                <label htmlFor="recipeTime">Cooking time</label>
+                                <input type="number" min="1" step="1" className="form-control" id="recipeTime"
+                                       aria-describedby="timeHelp"/>
+                                <small id="timeHelp" className="form-text text-muted">Specify cooking time in
+                                    minutes</small>
+                            </div>
+                        </div>
 
-                    {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
-                    <p>
-                        {message}
-                    </p>
+                        <div className="row">
+                            <div className="col form-group">
+                                <label htmlFor="descTextarea">Short Description</label>
+                                <textarea className="form-control" id="descTextarea" rows="6" onChange={changeDesc}></textarea>
+                            </div>
+                        </div>
 
-                    <div className="form-group row">
-                        <label htmlFor="name" className="col-sm-1 col-form-label">Name:</label>
-                        <div className="col-sm-8">
-                            <input name="name" id="name"
-                                   className={formErrors.name ? "form-control pr-2 is-invalid" : "form-control pr-2"}
-                                   onChange={changeName}/>
-                            {formErrors.name !== null &&
-                            <div className='invalid-feedback'>{formErrors.name}</div>}
+                        <div className="row">
+                            <div className="col form-group">
+                                <ReactTags
+                                    tags={tags}
+                                    aria-describedby="tagHelp"
+                                    suggestions={suggestions}
+                                    onDelete={onDelete}
+                                    onAddition={onAddition}
+                                    allowNew={true}
+                                />
+                                <small id="tagHelp" className="form-text text-muted">Write down tag and press
+                                    Enter</small>
+                                <button type="submit" className="btn btn-primary">Save Recipe</button>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                    <div class="form-group row">
-                        <label htmlFor="description" className="col-sm-1 col-form-label">Description:</label>
-                        <div className="col-sm-8">
-                            <textarea name="description" className="form-control" id="description" aria-multiline="true"
-                                      onChange={changeDesc}/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div className="form-group row">
-                        <label htmlFor="pic" className="col-sm-1 col-form-label">Pic:</label>
-                        <div className="col-sm-8">
-                            <input name="pic" className="form-control-file" id="pic" type="file" onChange={changeFile}/>
-                        </div>
-                    </div>
-                    <div className="mb-3 row">
-                        <div className="col-sm-9">
-                            <ReactTags
-                                tags={tags}
-
-                                suggestions={suggestions}
-                                onDelete={onDelete}
-                                onAddition={onAddition}
-                                allowNew={true}
-                            />
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-sm-9">
-                            <button className="btn btn-primary btn-block" onClick={saveRecipe}>Save Recipe</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>
