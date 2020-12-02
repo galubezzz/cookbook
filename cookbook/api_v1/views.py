@@ -78,12 +78,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         queryset = Recipe.objects.all().order_by('-id')
         username = self.request.query_params.get('username', None)
         tag = self.request.query_params.get('tag', None)
+        favorite = self.request.query_params.get('favorite', None)
         if username:
             print('we got there')
             queryset = queryset.filter(user_id__username=username)
         if tag:
             print('or even there')
             queryset = queryset.filter(tags__name=tag)
+        if favorite:
+            queryset = self.request.user.profile.favorites.all().order_by('-id')
 
 
         if 'pk' in self.kwargs.keys():
