@@ -28,12 +28,12 @@ export default function Ingredient(props) {
 
     return (
         <>
-            <li className="list-group-item">
+            <li>
                 <div>{ingredient.name} {ingredient.quantity}{ingredient.unit}
                     {isEditable ? <>
-                        <i className="fas fa-pen icon" onClick={onEdit}></i>
+                        <a href="#"><i className="fas fa-pen icon" onClick={onEdit}></i></a>
                         <div style={{position: "relative"}} className="icon-div">
-                            <i className="fas fa-trash-alt icon" onClick={onDelete}></i>
+                            <a href="#"><i className="fas fa-trash-alt icon" onClick={onDelete}></i></a>
                             <ConfirmDelete onAgree={onAgreeToDelete} show={show} onDisagree={onDisagree}
                                            itemType={"ingredient"}
                             />

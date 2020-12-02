@@ -16,9 +16,9 @@ export default function IngredientsList(props) {
     }
     return (
         <>
-            <h4>Ingredients: {isEditable ? <i className="fas fa-plus icon" onClick={addIngredient}></i> : null}</h4>
+            <h4>INGREDIENTS: {isEditable ? <a href="#"><i className="fas fa-plus icon" onClick={addIngredient}></i></a> : null}</h4>
             {addIngMode ? <AddIngredient id={recipe_id} onSave={saveIngredient} /> : null}
-            <ul className="list-group list-group-flush">
+            <ul>
             {ingredients.map(renderIngredient)}
             </ul>
         </>
