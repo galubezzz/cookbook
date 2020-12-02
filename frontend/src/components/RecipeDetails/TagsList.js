@@ -9,9 +9,7 @@ export default function TagsList(props) {
     }
 
     return (<>
-            <div className="mt-2">
                 {tags.map(renderTag)}
-            </div>
         </>
     )
 }
