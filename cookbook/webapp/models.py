@@ -58,6 +58,9 @@ class Profile(models.Model):
         profile, created = Profile.objects.get_or_create(user=instance)
         instance.profile.save()
 
+    def __str__(self):
+        return self.user.username
+
 
 class Step(models.Model):
     name = models.CharField(max_length=255, verbose_name='Name')
