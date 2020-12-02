@@ -15,11 +15,11 @@ export default function StepList(props) {
     }
         return (
             <>
-                <h4>Steps: {isEditable ? <i className="fas fa-plus icon" onClick={()=>{setAddStepMode(true)}}></i>: null}</h4>
+                <h4>DIRECTIONS: {isEditable ? <a href="#"><i className="fas fa-plus icon" onClick={()=>{setAddStepMode(true)}}></i></a>: null}</h4>
                 {addStepMode ? <AddStep id={recipe_id} onSave={saveStep}/> : null}
-                <ul className="list-group list-group-flush">
+                <ol>
                     {steps.map(renderStep)}
-                </ul>
+                </ol>
             </>
         )
     }

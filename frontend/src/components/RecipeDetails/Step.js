@@ -27,11 +27,11 @@ export default function Step(props) {
 
     return (
         <>
-            <li className="list-group-item">
-                <h5>{step.step_number}. {step.name} {isEditable ? <>
-                    <i className="fas fa-pen icon" onClick={onEdit}></i>
+            <li>
+                <h5>{step.name} {isEditable ? <>
+                    <a href="#"><i className="fas fa-pen icon" onClick={onEdit}></i></a>
                     <div style={{position: "relative"}} className="icon-div">
-                        <i className="fas fa-trash-alt icon" onClick={onDelete}></i>
+                        <a href="#"><i className="fas fa-trash-alt icon" onClick={onDelete}></i></a>
                         <ConfirmDelete onAgree={onAgreeToDelete} show={show} onDisagree={onDisagree}
                                        itemType={"step"}
                         />
@@ -39,7 +39,7 @@ export default function Step(props) {
                 </> : null}
                 </h5>
                 <img className="card-img mb-2" src={step.pic}/>
-                <div className="card-text">{step.description}</div>
+                <p>{step.description}</p>
             </li>
         </>
     )
