@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import IngredientViewSwitch from "./IngredientViewSwitch";
 import AddIngredient from "../AddIngredient";
+import {Link} from "react-router-dom";
 
 export default function IngredientsList(props) {
     const {isEditable, recipe_id} = props;
@@ -16,7 +17,7 @@ export default function IngredientsList(props) {
     }
     return (
         <>
-            <h4>INGREDIENTS: {isEditable ? <a href="#"><i className="fas fa-plus icon" onClick={addIngredient}></i></a> : null}</h4>
+            <h4>INGREDIENTS: {isEditable ? <Link to="#"><i className="fas fa-plus icon" onClick={addIngredient}></i></Link> : null}</h4>
             {addIngMode ? <AddIngredient id={recipe_id} onSave={saveIngredient} /> : null}
             <ul>
             {ingredients.map(renderIngredient)}

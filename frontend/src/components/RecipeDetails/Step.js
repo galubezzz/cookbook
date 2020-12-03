@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import ConfirmDelete from "./ConfirmDelete";
 import {baseUrl} from '../../utils'
+import {Link} from "react-router-dom";
 
 export default function Step(props) {
     const {step, isEditable, onEdit} = props;
@@ -29,9 +30,9 @@ export default function Step(props) {
         <>
             <li>
                 <h5>{step.name} {isEditable ? <>
-                    <a href="#"><i className="fas fa-pen icon" onClick={onEdit}></i></a>
+                    <Link to="#"><i className="fas fa-pen icon" onClick={onEdit}></i></Link>
                     <div style={{position: "relative"}} className="icon-div">
-                        <a href="#"><i className="fas fa-trash-alt icon" onClick={onDelete}></i></a>
+                        <Link to="#"><i className="fas fa-trash-alt icon" onClick={onDelete}></i></Link>
                         <ConfirmDelete onAgree={onAgreeToDelete} show={show} onDisagree={onDisagree}
                                        itemType={"step"}
                         />

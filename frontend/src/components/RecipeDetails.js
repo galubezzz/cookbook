@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import EditRecipe from "./EditRecipe";
 import IngredientsList from './RecipeDetails/IngredientsList';
 import StepList from './RecipeDetails/StepList'
@@ -89,24 +89,23 @@ function RecipeDetails(props) {
                                                         <div className="box-sharing">
                                                             {isEditable ?
                                                                 <>
-                                                                    <a href="#"><i className="fas fa-pen"
+                                                                    <Link to="#"><i className="fas fa-pen"
                                                                                    onClick={() => {
                                                                                        setEditRecipeMode(true)
-                                                                                   }}></i></a>
-                                                                    <a href="#">
+                                                                                   }}></i></Link>
+                                                                    <Link to="#">
                                                                         <i className="fas fa-trash-alt"
                                                                            onClick={onDelete}></i>
                                                                         <ConfirmDelete onAgree={onAgreeToDelete}
                                                                                        show={show}
                                                                                        onDisagree={onDisagree}
-                                                                                       itemType={"recipe"}
-                                                                        />
-                                                                    </a>
+                                                                                       itemType={"recipe"}/>
+                                                                    </Link>
 
                                                                 </> : null}
-                                                            <a href="#"><i className="fas fa-print"></i></a>
-                                                            <a href="#"><i className="fas fa-share-alt"></i></a>
-                                                            <a href="#"><i className="fas fa-bookmark"></i></a>
+                                                            <Link to="#"><i className="fas fa-print"></i></Link>
+                                                            <Link to="#"><i className="fas fa-share-alt"></i></Link>
+                                                            <Link to="#"><i className="fas fa-bookmark"></i></Link>
                                                         </div>
 
                                                     </div>
