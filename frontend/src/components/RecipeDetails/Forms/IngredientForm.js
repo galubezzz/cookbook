@@ -58,6 +58,11 @@ function IngredientForm(props) {
         onSave(ingredient);
     }
 
+    function onCancel(event){
+        event.preventDefault();
+        props.onCancel();
+    }
+
     return (<>
         <form>
             <div className="form-group row">
@@ -88,6 +93,11 @@ function IngredientForm(props) {
             <div className="form-group row">
                 <div className="col-sm-12 col-md-12 col-lg-12">
                     <button className="btn btn-primary btn-block" onClick={saveIngredient}> Save Ingredient</button>
+                </div>
+            </div>
+            <div className="form-group row">
+                <div className="col-sm-12 col-md-12 col-lg-12">
+                    <button className="btn btn-primary btn-block" onClick={onCancel}> Cancel</button>
                 </div>
             </div>
         </form>

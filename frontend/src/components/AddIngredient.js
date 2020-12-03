@@ -34,7 +34,7 @@ function AddIngredients(props) {
             <p>
                 {message}
             </p>
-            <IngredientForm onSave={saveIngredient}/>
+            <IngredientForm onSave={saveIngredient} onCancel={props.onCancel}/>
         </>
     )
 }

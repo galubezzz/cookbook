@@ -54,7 +54,7 @@ function EditIngredient(props){
                 {message}
             </p>
             <li className="list-group-item">
-                <IngredientForm onSave={saveIngredient} ingredient={ingredient}/>
+                <IngredientForm onSave={saveIngredient} onCancel={props.onCancel} ingredient={ingredient}/>
             </li>
         </>
     )
