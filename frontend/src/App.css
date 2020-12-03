@@ -203,6 +203,7 @@
     float: right;
     padding-left: 10px;
 }
+
 .card-img-top {
     width: 100%;
     height: 30vw;
@@ -223,8 +224,28 @@
   -webkit-box-orient: vertical;
 }
 
+.popover {
+    top: 10px;
+    left: 97px;
+    position: absolute;
+}
+
+.icon-div .popover {
+    top: 0px;
+    left: -265px;
+    position:absolute;
+}
+
 .popover-button{
-    width: 76px;
+    width: 110px;
+}
+.recipe-finger{
+    position: relative;
+}
+
+.recipe-head {
+    margin-bottom: 60px;
+    overflow: visible;
 }
 
 .footer-container {
