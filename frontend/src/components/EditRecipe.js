@@ -78,6 +78,11 @@ function EditRecipe(props){
                 }
             });
     }
+
+    const onCancel = (event) => {
+        event.preventDefault();
+        props.onSave();
+    }
     return(
         <>
             <div className="card p-2">
@@ -124,6 +129,11 @@ function EditRecipe(props){
                         <div className="form-group row">
                             <div className="col-sm-12 col-md-10 col-lg-5">
                                 <button className="btn btn-primary btn-block" onClick={saveRecipe}> Save Recipe</button>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <div className="col-sm-12 col-md-10 col-lg-5">
+                                <button className="btn btn-primary btn-block" onClick={onCancel}>Cancel</button>
                             </div>
                         </div>
                     </form>
