@@ -16,16 +16,22 @@ export default function IngredientViewSwitch(props) {
         setIngredient(updatedIngredient);
     };
 
+    const onIngredientCancel = () => {
+        setEditMode(false);
+    }
+
     const onIngredientDelete = () => {
         setIngredient(null);
     }
 
     if (showEditForm) {
-        return <EditIngredient id={ingredient.id} onSave={onIngredientSave}/>
+        return <EditIngredient id={ingredient.id} onSave={onIngredientSave} onCancel={onIngredientCancel}/>
     } else if (ingredientFromState) {
         return <Ingredient ingredient={ingredientFromState}
                            onDelete={onIngredientDelete}
-                           onEdit={onEditButtonClick} isEditable={isEditable}/>
+                           onEdit={onEditButtonClick}
+                           isEditable={isEditable}
+                           />
     } else {
         return null
     }
