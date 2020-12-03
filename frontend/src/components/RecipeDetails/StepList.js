@@ -7,16 +7,20 @@ export default function StepList(props) {
     const {recipe_id, isEditable} = props;
     const [steps, setSteps] = useState(props.steps);
     const [addStepMode, setAddStepMode] = useState(false);
-    const renderStep = (step) => <StepViewSwitch isEditable={isEditable} step={step}/>;
+    const renderStep = (step) => <StepViewSwitch isEditable={isEditable} key={step.id} step={step}/>;
 
     function saveStep(new_step) {
         setAddStepMode(false);
         setSteps([...steps, new_step]);
     }
+
+    const onCancel = () => {
+        setAddStepMode(false);
+    }
         return (
             <>
                 <h4>DIRECTIONS: {isEditable ? <Link to="#"><i className="fas fa-plus icon" onClick={()=>{setAddStepMode(true)}}></i></Link>: null}</h4>
-                {addStepMode ? <AddStep id={recipe_id} onSave={saveStep}/> : null}
+                {addStepMode ? <AddStep id={recipe_id} onSave={saveStep} onCancel={onCancel}/> : null}
                 <ol>
                     {steps.map(renderStep)}
                 </ol>

@@ -5,7 +5,7 @@ export default function TagsList(props) {
     const tagUrl = (tag) => `/tag/${tag.name}`;
 
     const renderTag = (tag) => {
-        return <a href={tagUrl(tag)}>{tag.name} </a>
+        return <a href={tagUrl(tag)} key={tag.id}>{tag.name} </a>
     }
 
     return (<>
