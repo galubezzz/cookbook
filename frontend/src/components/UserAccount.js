@@ -8,18 +8,30 @@ const getUserURL = `${baseUrl}/api/v1/users/`;
 function UserAccount(props) {
     const [user, setUser] = useState();
     const token = props.user.token;
+
+    function Edit() {
+        props.history.push("/edit-user-details")
+    }
+
     useEffect(() => {
         axios.get(getUserURL, {headers: {"Authorization": `Token ${token}`}}).then((response) => {
             setUser(response.data[0]);
         })
     }, []);
     return user ? (
-
         <>
-            <h1>My account details</h1>
-            <div>{user.username}</div>
-            <div>{user.email}</div>
-            <Link to="/edit-user-details">Edit</Link>
+            <div className="head-title">
+                <div className="container">
+                    <h2 className="page-title">My Account</h2>
+                </div>
+            </div>
+            <div id="main">
+                <div className="container">
+                    <span>{user.username}</span>
+                    <span>({user.email})</span>
+                    <a href="/edit-user-details"><i className="fas fa-pen"></i></a>
+                </div>
+            </div>
         </>
     ) : null
 }
