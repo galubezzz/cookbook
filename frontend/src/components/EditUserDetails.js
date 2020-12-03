@@ -110,70 +110,66 @@ function EditUserDetails(props) {
     }, []);
     return user ? (
         <>
-            <h3>Edit user information:</h3>
-            <form>
-                <div className="form-group row">
-                    <label htmlFor="username" className="col-sm-1 col-form-label">Username</label>
-                    <div className="col-sm-8">
-                        <input name="username"
-                               type="text"
-                               value={user.username}
-                               disabled
-                               className="form-control pr-2"/>
-                    </div>
+            <div className="head-title">
+                <div className="container">
+                    <h2 className="page-title">My Account</h2>
                 </div>
-                <div className="form-group row">
-                    <label htmlFor="email" className="col-sm-1 col-form-label">Email</label>
-                    <div className="col-sm-8">
-                        <input name="email"
-                               type="text"
-                               value={user.email}
-                               onChange={changeEmail}
-                               className={formErrors.email ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
-                        {formErrors.email !== null &&
-                        <div className='invalid-feedback'>{formErrors.email}</div>}
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="password" className="col-sm-1 col-form-label">Old password</label>
-                    <div className="col-sm-8">
-                        <input name="password"
-                               type="password"
-                               onChange={changePassword}
-                               className={formErrors.password || formErrors.error ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
-                        {formErrors.password !== null &&
-                        <div className='invalid-feedback'>{formErrors.password}</div>}
+            </div>
+            <div id="main">
+                <div className="container">
+                    <h3>Edit user information:</h3>
+                    <form>
+                        <div className="form-group row">
+                            <label htmlFor="username" >Username</label>
+                                <input name="username"
+                                       type="text"
+                                       value={user.username}
+                                       disabled
+                                       className="form-control"/>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="email">Email</label>
+                                <input name="email"
+                                       type="text"
+                                       value={user.email}
+                                       onChange={changeEmail}
+                                       className={formErrors.email ? 'form-control is-invalid' : 'form-control'}/>
+                                {formErrors.email !== null &&
+                                <div className='invalid-feedback'>{formErrors.email}</div>}
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="password">Old password</label>
+                                <input name="password"
+                                       type="password"
+                                       onChange={changePassword}
+                                       className={formErrors.password || formErrors.error ? 'form-control is-invalid' : 'form-control'}/>
+                                {formErrors.password !== null &&
+                                <div className='invalid-feedback'>{formErrors.password}</div>}
 
-                    {formErrors.error ? <div className="invalid-feedback">{formErrors.error}</div> : null}
-                    </div>
+                                {formErrors.error ? <div className="invalid-feedback">{formErrors.error}</div> : null}
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="new_password">New password</label>
+                                <input name="new_password"
+                                       type="password"
+                                       onChange={changeNewPassword}
+                                       className='form-control'/>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="confirm_new_password">Confirm new password</label>
+                                <input name="confirm_new_password" type="password" onChange={changeConfirmNewPassword}
+                                       className={formErrors.newPassword ? 'form-control is-invalid' : 'form-control'}/>
+                                {formErrors.newPassword !== null &&
+                                <div className='invalid-feedback'>{formErrors.newPassword}</div>}
+                        </div>
+                        <div className="form-group row">
+                                <button onClick={saveUser}
+                                        className="btn btn-primary btn-block">Save
+                                </button>
+                        </div>
+                    </form>
                 </div>
-                <div className="form-group row">
-                    <label htmlFor="new_password" className="col-sm-1 col-form-label">New password</label>
-                    <div className="col-sm-8">
-                        <input name="new_password"
-                               type="password"
-                               onChange={changeNewPassword}
-                               className='form-control pr-2'/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="confirm_new_password" className="col-sm-1 col-form-label">Confirm new
-                        password</label>
-                    <div className="col-sm-8">
-                        <input name="confirm_new_password" type="password" onChange={changeConfirmNewPassword}
-                               className={formErrors.newPassword ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
-                        {formErrors.newPassword !== null &&
-                        <div className='invalid-feedback'>{formErrors.newPassword}</div>}
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <div className="col-sm-9">
-                        <button onClick={saveUser}
-                                className="btn btn-primary btn-block">Save
-                        </button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </>
     ) : null
 }
