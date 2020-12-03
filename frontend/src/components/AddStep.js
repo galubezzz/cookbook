@@ -28,7 +28,7 @@ function AddStep(props) {
             <p>
                 {message}
             </p>
-            <StepForm onSave={saveStep}/>
+            <StepForm onSave={saveStep} onCancel={props.onCancel}/>
         </>
     )
 }

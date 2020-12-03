@@ -57,6 +57,11 @@ function StepForm(props) {
         props.onSave(data);
     }
 
+    function onCancel(event) {
+        event.preventDefault();
+        props.onCancel();
+    }
+
     return (
         <>
             <li className="list-group-item">
@@ -93,10 +98,15 @@ function StepForm(props) {
                         <button className="btn btn-primary btn-block" onClick={saveStep}> Save Step</button>
                     </div>
                 </div>
+                <div className="form-group row">
+                    <div className="col-sm-12 col-md-10 col-lg-5">
+                        <button className="btn btn-primary btn-block" onClick={onCancel}>Cancel</button>
+                    </div>
+                </div>
             </form>
             </li>
         </>
     )
 }
 
-export default withRouter(StepForm)
+export default  withRouter(StepForm)

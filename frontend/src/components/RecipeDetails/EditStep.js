@@ -43,7 +43,7 @@ function EditStep(props) {
     return (
         <>
             <li className="list-group-item">
-            <StepForm step={step} onSave={saveStep}/>
+            <StepForm step={step} onSave={saveStep} onCancel={props.onCancel}/>
             </li>
         </>
     )
