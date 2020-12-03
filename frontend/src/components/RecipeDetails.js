@@ -44,6 +44,7 @@ function RecipeDetails(props) {
     }
 
     function onDisagree() {
+        console.log('we got here')
         setShow(false);
     }
 
@@ -53,6 +54,7 @@ function RecipeDetails(props) {
 
     function displayRecipe() {
         const showEditForm = isEditable && editRecipeMode;
+        console.log("------EDIT RECIPE MODE IS:", editRecipeMode);
         return (
             <>
                 <div className="head-title">
@@ -63,16 +65,18 @@ function RecipeDetails(props) {
                 <div id="main">
                     <div className="container">
                         <div className="recipe-content">
-                            {showEditForm ? (
-                                    <EditRecipe
+                            {showEditForm ? <EditRecipe
                                         user={user}
                                         id={recipe.id}
                                         onSave={() => {
                                             setEditRecipeMode(false)
                                         }}
-                                    />)
-                                : (
-                                    <>
+                                        onCancel={()=> {
+                                            setEditRecipeMode(false)
+                                        }
+                                        }
+                                    />
+                                : <>
                                         <div className="row">
                                             <div className="col">
                                                 <div className="recipe-lvl">
@@ -89,18 +93,17 @@ function RecipeDetails(props) {
                                                         <div className="box-sharing">
                                                             {isEditable ?
                                                                 <>
-                                                                    <Link to="#"><i className="fas fa-pen"
-                                                                                   onClick={() => {
+                                                                    <Link to="#" onClick={() => {
                                                                                        setEditRecipeMode(true)
-                                                                                   }}></i></Link>
-                                                                    <Link to="#">
-                                                                        <i className="fas fa-trash-alt"
-                                                                           onClick={onDelete}></i>
-                                                                        <ConfirmDelete onAgree={onAgreeToDelete}
+                                                                                   }}><i className="fas fa-pen"
+                                                                                   ></i></Link>
+                                                                    <Link to="#" onClick={onDelete}>
+                                                                        <i className="fas fa-trash-alt"></i>
+                                                                    </Link>
+                                                                    <ConfirmDelete onAgree={onAgreeToDelete}
                                                                                        show={show}
                                                                                        onDisagree={onDisagree}
                                                                                        itemType={"recipe"}/>
-                                                                    </Link>
 
                                                                 </> : null}
                                                             <Link to="#"><i className="fas fa-print"></i></Link>
@@ -132,8 +135,7 @@ function RecipeDetails(props) {
                                         <div className="space-section"></div>
 
 
-                                    </>
-                                )}
+                                    </>}
                             <div className="row">
                                 <div className="ingredient col-md-4">
                                     {recipe.ingredients_in_recipe ?
@@ -153,7 +155,7 @@ function RecipeDetails(props) {
             </>
         )
     }
-
+    console.log('SHOW FROM RECIPE DETAILS', show);
     return recipe ? displayRecipe() : null;
 };
 

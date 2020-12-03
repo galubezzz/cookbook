@@ -3,15 +3,11 @@ import React from 'react';
 
 export default function ConfirmDelete(props) {
     const {onAgree, show, onDisagree, itemType} = props;
+    console.log("SHOW value from component", show);
     const classNames = show ? "popover fade show bs-popover-left" : "popover fade bs-popover-left";
-    const styles = {
-        top: "110px",
-        left: "620px"
-    };
     return (show ?
         <>
-            <div className={classNames} role="tooltip" x-placement="left" style={styles}>
-                <div className="arrow"></div>
+            <div className={classNames} role="tooltip" x-placement="left">
                 <h3 className="popover-header">Alarm!</h3>
                 <div className="popover-body">
                     Are you sure you want to delete this {itemType}?
