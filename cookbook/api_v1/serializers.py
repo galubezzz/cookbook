@@ -13,13 +13,20 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    profile = ProfileSerializer(many=False, required= False)
+    profile = ProfileSerializer(many=False, required=False)
+    pic = fields.ImageField(write_only=True, required=False)
+    about = fields.CharField(write_only=True, required=False)
 
     def create(self, validated_data):
         password = validated_data.pop('password')
+        pic = validated_data.pop('pic')
+        about = validated_data.pop('about')
         user = User.objects.create(**validated_data)
         user.set_password(password)
         user.save()
+        user.profile.pic = pic
+        user.profile.about = about
+        user.profile.save()
         return user
 
     def update(self, instance, validated_data):
@@ -33,7 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'email', 'profile')
+        fields = ('id', 'username', 'password', 'email', 'profile', 'pic', 'about')
 
 
 class TagSerializer(serializers.ModelSerializer):
