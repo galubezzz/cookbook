@@ -1,12 +1,19 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from webapp.models import Ingredient, Step, Tag, Recipe
+from webapp.models import Ingredient, Step, Tag, Recipe, Profile
 from rest_framework import serializers, fields, status
 from rest_framework.response import Response
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("pic", "about")
+
+
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    profile = ProfileSerializer(many=False, required= False)
 
     def create(self, validated_data):
         password = validated_data.pop('password')
@@ -26,7 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'email')
+        fields = ('id', 'username', 'password', 'email', 'profile')
 
 
 class TagSerializer(serializers.ModelSerializer):

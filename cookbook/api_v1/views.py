@@ -85,7 +85,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if tag:
             print('or even there')
             queryset = queryset.filter(tags__name=tag)
-        if favorite:
+        if favorite and username:
+            print("aaaa!")
+            user = User.objects.get(username=username)
+            print(user.profile.favorites.all().order_by('-id'))
+            queryset = user.profile.favorites.all().order_by('-id')
+        elif favorite:
             queryset = self.request.user.profile.favorites.all().order_by('-id')
 
 
