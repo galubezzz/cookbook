@@ -106,7 +106,7 @@ function RecipeDetails(props) {
                                                                                        itemType={"recipe"}/>
 
                                                                 </> : null}
-                                                            <Link to="#"><i className="fas fa-print"></i></Link>
+                                                            <Link to="#" onClick={()=>{window.focus(); window.print()}}><i className="fas fa-print"></i></Link>
                                                             <Link to="#"><i className="fas fa-share-alt"></i></Link>
                                                             <Link to="#"><i className="fas fa-bookmark"></i></Link>
                                                         </div>
