@@ -46,6 +46,7 @@ class Recipe(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    about = models.TextField(max_length=2000, null=True, blank=True, verbose_name="About user")
     favorites = models.ManyToManyField(Recipe, blank=True, related_name="favorites", verbose_name="favorites")
 
     @receiver(post_save, sender=User)
