@@ -91,9 +91,9 @@ function App() {
                     <UserLogin onLogin={(user) => dispatch({type: 'login', payload: user})}/>
                 </Route>
             </Router>
-                <Footer/>
-            </div>
 
+            </div>
+<Footer/>
         </UserContext.Provider>
     );
 }
