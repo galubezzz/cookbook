@@ -69,14 +69,14 @@ function StepForm(props) {
                 <div className="form-group row">
                     <label htmlFor="number" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Step number:</label>
                     <div className="col-sm-12 col-md-10 col-lg-3">
-                        <input name="number" id="number" type="number" min="1" step="1" className="form-control pr-2"
+                        <input name="number" id="number" type="number" min="1" step="1" className="form-control"
                                onChange={changeNumber} value={step.step_number}/>
                     </div>
                 </div>
                 <div className="form-group row">
                     <label htmlFor="name" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Name:</label>
                     <div className="col-sm-12 col-md-10 col-lg-3">
-                        <input name="name" id="name" className="form-control pr-2" onChange={changeName}
+                        <input name="name" id="name" className="form-control" onChange={changeName}
                                value={step.name}/>
                     </div>
                 </div>

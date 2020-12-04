@@ -167,7 +167,6 @@ function RecipeDetails(props) {
         )
     }
 
-    console.log('SHOW FROM RECIPE DETAILS', show);
     return recipe ? displayRecipe() : null;
 };
 
