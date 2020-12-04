@@ -3,7 +3,7 @@ import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 import {baseUrl} from '../utils';
 
-function UserRegistration(props){
+function UserRegistration(props) {
     const registerUrl = `${baseUrl}/api/v1/register/`;
     const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
     const [user, setUser] = useState({});
@@ -16,7 +16,17 @@ function UserRegistration(props){
             ...user,
             username: event.target.value,
         });
-        console.log(user.username);
+        if (event.target.value.length < 1) {
+            setFormErrors({
+                ...formErrors,
+                username: "Username cannot be empty",
+            })
+        } else {
+            setFormErrors({
+                ...formErrors,
+                username: null,
+            })
+        }
     }
 
     function changeEmail(event) {
@@ -78,9 +88,10 @@ function UserRegistration(props){
 
     function registerUser(event) {
         event.preventDefault();
+        const errors = formErrors.password || formErrors.username || formErrors.email;
         console.log(user);
-        if (formErrors.password) {
-            console.log('Ебать ошибка!');
+        if (errors) {
+            return null;
         } else {
             console.log('Password matched');
             const newUser = {
@@ -88,15 +99,30 @@ function UserRegistration(props){
                 email: user.email,
                 password: user.password,
             };
-            axios.post(registerUrl, newUser).then((response) =>{
-                if (response.status === 201){
+            axios.post(registerUrl, newUser).then((response) => {
+                if (response.status === 201) {
                     setSaved(true);
-                    props.history.push('/');
+                    props.history.push('/login');
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
             }).catch((error) => {
-                setMessage(JSON.stringify(error.response.data));
+                Object.keys(error.response.data).forEach(e =>{
+                    switch (e){
+                        case 'username':
+                            setFormErrors({
+                                ...formErrors,
+                                username: error.response.data[e],
+                            })
+                            break;
+                        case 'password':
+                            setFormErrors({
+                                ...formErrors,
+                                password: error.response.data[e],
+                            });
+                            break;
+                    }
+                });
             });
 
         }
@@ -114,47 +140,52 @@ function UserRegistration(props){
                     <div className="col-12 col-md-6">
                         <div className="acc-box">
                             <h2>Register</h2>
-                            <p><em>If you don't have account yet.</em></p>
+                            <p><em>If you don't have an account yet.</em></p>
                             <form onSubmit={registerUser}>
                                 <div className="form-group">
-                                    <label htmlFor="completeName">Username</label>
-                                    <input type="text" className="form-control" id="completeName"
+                                    <label htmlFor="completeName">Username*: </label>
+                                    <input type="text"
+                                           className={formErrors.username ? 'form-control is-invalid' : 'form-control'}
+                                           id="completeName"
                                            placeholder="ex. foodlover" onChange={changeUsername}/>
+                                    {formErrors.username !== null &&
+                                    <div className='invalid-feedback'>{formErrors.username}</div>}
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="InputEmailAcc2">Email address *</label>
+                                    <label htmlFor="InputEmailAcc2">Email address*:</label>
                                     <input type="email" id="InputEmailAcc2"
                                            placeholder="you@email.com"
                                            onChange={changeEmail}
-                                           className={formErrors.email ? 'form-control pr-2 is-invalid' : 'form-control'}/>
+                                           className={formErrors.email ? 'form-control is-invalid' : 'form-control'}/>
                                     {formErrors.email !== null &&
                                     <div className='invalid-feedback'>{formErrors.email}</div>}
                                 </div>
-                                <div className="form-group row">
-                                    <label htmlFor="password" className="col-sm-1 col-form-label">Password:</label>
-                                    <div className="col-sm-8">
-                                        <input name="password"
-                                               id='pwd'
-                                               type="password"
-                                               onChange={changePassword}
-                                               className={formErrors.password ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
-                                        {formErrors.password !== null &&
-                                        <div className='invalid-feedback'>{formErrors.password}</div>}
-                                    </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password*:</label>
+
+                                    <input name="password"
+                                           id='pwd'
+                                           type="password"
+                                           onChange={changePassword}
+                                           className={formErrors.password ? 'form-control is-invalid' : 'form-control'}/>
+                                    {formErrors.password !== null &&
+                                    <div className='invalid-feedback'>{formErrors.password}</div>}
+
                                 </div>
-                                <div className="form-group row">
-                                    <label htmlFor="repeatPassword" className="col-sm-1 col-form-label">Repeat
-                                        Password:</label>
-                                    <div className="col-sm-8">
-                                        <input name="repeatPassword"
-                                               id="repeatPassword"
-                                               type="password"
-                                               onChange={changeRepeatedPassword}
-                                               className={formErrors.password ? 'form-control pr-2 is-invalid' : 'form-control pr-2'}/>
-                                        {formErrors.password !== null &&
-                                        <div className='invalid-feedback'>{formErrors.password}</div>}
-                                    </div>
+                                <div className="form-group">
+                                    <label htmlFor="repeatPassword">Repeat
+                                        Password*:</label>
+
+                                    <input name="repeatPassword"
+                                           id="repeatPassword"
+                                           type="password"
+                                           onChange={changeRepeatedPassword}
+                                           className={formErrors.password ? 'form-control is-invalid' : 'form-control'}/>
+                                    {formErrors.password !== null &&
+                                    <div className='invalid-feedback'>{formErrors.password}</div>}
+
                                 </div>
+                                <p>{message}</p>
                                 <button type="submit" className="btn btn-primary">Register</button>
                             </form>
                         </div>
