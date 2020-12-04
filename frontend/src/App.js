@@ -65,7 +65,7 @@ function App() {
                     <RecipeList/>
                 </Route>
                 <Route exact path="/recipe/:id">
-                    {isLoggedIn ? <RecipeDetails/> : <h1>Please log in to view the recipe</h1>}
+                    <RecipeDetails/>
                 </Route>
 
                 <Route exact path="/add-recipe">
@@ -93,7 +93,7 @@ function App() {
             </Router>
 
             </div>
-<Footer/>
+    <Footer/>
         </UserContext.Provider>
     );
 }
