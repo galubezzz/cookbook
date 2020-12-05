@@ -50,9 +50,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return queryset
 
     def patch(self, request):
-        token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
-        existing_token = get_object_or_404(Token, key=token)
-        user = existing_token.user
+        user = request.user
         user.username = request.data["username"]
         user.email = request.data["email"]
         if 'password' in request.data.keys() and 'newPassword' in request.data.keys():
