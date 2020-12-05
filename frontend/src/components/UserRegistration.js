@@ -9,6 +9,7 @@ function UserRegistration(props) {
     const [user, setUser] = useState({});
     const [formErrors, setFormErrors] = useState({});
     const [saved, setSaved] = useState(false)
+    const [fileUploaded, setFileUploaded] = useState(false);
     const [message, setMessage] = useState('')
 
     function changeUsername(event) {
@@ -86,29 +87,40 @@ function UserRegistration(props) {
         }
     }
 
+    function changeAbout(event) {
+        setUser({
+            ...user,
+            about: event.target.value,
+        });
+    }
+
+    function changePic(event){
+        setUser({
+            ...user,
+            pic: event.target.files[0],
+            });
+    }
+
     function registerUser(event) {
         event.preventDefault();
         const errors = formErrors.password || formErrors.username || formErrors.email;
-        console.log(user);
         if (errors) {
             return null;
         } else {
-            console.log('Password matched');
-            const newUser = {
-                username: user.username,
-                email: user.email,
-                password: user.password,
-            };
-            axios.post(registerUrl, newUser).then((response) => {
+            const data = new FormData();
+            data.append("username", user.username);
+            if (user.email) {data.append("email", user.email);}
+            data.append("password", user.password);
+            if (user.pic) {data.append('pic', user.pic, user.pic.name);}
+            if (user.about) {data.append("about", user.about);}
+            axios.post(registerUrl, data).then((response) => {
                 if (response.status === 201) {
                     setSaved(true);
                     props.history.push('/login');
-                } else {
-                    setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
             }).catch((error) => {
-                Object.keys(error.response.data).forEach(e =>{
-                    switch (e){
+                Object.keys(error.response.data).forEach(e => {
+                    switch (e) {
                         case 'username':
                             setFormErrors({
                                 ...formErrors,
@@ -185,7 +197,23 @@ function UserRegistration(props) {
                                     <div className='invalid-feedback'>{formErrors.password}</div>}
 
                                 </div>
-                                <p>{message}</p>
+                                <div className="form-group">
+                                    <label htmlFor="repeatPassword">About you:</label>
+
+                                    <input name="repeatPassword"
+                                           id="repeatPassword"
+                                           type="text"
+                                           onChange={changeAbout}
+                                           className={formErrors.about ? 'form-control is-invalid' : 'form-control'}/>
+                                    {formErrors.about !== null &&
+                                    <div className='invalid-feedback'>{formErrors.about}</div>}
+
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="pic">User Picture:</label>
+                                    <input type="file" className="form-control-file" id="pic"
+                                           aria-describedby="sizeHelp" onChange={changePic}/>
+                                </div>
                                 <button type="submit" className="btn btn-primary">Register</button>
                             </form>
                         </div>
