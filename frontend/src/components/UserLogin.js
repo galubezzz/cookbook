@@ -6,8 +6,6 @@ import {baseUrl} from '../utils'
 function UserLogin(props) {
     const [user, setUser] = useState({});
     const [formErrors, setFormErrors] = useState({});
-    const [saved, setSaved] = useState(false);
-    const [message, setMessage] = useState('');
     const url = `${baseUrl}/api/v1/login/`;
 
     function changeUsername(event) {
@@ -28,7 +26,7 @@ function UserLogin(props) {
     function loginUser(event) {
         event.preventDefault();
         axios.post(url, user).then((response) => {
-            console.log("--response", response);
+            setFormErrors({username: null, password: null});
             if (response.status === 200) { // 200 == '200' - true
                 // 200 === '200' - false
                 props.onLogin({
@@ -42,7 +40,30 @@ function UserLogin(props) {
                 props.history.push("/");
             }
         }).catch((error) => {
-            console.log(error.response.data);
+            Object.keys(error.response.data).forEach(e => {
+                switch (e) {
+                    case 'username':
+                        console.log('we got here');
+                        setFormErrors({
+                            ...formErrors,
+                            username: error.response.data[e],
+                        });
+                        break;
+                    case 'password':
+                        setFormErrors({
+                            ...formErrors,
+                            password: error.response.data[e],
+                        });
+                        break;
+                    case 'non_field_errors':
+                        console.log(e);
+                        setFormErrors({
+                            ...formErrors,
+                            username: error.response.data[e],
+                        });
+                        break;
+                }
+            })
         })
     }
 
@@ -62,14 +83,25 @@ function UserLogin(props) {
                             <form>
                                 <div class="form-group">
                                     <label for="InputEmailAcc1">Username *</label>
-                                    <input type="email" class="form-control" id="InputEmailAcc1"
+                                    <input type="email"
+                                    className={formErrors.username ? 'form-control is-invalid' : 'form-control'}
+                                           id="InputEmailAcc1"
                                            placeholder="Enter email" onChange={changeUsername}/>
+                                    {formErrors.username !== null &&
+                                    <div className='invalid-feedback'>{formErrors.username}</div>}
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password *</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                           placeholder="Password" onChange={changePassword}/>
+                                    <input type="password"
+                                           className={formErrors.password ? 'form-control is-invalid' : 'form-control'}
+
+                                           id="exampleInputPassword1"
+                                           placeholder="Password" onChange={changePassword}/>{
+                                    (formErrors.password) ?
+                                    <div className='invalid-feedback'>{formErrors.password}</div> : null}
                                 </div>
+                                {formErrors.other !== null &&
+                                    <div className='error' style={{color:"red"}}>{formErrors.other}</div>}
                                 <button type="submit" class="btn btn-primary" onClick={loginUser}>Login</button>
                             </form>
                         </div>
