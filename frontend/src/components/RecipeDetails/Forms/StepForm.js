@@ -64,7 +64,6 @@ function StepForm(props) {
 
     return (
         <>
-            <li className="list-group-item">
             <form>
                 <div className="form-group row">
                     <label htmlFor="number" className="col-sm-12 col-md-12 col-lg-2 col-form-label">Step number:</label>
@@ -104,7 +103,6 @@ function StepForm(props) {
                     </div>
                 </div>
             </form>
-            </li>
         </>
     )
 }

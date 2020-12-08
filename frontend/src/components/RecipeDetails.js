@@ -147,14 +147,14 @@ function RecipeDetails(props) {
 
 
                                 </>}
-                            <div className="row">
-                                <div className="ingredient col-md-4">
+                            <div className="row content-recipe">
+                                <div className="ingredient col-md-6">
                                     {recipe.ingredients_in_recipe ?
                                         <IngredientsList recipe_id={recipe.id}
                                                          ingredients={recipe.ingredients_in_recipe}
                                                          isEditable={isEditable}/> : null}
                                 </div>
-                                <div className="direction col-md-8">
+                                <div className="direction col-md-6">
                                     {recipe.steps_in_recipe ?
                                         <StepList recipe_id={recipe.id} steps={recipe.steps_in_recipe}
                                                   isEditable={isEditable}/> : null}

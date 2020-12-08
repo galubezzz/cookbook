@@ -24,9 +24,9 @@ export default function IngredientsList(props) {
         <>
             <h4>INGREDIENTS: {isEditable ? <Link to="#"><i className="fas fa-plus icon" onClick={addIngredient}></i></Link> : null}</h4>
             {addIngMode ? <AddIngredient id={recipe_id} onSave={saveIngredient} onCancel={onCancel} /> : null}
-            <ul>
+            <ol>
             {ingredients.map(renderIngredient)}
-            </ul>
+            </ol>
         </>
     );
 }

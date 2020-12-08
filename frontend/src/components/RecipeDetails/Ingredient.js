@@ -30,7 +30,7 @@ export default function Ingredient(props) {
     return (
         <>
             <li>
-                <div>{ingredient.name} {ingredient.quantity}{ingredient.unit}
+                <span>{ingredient.name} {ingredient.quantity}{ingredient.unit}
                     {isEditable ? <>
                         <Link to="#"><i className="fas fa-pen icon" onClick={onEdit}></i></Link>
                         <div style={{position: "relative"}} className="icon-div">
@@ -40,7 +40,7 @@ export default function Ingredient(props) {
                             />
                         </div>
                     </> : null}
-                </div>
+                </span>
             </li>
         </>
     )
