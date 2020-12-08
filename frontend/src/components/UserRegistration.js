@@ -148,7 +148,7 @@ function UserRegistration(props) {
                 </div>
             </div>
             <div id="main">
-                <div className="container">
+                <div className="container small-content">
                     <div className="col-12 col-md-6">
                         <div className="acc-box">
                             <h2>Register</h2>

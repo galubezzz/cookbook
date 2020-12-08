@@ -145,12 +145,12 @@ function EditUserDetails(props) {
         <>
             <div className="head-title">
                 <div className="container">
-                    <h2 className="page-title">My Account</h2>
+                    <h2 className="page-title">My account</h2>
                 </div>
             </div>
             <div id="main">
-                <div className="container">
-                    <h3>Edit user information:</h3>
+                <div className="container small-content">
+
                     <form>
                         <div className="form-group row">
                             <label htmlFor="username">Username</label>
@@ -203,7 +203,7 @@ function EditUserDetails(props) {
                                    className="form-control"
                                    onChange={changeAbout}/>
                         </div>
-                        <div className="form-group">
+                        <div className="form-group row">
                             <label htmlFor="pic">User Picture:</label>
                             <input type="file" className="form-control-file" id="pic"
                                    aria-describedby="sizeHelp" onChange={changePic}/>
