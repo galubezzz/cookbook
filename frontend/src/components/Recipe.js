@@ -3,9 +3,9 @@ import axios from 'axios';
 import TagsList from "./RecipeDetails/TagsList";
 import {baseUrl} from '../utils'
 import UserContext from "../userContext";
-import {Link} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 
-export default function Recipe(props) {
+function Recipe(props) {
     const [recipe, setRecipe] = useState(props.recipe);
     const user = React.useContext(UserContext);
     const favUrl = (id) => `${baseUrl}/api/v1/favorites/${id}`;
@@ -21,7 +21,6 @@ export default function Recipe(props) {
             axios.post(favUrl(recipe.id), [], config).then((response)=>{
                 if (response.status === 201){
                     setRecipe({...recipe, favorite: true});
-                    console.log("--after", recipe.favorite);
                 }
             })
 
@@ -31,6 +30,9 @@ export default function Recipe(props) {
         axios.delete(favUrl(recipe.id), config).then((response)=>{
                 if (response.status === 204){
                     setRecipe({...recipe, favorite: false})
+                    if (props.location.pathname === '/favorites/') {
+                    props.update();
+                }
                 }
             })
     }
@@ -55,3 +57,5 @@ export default function Recipe(props) {
 </> : null
     )
 }
+
+export default withRouter(Recipe)

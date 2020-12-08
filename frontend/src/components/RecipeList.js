@@ -5,38 +5,62 @@ import Recipe from "./Recipe";
 import {baseUrl} from '../utils'
 import UserContext from "../userContext";
 
+const CancelToken = axios.CancelToken;
+
+
 function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
+    const [updateSwitch, setUpdateSwitch] = useState(false)
     const url = `${baseUrl}/api/v1/recipes/`;
     let params = props.match.params;
     const user = React.useContext(UserContext);
     let config = {};
     const [heading, setHeading] = useState("Latest recipes")
+
+
+    function updateTrigger() {
+        setUpdateSwitch(!updateSwitch);
+    }
+
     useEffect(() => {
         if (props.location.pathname === '/favorites/') {
             params = {favorite: true};
             setHeading("Favorites");
         } else if (user && props.location.pathname === `/user/${user.username}/`) {
-                setHeading("My recipes");
+            setHeading("My recipes");
         } else if (params.username) {
             setHeading(`${params.username} recipes`)
         }
     }, [props])
 
     useEffect(() => {
-        if (user){
-            config = {params: params, headers: {"Authorization" : `Token ${user.token}`} }
+        const source = CancelToken.source();
+        if (user) {
+            config = {params: params, cancelToken: source.token, headers: {"Authorization": `Token ${user.token}`}}
         }
-        console.log("----params", config);
         axios.get(url, config).then((response) => {
-            console.log("it's mine", response.data);
             setRecipes(response.data);
-        })
+            console.log("Вывожу что-нибудь еще");
+        }).catch(function (thrown) {
+            if (axios.isCancel(thrown)) {
+                console.log('Request canceled', thrown.message);
+            } else {
+                // handle error
+            }
+        });
+        return () => {
+            source.cancel('Operation canceled by the user.');
+            console.log("ОТМЕНА!!!!!!")
+        }
     }, [props]);
+
+    // useEffect(() => {
+    //
+    // }, [])
 
     function RenderRecipes(recipes) {
         return recipes.map((recipe) => {
-            return <Recipe recipe={recipe} key={recipe.id}/>
+            return <Recipe recipe={recipe} key={recipe.id} update={updateTrigger}/>
         })
     }
 
