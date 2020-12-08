@@ -72,6 +72,7 @@ function UserAccount(props) {
                             <div className="profile-context">
                                 <div className="profile-name">
                                     <h3>{user.username}</h3>
+                                    <a href="/edit-user-details"><i className="fas fa-pen"></i></a>
                                 </div>
                                 <div className="profile-content">
                                     <p>{user.profile.about}</p>
@@ -86,12 +87,14 @@ function UserAccount(props) {
                                 <li className="nav-item">
                                     <a className="nav-link active" id="recipe-tab" data-toggle="tab" href="#recipe"
                                        role="tab"
-                                       aria-controls="recipe" aria-selected="false">Recipes <strong>({recipes.length})</strong></a>
+                                       aria-controls="recipe"
+                                       aria-selected="false">Recipes <strong>({recipes.length})</strong></a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" id="bookmark-tab" data-toggle="tab" href="#bookmark"
                                        role="tab" aria-controls="bookmark"
-                                       aria-selected="false">Bookmarked Recipes <strong>({favRecipes.length})</strong></a>
+                                       aria-selected="false">Bookmarked
+                                        Recipes <strong>({favRecipes.length})</strong></a>
                                 </li>
                             </ul>
                             <div className="tab-content" id="myTabContent">
@@ -109,7 +112,7 @@ function UserAccount(props) {
                                 <div className="tab-pane fade" id="bookmark" role="tabpanel"
                                      aria-labelledby="bookmark-tab">
                                     <div className="row">
-                                       {favRecipes.length > 0 ? RenderRecipes(favRecipes) : "no recipes to show"}
+                                        {favRecipes.length > 0 ? RenderRecipes(favRecipes) : "no recipes to show"}
                                     </div>
 
                                 </div>
@@ -124,13 +127,7 @@ function UserAccount(props) {
 
             </div>
 
-            <div id="main">
-                <div className="container">
-                    <span>{user.username}</span>
-                    <span>({user.email})</span>
-                    <a href="/edit-user-details"><i className="fas fa-pen"></i></a>
-                </div>
-            </div>
+
         </>
     ) : null
 }
