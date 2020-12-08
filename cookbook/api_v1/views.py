@@ -7,7 +7,6 @@ from rest_framework import viewsets, filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import ViewSet
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
@@ -25,7 +24,7 @@ class LoginView(ObtainAuthToken):
             'token': token.key,
             'username': user.username,
             'is_admin': user.is_superuser,
-            'is_staff': user.is_staff
+            'is_staff': user.is_staff,
         })
 
 
@@ -51,8 +50,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def patch(self, request):
         user = request.user
-        user.username = request.data["username"]
-        user.email = request.data["email"]
+        user.email = request.data.get("email", user.email)
+        user.profile.about = request.data.get("about", user.profile.about)
+        user.profile.pic = request.data.get("pic", user.profile.pic)
+
         if 'password' in request.data.keys() and 'newPassword' in request.data.keys():
             if user.check_password(request.data['password']):
                 user.set_password(request.data['newPassword'])
