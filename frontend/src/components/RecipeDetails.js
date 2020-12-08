@@ -147,7 +147,7 @@ function RecipeDetails(props) {
 
 
                                 </>}
-                            <div className="row content-recipe">
+                            <div className="row small-content ">
                                 <div className="ingredient col-md-6">
                                     {recipe.ingredients_in_recipe ?
                                         <IngredientsList recipe_id={recipe.id}
