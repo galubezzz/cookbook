@@ -11205,8 +11205,12 @@ body {
     padding-bottom: 50px;
 }
 
+h3 {
+  margin-block-start: 0px;
+}
+
 @media (max-width: 768px) {
-  .content-recipe  {
+  .small-content  {
   margin-bottom: 100px;
 }
 }
