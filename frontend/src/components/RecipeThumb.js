@@ -6,9 +6,9 @@ export default function RecipeThumb(props) {
     return ( recipe ?
         <div className="col-4">
             <div className="recipe-thumb">
-                <img src={recipe.pic} alt="Recipe Image"/>
+                <img src={recipe.pic} alt="Recipe Image" className="recipe-image"/>
 
-                <a href={`/recipe/${recipe.id}`} className="view-recipe">VIEW RECIPE</a>
+                <a href={`/recipe/${recipe.id}`} className="view-recipe" >VIEW RECIPE</a>
             </div>
             <div className="recipe-desc">
                 <h2 className="recipe-title">
