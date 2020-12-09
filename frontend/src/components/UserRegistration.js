@@ -214,7 +214,7 @@ function UserRegistration(props) {
                                     <input type="file" className="form-control-file" id="pic"
                                            aria-describedby="sizeHelp" onChange={changePic}/>
                                 </div>
-                                <button type="submit" className="btn btn-primary">Register</button>
+                                <button type="submit" className="btn btn-primary btn-block">Register</button>
                             </form>
                         </div>
                     </div>
