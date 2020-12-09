@@ -31,7 +31,7 @@ function RecipeList(props) {
         } else if (params.username) {
             setHeading(`${params.username} recipes`)
         }
-    }, [props])
+    }, [props, updateSwitch])
 
     useEffect(() => {
         const source = CancelToken.source();
@@ -40,7 +40,6 @@ function RecipeList(props) {
         }
         axios.get(url, config).then((response) => {
             setRecipes(response.data);
-            console.log("Вывожу что-нибудь еще");
         }).catch(function (thrown) {
             if (axios.isCancel(thrown)) {
                 console.log('Request canceled', thrown.message);
@@ -50,9 +49,8 @@ function RecipeList(props) {
         });
         return () => {
             source.cancel('Operation canceled by the user.');
-            console.log("ОТМЕНА!!!!!!")
         }
-    }, [props]);
+    }, [props, updateSwitch]);
 
     // useEffect(() => {
     //
