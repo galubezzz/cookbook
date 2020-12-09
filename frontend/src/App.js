@@ -89,7 +89,7 @@ function App() {
                     <Route exact path="/edit-user-details">
                         {isLoggedIn ? <EditUserDetails user={state.user}/> : 'You are not logged in'}
                     </Route>
-                    <Route exact path="/my-account">
+                    <Route exact path="/my-account/">
                         {isLoggedIn ? <UserAccount user={state.user}/> : 'You are not logged in'}
                     </Route>
                     <Route exact path="/login">
