@@ -92,8 +92,9 @@ function RecipeDetails(props) {
                                             <div className="recipe-head">
                                                 <h1 className="recipe-title">{recipe.name}</h1>
                                                 <div className="recipe-auth">
-                                                        <span>Posted by <a
-                                                            href={`/user/${recipe.user_id.username}`}>{recipe.user_id.username}</a></span>
+                                                    <img src={recipe.user_id.profile.pic} alt="recipe author"/>
+                                                        <span>Posted by
+                                                            <a href={`/user/${recipe.user_id.username}`}> {recipe.user_id.username}</a></span>
                                                 </div>
                                                 <div className="recipe-finger">
 
