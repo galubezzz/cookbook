@@ -21,12 +21,13 @@ function RecipeDetails(props) {
     const [show, setShow] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const user = React.useContext(UserContext);
-    const token = user.token;
-    const user_id = user.id;
+    const token = user? user.token: null;
+    const user_id = user? user.id: 0;
     const deleteUrl = (id) => `${baseUrl}/api/v1/recipes/${id}/`
 
     useEffect(() => {
-        axios.get(getRecipeURL(id), {headers: {"Authorization": `Token ${token}`}})
+        const params = token ? {headers: {"Authorization": `Token ${token}`}} : null;
+        axios.get(getRecipeURL(id), params)
             .then((response) => {
                 setRecipe(response.data);
                 setEditable(user_id === response.data.user_id.id)
