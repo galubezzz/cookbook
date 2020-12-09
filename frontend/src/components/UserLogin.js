@@ -75,7 +75,7 @@ function UserLogin(props) {
                 </div>
             </div>
             <div id="main">
-                <div className="container">
+                <div className="container small-content">
                     <div class="col-12 col-md-6">
                         <div class="acc-box">
                             <h2>Login</h2>
