@@ -1,7 +1,8 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 from django.contrib.auth.models import User
-from api_v1.serializers import UserSerializer, TagSerializer, RecipeSerializer, IngredientSerializer, StepSerializer, RecipePostSerializer
+from api_v1.serializers import UserSerializer, TagSerializer, RecipeSerializer, IngredientSerializer, StepSerializer, \
+    RecipePostSerializer, UserCreateSerializer
 from webapp.models import Tag, Recipe, Ingredient, Step
 from rest_framework import viewsets, filters
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -30,7 +31,7 @@ class LoginView(ObtainAuthToken):
 
 class UserCreateView(CreateAPIView):
     model = User
-    serializer_class = UserSerializer
+    serializer_class = UserCreateSerializer
     permission_classes = [AllowAny,]
 
 
