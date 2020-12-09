@@ -6,11 +6,8 @@ import {baseUrl} from '../utils';
 function UserRegistration(props) {
     const registerUrl = `${baseUrl}/api/v1/register/`;
     const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState({username: '', password: ''});
     const [formErrors, setFormErrors] = useState({});
-    const [saved, setSaved] = useState(false)
-    const [fileUploaded, setFileUploaded] = useState(false);
-    const [message, setMessage] = useState('')
 
     function changeUsername(event) {
         setUser({
@@ -101,9 +98,26 @@ function UserRegistration(props) {
             });
     }
 
+    function validateUser(user) {
+        if (!user.username) {
+                setFormErrors({
+                    ...formErrors,
+                    username: "This field is required",
+                });
+                return false;
+            } else if (!user.password) {
+                setFormErrors({
+                    ...formErrors,
+                    password: "This field is required",
+                });
+                return false;
+            }
+        return true;
+    }
+
     function registerUser(event) {
         event.preventDefault();
-        const errors = formErrors.password || formErrors.username || formErrors.email;
+        const errors = formErrors.password || formErrors.username || formErrors.email || !validateUser(user);
         if (errors) {
             return null;
         } else {
@@ -115,7 +129,6 @@ function UserRegistration(props) {
             if (user.about) {data.append("about", user.about);}
             axios.post(registerUrl, data).then((response) => {
                 if (response.status === 201) {
-                    setSaved(true);
                     props.history.push('/login');
                 }
             }).catch((error) => {
