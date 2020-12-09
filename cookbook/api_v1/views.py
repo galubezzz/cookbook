@@ -40,12 +40,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
-        existing_token = get_object_or_404(Token, key=token)
-        user = existing_token.user
-
-        if token:
-            queryset = queryset.filter(id=user.id)
+        username = self.request.query_params.get('username', None)
+        if username:
+            queryset = queryset.filter(username=username)
+        # token = self.request.META.get('HTTP_AUTHORIZATION', None).split(" ")[1]
+        # existing_token = get_object_or_404(Token, key=token)
+        # user = existing_token.user
+        #
+        # if token:
+        #     queryset = queryset.filter(id=user.id)
         return queryset
 
     def patch(self, request):
@@ -71,7 +74,7 @@ class TagViewSet(viewsets.ModelViewSet):
 class RecipeViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description', 'tags__name']
     filter_backends = (filters.SearchFilter,)
-    queryset = queryset = Recipe.objects.all().order_by('-id')
+    queryset = Recipe.objects.all().order_by('-id')
 
     def get_queryset(self):
         queryset = Recipe.objects.all().order_by('-id')
@@ -79,15 +82,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         tag = self.request.query_params.get('tag', None)
         favorite = self.request.query_params.get('favorite', None)
         if username:
-            print('we got there')
             queryset = queryset.filter(user_id__username=username)
         if tag:
-            print('or even there')
             queryset = queryset.filter(tags__name=tag)
         if favorite and username:
-            print("aaaa!")
             user = User.objects.get(username=username)
-            print(user.profile.favorites.all().order_by('-id'))
             queryset = user.profile.favorites.all().order_by('-id')
         elif favorite:
             queryset = self.request.user.profile.favorites.all().order_by('-id')
