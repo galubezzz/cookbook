@@ -115,7 +115,7 @@ function EditUserDetails(props) {
             if (user.about) {
                 data.append("about", user.about);
             }
-            axios.patch(url, data, {headers: {"Authorization": `Token ${token}`}}).then((response) => {
+            axios.patch(url, data, { headers: {"Authorization": `Token ${token}`}}).then((response) => {
                     if (response.status === 200) {
                         props.history.push("/my-account")
                     } else {
@@ -133,7 +133,7 @@ function EditUserDetails(props) {
     }
 
     useEffect(() => {
-        axios.get(url, {headers: {"Authorization": `Token ${token}`}}).then((response) => {
+        axios.get(url, {params: {username: props.user.username}, headers: {"Authorization": `Token ${token}`}}).then((response) => {
             console.log("---response", response.data)
             setUser(response.data[0]);
             console.log(user);
@@ -197,7 +197,7 @@ function EditUserDetails(props) {
                         </div>
                         <div className="form-group row">
                             <label htmlFor="about">About: </label>
-                            <input name="about"
+                            <textarea name="about"
                                    type="text"
                                    value={user.profile.about}
                                    className="form-control"
