@@ -1,8 +1,8 @@
 import React from "react";
-import {BrowserRouter as Router, NavLink} from "react-router-dom";
+import {withRouter, NavLink} from "react-router-dom";
 import SearchBar from "./SearchBar";
 
-export default function Navigation(props) {
+function Navigation(props) {
     const {isLoggedIn, state, logout} = props;
     return (
         <>
@@ -37,11 +37,11 @@ export default function Navigation(props) {
                                                          className="nav-link">Favorites</NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to="/my-account" activeClassName='active' className='nav-link'>My
+                                                <NavLink to="/my-account/" activeClassName='active' className='nav-link'>My
                                                     account</NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to="#" className='nav-link' activeClassName=""
+                                                <NavLink to="/" className='nav-link' activeClassName=""
                                                          onClick={logout}>Logout</NavLink>
                                             </li>
                                         </>
@@ -77,3 +77,5 @@ export default function Navigation(props) {
         </>
     )
 }
+
+export default withRouter(Navigation)
