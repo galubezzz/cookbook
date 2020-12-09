@@ -41,9 +41,22 @@ function Recipe(props) {
         <div className="col-6 col-md-3">
             <div className="recipe-thumb">
                 <img src={recipe.pic} alt="Recipe Image" className="recipe-image"/>
+                {user ? <>
                 {recipe.favorite ?
-                    <Link href="#" className="bookmarker" style={{background: "#232323"}} onClick={UnFavRecipe} data-toggle="tooltip" data-placement="bottom" title="Remove from favorites"><i className="fas fa-bookmark"></i></Link> :
-                    <Link href="#" className="bookmarker" style={{background: "#e33d26"}} onClick={FavRecipe} data-toggle="tooltip" data-placement="bottom" title="Add to favorites"><i className="far fa-bookmark"></i></Link>}
+                    <Link href="#"
+                          className="bookmarker"
+                          style={{background: "#232323"}}
+                          onClick={UnFavRecipe}
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Remove from favorites"><i className="fas fa-bookmark"></i></Link> :
+                    <Link href="#"
+                          className="bookmarker"
+                          style={{background: "#e33d26"}}
+                          onClick={FavRecipe}
+                          data-toggle="tooltip"
+                          data-placement="bottom"
+                          title="Add to favorites"><i className="far fa-bookmark"></i></Link>} </>: null}
                     <Link to={`/recipe/${recipe.id}`} className="view-recipe">VIEW RECIPE</Link>
             </div>
             <div className="recipe-desc">
