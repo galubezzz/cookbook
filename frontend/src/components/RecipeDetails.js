@@ -21,8 +21,8 @@ function RecipeDetails(props) {
     const [show, setShow] = useState(false);
     const [showShare, setShowShare] = useState(false);
     const user = React.useContext(UserContext);
-    const token = user? user.token: null;
-    const user_id = user? user.id: 0;
+    const token = user ? user.token: null;
+    const user_id = user ? user.id: 0;
     const deleteUrl = (id) => `${baseUrl}/api/v1/recipes/${id}/`
 
     useEffect(() => {
@@ -33,8 +33,6 @@ function RecipeDetails(props) {
                 setEditable(user_id === response.data.user_id.id)
             })
     }, [editRecipeMode]);
-
-    const userUrl = (username) => `/user/${username}/`;
 
 
     function onAgreeToDelete() {
