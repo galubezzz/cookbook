@@ -15,7 +15,7 @@ function RecipeList(props) {
     let params = props.match.params;
     const user = React.useContext(UserContext);
     let config = {};
-    const [heading, setHeading] = useState("Latest recipes")
+    const [heading, setHeading] = useState("Latest recipes");
 
 
     function updateTrigger() {

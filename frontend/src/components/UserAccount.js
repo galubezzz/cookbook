@@ -2,23 +2,23 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {withRouter, Link} from "react-router-dom";
 import {baseUrl} from '../utils'
-import Recipe from "./Recipe";
 import RecipeThumb from "./RecipeThumb";
 
 const getUserURL = `${baseUrl}/api/v1/users/`;
 
 function UserAccount(props) {
     const [user, setUser] = useState();
+    const [userParams, setUserParams] = useState();
     const [params, setParams] = useState({});
-    const [favParams, setFavParams] = useState({favorite: true});
-    const token = props.user.token;
+    const [favParams, setFavParams] = useState({...props.match.params, favorite: true});
+    const [heading, setHeading] = useState("");
+    let canEdit = props.user && props.user.username === props.match.params.username;
+
     const [recipes, setRecipes] = useState([]);
     const [favRecipes, setFavRecipes] = useState([]);
     const recipeUrl = `${baseUrl}/api/v1/recipes/`;
 
-    function Edit() {
-        props.history.push("/edit-user-details")
-    }
+
 
     function RenderRecipes(recipes) {
         return recipes.map((recipe) => {
@@ -27,24 +27,44 @@ function UserAccount(props) {
     }
 
     useEffect(() => {
-        axios.get(getUserURL, {headers: {"Authorization": `Token ${token}`}}).then((response) => {
+        if (props.location.pathname === '/my-account/') {
+            canEdit = true;
+            setHeading("My account");
+        } else {
+            setHeading(props.match.params.username + " account");
+        }
+    });
+
+    useEffect(() => {
+        if (props.match.params) {
+            setUserParams(props.match.params);
+        } else {
+            setUserParams({username: props.user.username});
+        }
+    }, []);
+
+    useEffect(() => {
+
+        axios.get(getUserURL, {params: userParams}).then((response) => {
             setUser(response.data[0]);
-            setParams({username: response.data[0].username});
+            // setParams({username: response.data[0].username});
             setFavParams({username: response.data[0].username, favorite: true});
         });
 
 
-    }, []);
+    }, [userParams]);
 
     useEffect(() => {
-        if (params) {
-            axios.get(recipeUrl, {params: params}).then((response) => {
+        console.log("PARAMS!", userParams);
+        if (userParams) {
+            axios.get(recipeUrl, {params: userParams}).then((response) => {
                 setRecipes(response.data);
             })
         }
-    }, [params]);
+    }, [userParams]);
 
     useEffect(() => {
+        console.log("fav PARAMS!", favParams);
         if (favParams) {
             axios.get(recipeUrl, {params: favParams}).then((response) => {
                 setFavRecipes(response.data);
@@ -57,7 +77,7 @@ function UserAccount(props) {
         <>
             <div className="head-title">
                 <div className="container">
-                    <h2 className="page-title">My Account</h2>
+                    <h2 className="page-title">{heading}</h2>
                 </div>
             </div>
             <div id="main">
@@ -74,7 +94,11 @@ function UserAccount(props) {
                                     <div className="profile-context">
                                         <div className="profile-name">
                                             <h3>{user.username}</h3>
-                                            <a href="/edit-user-details"><i className="fas fa-pen"></i></a>
+                                            {canEdit ?
+                                                <Link to="/edit-user-details"><i className="fas fa-pen"></i></Link> :
+                                                null
+                                            }
+
                                         </div>
                                         <div className="profile-content">
                                             <p>{user.profile.about}</p>

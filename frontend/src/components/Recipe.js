@@ -50,7 +50,11 @@ function Recipe(props) {
                 <h2 className="recipe-title">
                     <Link to={`/recipe/${recipe.id}`}>{recipe.name}</Link>
                 </h2>
-                <p><em>By {recipe.user_id.username}</em></p>
+                <p><em>
+                    <Link to={`/user/${recipe.user_id.username}`}>
+                        By {recipe.user_id.username}
+                    </Link>
+                    </em></p>
                 <span>{recipe.tags ? <TagsList tags={recipe.tags}/> : null}</span>
             </div>
         </div>
