@@ -122,7 +122,7 @@ function RecipeDetails(props) {
                                                         </Link>
                                                         <SharePopover onClose={onCloseShare} show={showShare}/>
                                                         {user && !recipe.favorite ?
-                                                            <Link to="#"><i className="fas fa-bookmark"></i></Link> :
+                                                            <Link to="#"><i className="far fa-bookmark"></i></Link> :
                                                             null
                                                         }
 

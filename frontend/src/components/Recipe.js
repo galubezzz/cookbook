@@ -43,7 +43,7 @@ function Recipe(props) {
                 <img src={recipe.pic} alt="Recipe Image" className="recipe-image"/>
                 {recipe.favorite ?
                     <Link href="#" className="bookmarker" style={{background: "#232323"}} onClick={UnFavRecipe}><i className="fas fa-bookmark"></i></Link> :
-                    <Link href="#" className="bookmarker" style={{background: "#e33d26"}} onClick={FavRecipe}><i className="fas fa-bookmark"></i></Link>}
+                    <Link href="#" className="bookmarker" style={{background: "#e33d26"}} onClick={FavRecipe}><i className="far fa-bookmark"></i></Link>}
                     <Link to={`/recipe/${recipe.id}`} className="view-recipe">VIEW RECIPE</Link>
             </div>
             <div className="recipe-desc">
