@@ -30,10 +30,8 @@ function EditStep(props) {
     function saveStep(data) {
      axios.patch(url(id), data, {headers: {"Authorization": `Token ${token}`}})
             .then((response) => {
-                console.log('--response', response);
                 if (response.status === 200) {
                     props.onSave(response.data);
-
                 } else {
                     setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }

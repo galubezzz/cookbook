@@ -8,8 +8,6 @@ import {baseUrl} from '../../utils'
 function EditIngredient(props){
     const id = parseInt(props.id);
     const [ingredient, setIngredient] = useState({id: id, unit: null});
-    const [saved, setSaved] = useState(false);
-    const [message, setMessage] = useState('');
 
     const getIngredientUrl = (id) => `${baseUrl}/api/v1/ingredients/${id}/`
     const user = React.useContext(UserContext);
@@ -32,13 +30,8 @@ function EditIngredient(props){
 
     function saveIngredient(ingredient) {
         axios.patch(getIngredientUrl(id), ingredient, { headers: {"Authorization" : `Token ${token}`} }).then((response) => {
-            console.log('--response', response);
             if (response.status === 200) {
-                setSaved(true);
                 props.onSave(response.data);
-            } else {
-                alert(response)
-                setMessage(`was not saved: ${JSON.stringify(response)}`);
             }
         }).catch((error => {
             console.log('----message', error)
@@ -49,10 +42,6 @@ function EditIngredient(props){
 
     return (
         <>
-            {saved ? <h3 style={{color: 'green'}}>Successfully saved</h3> : null}
-            <p>
-                {message}
-            </p>
             <li className="list-group-item">
                 <IngredientForm onSave={saveIngredient} onCancel={props.onCancel} ingredient={ingredient}/>
             </li>
