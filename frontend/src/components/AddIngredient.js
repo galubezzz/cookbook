@@ -3,14 +3,17 @@ import axios from "axios";
 import {withRouter} from 'react-router-dom';
 import IngredientForm from "./RecipeDetails/Forms/IngredientForm";
 import {baseUrl} from '../utils'
+import UserContext from "../userContext";
 
 function AddIngredients(props) {
     const ingredientUrl = `${baseUrl}/api/v1/ingredients/`;
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
+    const user = React.useContext(UserContext);
 
     function saveIngredient(ingredient) {
-        axios.post(ingredientUrl, ingredient).then((response) => {
+        const config = {headers: {"Authorization": `Token ${user.token}`}}
+        axios.post(ingredientUrl, ingredient, config).then((response) => {
             if (response.status === 201) {
                 setSaved(true);
                 props.onSave(response.data)
