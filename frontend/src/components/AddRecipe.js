@@ -7,12 +7,11 @@ import {baseUrl} from '../utils'
 
 function AddRecipe(props) {
     const [recipe, setRecipe] = useState({});
-    const [saved, setSaved] = useState(false);
-    const [message, setMessage] = useState('');
     const [fileUploaded, setFileUploaded] = useState(false);
-    const [suggestions, setSuggestions] = useState([]);
+    const [message, setMessage] = useState('');
     const [tags, setTags] = useState([])
     const [formErrors, setFormErrors] = useState({});
+    const user = props.user;
 
     useEffect(() => {
         setTags(
@@ -89,15 +88,14 @@ function AddRecipe(props) {
         data.append('user', props.user.username)
 
 
-        axios.post(url, data)
+        axios.post(url, data, {headers: {"Authorization": `Token ${user.token}`}})
             .then((response) => {
                 if (response.status === 201) {
-                    setSaved(true);
                     props.history.push(`/recipe/${response.data.id}`)
-                } else {
-                    setMessage(`was not saved: ${JSON.stringify(response)}`);
                 }
-            });
+            }).catch((error) => {
+                setMessage(`Was not saved with ${error}`);
+        });
     }
 
     return (
@@ -157,7 +155,6 @@ function AddRecipe(props) {
                                 <ReactTags
                                     tags={tags}
                                     aria-describedby="tagHelp"
-                                    suggestions={suggestions}
                                     onDelete={onDelete}
                                     onAddition={onAddition}
                                     allowNew={true}
@@ -168,6 +165,7 @@ function AddRecipe(props) {
                             </div>
                         </div>
                     </form>
+                    {message ? <p>{message}</p> : null}
                 </div>
             </div>
         </>

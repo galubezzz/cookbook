@@ -3,15 +3,18 @@ import {withRouter} from "react-router-dom"
 import axios from "axios";
 import StepForm from "./RecipeDetails/Forms/StepForm";
 import {baseUrl} from '../utils';
+import UserContext from "../userContext";
 
 
 function AddStep(props) {
     const [saved, setSaved] = useState(false);
     const [message, setMessage] = useState('');
     const url = `${baseUrl}/api/v1/steps/`;
+    const user = React.useContext(UserContext);
 
     function saveStep(data) {
-        axios.post(url, data)
+        const config = {headers: {"Authorization": `Token ${user.token}`}}
+        axios.post(url, data, config)
             .then((response) => {
                 if (response.status === 201) {
                     setSaved(true);
