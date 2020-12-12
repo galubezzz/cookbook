@@ -82,6 +82,9 @@ function App() {
                     <Route exact path="/user/:username">
                         <UserAccount user={state.user}/>
                     </Route>
+                    <Route exact path="/my-recipes/">
+                        <RecipeList></RecipeList>
+                    </Route>
                     <Route exact path="/favorites/" component={RecipeList}></Route>
                     <Route exact path="/add-ingredient/:id" component={AddIngredient}/>
                     <Route exact path="/add-step/:id" component={AddStep}/>
