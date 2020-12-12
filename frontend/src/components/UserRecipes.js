@@ -8,8 +8,12 @@ function UserRecipes(props) {
 
     const [recipes, setRecipes] = useState([]);
     const [favRecipes, setFavRecipes] = useState([]);
-    const [params, setParams] = useState({username: props.user.username});
-    const [favParams, setFavParams] = useState({username: props.user.username, favorite: true});
+    const [nextLink, setNextLink] = useState('');
+    const [nextFavLink, setNextFavLink] = useState('');
+    const [count, setCount] = useState(0);
+    const [favCount, setFavCount] = useState(0);
+    const params = {username: props.user.username};
+    const favParams = {username: props.user.username, favorite: true};
     const recipeUrl = `${baseUrl}/api/v1/recipes/`;
 
     function RenderRecipes(recipes) {
@@ -18,23 +22,57 @@ function UserRecipes(props) {
         })
     }
 
+    function setLink(link) {
+        if (link) {
+            setNextLink(link)
+        } else {
+            setNextLink('')
+        }
+    }
+
+    function setFavLink(link) {
+        if (link) {
+            setNextFavLink(link)
+        } else {
+            setNextFavLink('')
+        }
+    }
+
+    function loadMoreRecipes(event) {
+        axios.get(nextLink, {params: params}).then((response) => {
+            const _recipes = [].concat(recipes, response.data.results);
+            setRecipes(_recipes);
+            setLink(response.data.next)
+        })
+    }
+
+    function loadMoreFavRecipes(event) {
+        axios.get(nextFavLink, {params: favParams}).then((response) => {
+            const _recipes = [].concat(favRecipes, response.data.results);
+            setFavRecipes(_recipes);
+            setFavLink(response.data.next)
+        })
+    }
+
     useEffect(() => {
         if (params) {
             axios.get(recipeUrl, {params: params}).then((response) => {
-                setRecipes(response.data);
+                setRecipes(response.data.results);
+                setCount(response.data.count);
+                setLink(response.data.next);
             })
         }
-    }, [params]);
+    }, []);
 
     useEffect(() => {
-        console.log("fav PARAMS!", favParams);
         if (favParams) {
             axios.get(recipeUrl, {params: favParams}).then((response) => {
-                setFavRecipes(response.data);
-                console.log(response.data);
+                setFavRecipes(response.data.results);
+                setFavCount(response.data.count);
+                setFavLink(response.data.next);
             })
         }
-    }, [favParams]);
+    }, []);
 
     return <>
         <div className="my-content">
@@ -44,13 +82,13 @@ function UserRecipes(props) {
                        href="#recipe"
                        role="tab"
                        aria-controls="recipe"
-                       aria-selected="false">Recipes <strong>({recipes.length})</strong></a>
+                       aria-selected="false">Recipes <strong>({count})</strong></a>
                 </li>
                 <li className="nav-item">
                     <a className="nav-link" id="bookmark-tab" data-toggle="tab" href="#bookmark"
                        role="tab" aria-controls="bookmark"
                        aria-selected="false">Bookmarked
-                        Recipes <strong>({favRecipes.length})</strong></a>
+                        Recipes <strong>({favCount})</strong></a>
                 </li>
             </ul>
             <div className="tab-content" id="myTabContent">
@@ -61,7 +99,7 @@ function UserRecipes(props) {
                         {recipes.length > 0 ? RenderRecipes(recipes) : "no recipes to show"}
 
                     </div>
-
+                    {nextLink ? <div className="ordinary-list" onClick={loadMoreRecipes}>Load more recipes</div> : null}
 
                 </div>
 
@@ -70,9 +108,13 @@ function UserRecipes(props) {
                     <div className="row">
                         {favRecipes.length > 0 ? RenderRecipes(favRecipes) : "no recipes to show"}
                     </div>
+                    {nextFavLink ?
+                        <div className="ordinary-list" onClick={loadMoreFavRecipes}>Load more recipes</div> : null}
+
 
                 </div>
             </div>
+
         </div>
     </>
 }

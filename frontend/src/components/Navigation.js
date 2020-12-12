@@ -29,7 +29,7 @@ function Navigation(props) {
                                                     Recipe</NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink to={`/user/${state.user.username}/`} activeClassName="active"
+                                                <NavLink to={`/my-recipes/`} activeClassName="active"
                                                          className="nav-link">My recipes</NavLink>
                                             </li>
                                             <li className="nav-item">
