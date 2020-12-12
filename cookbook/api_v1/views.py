@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
+from rest_framework.pagination import PageNumberPagination
 
 
 class LoginView(ObtainAuthToken):
@@ -76,6 +77,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description', 'tags__name']
     filter_backends = (filters.SearchFilter,)
     queryset = Recipe.objects.all().order_by('-id')
+    pagination_class = PageNumberPagination
+    page_size = 20
 
     def get_queryset(self):
         queryset = Recipe.objects.all().order_by('-id')
