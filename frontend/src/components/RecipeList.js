@@ -11,6 +11,7 @@ const CancelToken = axios.CancelToken;
 function RecipeList(props) {
     const [recipes, setRecipes] = useState([]);
     const [updateSwitch, setUpdateSwitch] = useState(false)
+    const [nextLink, setNextLink] = useState('')
     const url = `${baseUrl}/api/v1/recipes/`;
     let params = props.match.params;
     const user = React.useContext(UserContext);
@@ -26,20 +27,31 @@ function RecipeList(props) {
         if (props.location.pathname === '/favorites/') {
             params = {favorite: true};
             setHeading("Favorites");
-        } else if (user && props.location.pathname === `/user/${user.username}/`) {
+        } else if (user && props.location.pathname === `/my-recipes/`) {
             setHeading("My recipes");
+            params = {username:user.username};
         } else if (params.username) {
             setHeading(`${params.username} recipes`)
         }
-    }, [props, updateSwitch])
+    }, [updateSwitch])
+
+    function setLink(link){
+        if (link) {
+                setNextLink(link)
+            } else {
+                setNextLink('')
+            }
+    }
 
     useEffect(() => {
         const source = CancelToken.source();
         if (user) {
             config = {params: params, cancelToken: source.token, headers: {"Authorization": `Token ${user.token}`}}
         }
+        console.log('we got here somehow');
         axios.get(url, config).then((response) => {
-            setRecipes(response.data);
+            setRecipes(response.data.results);
+            setLink(response.data.next)
         }).catch(function (thrown) {
             if (axios.isCancel(thrown)) {
                 console.log('Request canceled', thrown.message);
@@ -50,11 +62,16 @@ function RecipeList(props) {
         return () => {
             source.cancel('Operation canceled by the user.');
         }
-    }, [props, updateSwitch]);
+    }, [updateSwitch]);
 
-    // useEffect(() => {
-    //
-    // }, [])
+
+    function loadMoreRecipes() {
+        axios.get(nextLink, config).then((response) => {
+            const _recipes = [].concat(recipes, response.data.results);
+            setRecipes(_recipes);
+            setLink(response.data.next)
+        })
+    }
 
     function RenderRecipes(recipes) {
         return recipes.map((recipe) => {
@@ -72,6 +89,7 @@ function RecipeList(props) {
                     <div className="row">
                         {recipes.length > 0 ? RenderRecipes(recipes) : "you don't have any recipes"}
                     </div>
+                    {nextLink ? <div onClick={loadMoreRecipes}>Load more recipes</div> : null}
                 </div>
             </div>
 
