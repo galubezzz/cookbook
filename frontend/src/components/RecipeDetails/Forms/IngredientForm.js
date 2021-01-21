@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Select from "react-select";
+import {baseUrl} from "../../../utils"
 import {withRouter} from "react-router-dom";
 
 function IngredientForm(props) {
     const {onSave} = props;
-    const unitUrl = "http://127.0.0.1:8000/api/v1/units/";
+    const unitUrl = `${baseUrl}/api/v1/units/`;
     const id = props.match.params.id;
 
     const [ingredient, setIngredient] = useState({recipe: id});
