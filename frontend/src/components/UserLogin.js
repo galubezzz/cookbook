@@ -86,7 +86,7 @@ function UserLogin(props) {
                                     <input type="email"
                                     className={formErrors.username ? 'form-control is-invalid' : 'form-control'}
                                            id="InputEmailAcc1"
-                                           placeholder="Enter email" onChange={changeUsername}/>
+                                           placeholder="Enter username" onChange={changeUsername}/>
                                     {formErrors.username !== null &&
                                     <div className='invalid-feedback'>{formErrors.username}</div>}
                                 </div>
