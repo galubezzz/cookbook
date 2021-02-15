@@ -22,14 +22,18 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password')
+        pic = None
+        about = None
+        if 'pic' in validated_data:
+            pic = validated_data.pop('pic')
+        if 'about' in validated_data:
+            about = validated_data.pop('about')
         user = User.objects.create(**validated_data)
         user.set_password(password)
         user.save()
-        if 'pic' in validated_data:
-            pic = validated_data.pop('pic')
+        if pic is not None:
             user.profile.pic = pic
-        if 'about' in validated_data:
-            about = validated_data.pop('about')
+        if about is not None:
             user.profile.about = about
         user.profile.save()
         return user
