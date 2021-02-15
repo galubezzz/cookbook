@@ -9,6 +9,7 @@ function EditUserDetails(props) {
     const [user, setUser] = useState();
     const [formErrors, setFormErrors] = useState({});
     const token = props.user.token;
+    console.log("===user", user);
 
 
     function changeEmail(event) {
@@ -117,13 +118,13 @@ function EditUserDetails(props) {
             }
             axios.patch(url, data, { headers: {"Authorization": `Token ${token}`}}).then((response) => {
                     if (response.status === 200) {
-                        props.history.push("/my-account")
+                        props.history.push("/my-account/")
                     } else {
                         console.log(response)
                     }
                 }
             ).catch((error) => {
-                console.log(error.response.data);
+                //console.log(error.response.data);
                 setFormErrors({
                     ...formErrors,
                     error: error.response.data.error,
@@ -135,8 +136,9 @@ function EditUserDetails(props) {
     useEffect(() => {
         axios.get(url, {params: {username: props.user.username}, headers: {"Authorization": `Token ${token}`}}).then((response) => {
             console.log("---response", response.data)
-            setUser(response.data[0]);
-            console.log(user);
+            const user_data ={...response.data[0], about: response.data[0].profile.about}
+            setUser(user_data);
+            console.log(props.user.username);
         })
     }, []);
 
@@ -199,7 +201,7 @@ function EditUserDetails(props) {
                             <label htmlFor="about">About: </label>
                             <textarea name="about"
                                    type="text"
-                                   value={user.profile.about}
+                                   value={user.about}
                                    className="form-control"
                                    onChange={changeAbout}/>
                         </div>
